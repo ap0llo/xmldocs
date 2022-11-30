@@ -77,9 +77,7 @@ public class MemberDescription
     }
 
 
-    /// <summary>
-    /// Creates a <see cref="MemberDescription" /> from its XML representation.
-    /// </summary>
+    /// <inheritdoc  cref="FromXml(XElement)" />
     public static MemberDescription FromXml(string xml)
     {
         XElement parsedXml;

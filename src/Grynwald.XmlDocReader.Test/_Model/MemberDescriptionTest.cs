@@ -1,5 +1,4 @@
-﻿using Xunit;
-namespace Grynwald.XmlDocReader.Test;
+﻿namespace Grynwald.XmlDocReader.Test;
 
 /// <summary>
 /// Tests for <see cref="MemberDescription"/>
@@ -22,7 +21,6 @@ public class MemberDescriptionTest
         Assert.Equal("name", argumentException.ParamName);
     }
 
-
     [Fact]
     public void FromXml_fails_on_invalid_xml()
     {
@@ -36,7 +34,6 @@ public class MemberDescriptionTest
         Assert.IsType<XmlDocReaderException>(ex);
         Assert.IsType<XmlException>(ex.InnerException);
     }
-
 
     [Fact]
     public void FromXml_can_read_empty_element()
@@ -243,8 +240,8 @@ public class MemberDescriptionTest
         Assert.NotNull(sut.SeeAlso);
         Assert.Collection(
             sut.SeeAlso,
-            x => { },  //TODO: Inspect elements
-            x => { }
+            x => Assert.IsType<SeeAlsoCodeReferenceDescription>(x),
+            x => Assert.IsType<SeeAlsoUrlReferenceDescription>(x)
         );
     }
 
