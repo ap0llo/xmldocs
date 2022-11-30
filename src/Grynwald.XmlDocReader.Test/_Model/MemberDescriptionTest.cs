@@ -264,9 +264,9 @@ public class MemberDescriptionTest
         Assert.NotNull(sut.Exceptions);
         Assert.Collection(
             sut.Exceptions,
-            x => Assert.Equal("T:Exception1", x.Cref),
-            x => Assert.Equal("T:Exception2", x.Cref),
-            x => Assert.Equal("T:Exception3", x.Cref)
+            x => Assert.Equal("T:Exception1", x.Reference),
+            x => Assert.Equal("T:Exception2", x.Reference),
+            x => Assert.Equal("T:Exception3", x.Reference)
         );
     }
 
