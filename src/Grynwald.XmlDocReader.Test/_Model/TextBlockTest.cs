@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using Grynwald.XmlDocReader.Internal;
+using Xunit;
 
 namespace Grynwald.XmlDocReader.Test;
 
@@ -7,6 +8,19 @@ namespace Grynwald.XmlDocReader.Test;
 /// </summary>
 public class TextBlockTest
 {
+    [Fact]
+    public void FromXml_fails_on_invalid_xml()
+    {
+        // ARRANGE
+        var input = "not xml";
+
+        // ACT 
+        var ex = Record.Exception(() => TextBlock.FromXml(input));
+
+        // ASSERT
+        Assert.IsType<XmlDocReaderException>(ex);
+        Assert.IsType<XmlException>(ex.InnerException);
+    }
 
     public static IEnumerable<object[]> TestCases()
     {
@@ -204,11 +218,22 @@ public class TextBlockTest
               })
             )
         );
+
+        // Unknown elements are ignored
+        yield return TestCase(
+            "T16",
+            """
+                <summary>
+                    <unknown-element></unknown-element>
+                </summary>
+            """,
+            new TextBlock()
+        );
     }
 
     [Theory]
     [MemberData(nameof(TestCases))]
-    public void FromXml_returns_expected_element(string id, string input, TextBlock expected)
+    public void FromXml_returns_expected_elements(string id, string input, TextBlock expected)
     {
         // ARRANGE
         _ = id;
@@ -220,5 +245,144 @@ public class TextBlockTest
 
         // ASSERT
         Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void FromXmlOrNullIfEmpty_returns_TextBlock_if_element_is_not_empty_01()
+    {
+        // ARRANGE
+
+        // ACT 
+        var textBlock = TextBlock.FromXmlOrNullIfEmpty(new XElement("parent", "Some Text"));
+
+        // ASSERT
+        Assert.NotNull(textBlock);
+        Assert.Equal(new TextBlock(new PlainTextElement("Some Text")), textBlock);
+    }
+
+    [Fact]
+    public void FromXmlOrNullIfEmpty_returns_TextBlock_if_element_is_not_empty_02()
+    {
+        // ARRANGE
+
+        // ACT 
+        var textBlock = TextBlock.FromXmlOrNullIfEmpty(XmlContentHelper.ParseXmlElement(
+            """
+            <summary>
+
+            </summary>
+            """
+        ));
+
+        // ASSERT
+        Assert.NotNull(textBlock);
+        Assert.Equal(new TextBlock(), textBlock);
+    }
+
+    [Fact]
+    public void FromXmlOrNullIfEmpty_returns_null_if_element_is_empty()
+    {
+        // ARRANGE
+
+        // ACT 
+        var textBlock = TextBlock.FromXmlOrNullIfEmpty(new XElement("parent"));
+
+        // ASSERT
+        Assert.Null(textBlock);
+    }
+
+    [Fact]
+    public void Two_TextBlock_instances_are_equal_if_all_their_elements_are_equal_01()
+    {
+        // ARRANGE
+        var instance1 = new TextBlock();
+        var instance2 = new TextBlock();
+
+        // ACT / ASSERT
+        Assert.Equal(instance1.GetHashCode(), instance2.GetHashCode());
+
+        Assert.True(instance1.Equals((object)instance2));
+        Assert.True(instance2.Equals((object)instance1));
+
+        Assert.True(instance1.Equals(instance2));
+        Assert.True(instance2.Equals(instance1));
+    }
+
+    [Fact]
+    public void Two_TextBlock_instances_are_equal_if_all_their_elements_are_equal_02()
+    {
+        // ARRANGE
+        var instance1 = new TextBlock(
+            new PlainTextElement("Some text"),
+            new CElement("inline code")
+        );
+
+        var instance2 = new TextBlock(
+            new PlainTextElement("Some text"),
+            new CElement("inline code")
+        );
+
+        // ACT / ASSERT
+        Assert.Equal(instance1.GetHashCode(), instance2.GetHashCode());
+
+        Assert.True(instance1.Equals((object)instance2));
+        Assert.True(instance2.Equals((object)instance1));
+
+        Assert.True(instance1.Equals(instance2));
+        Assert.True(instance2.Equals(instance1));
+    }
+
+    [Fact]
+    public void Two_TextBlock_instances_are_not_equal_if_their_elements_are_different_01()
+    {
+        // ARRANGE
+        var instance1 = new TextBlock(
+            new PlainTextElement("Some text"),
+            new CElement("inline code 1")
+        );
+
+        var instance2 = new TextBlock(
+            new PlainTextElement("Some text"),
+            new CElement("inline code 2")
+        );
+
+        // ACT / ASSERT
+        Assert.False(instance1.Equals((object)instance2));
+        Assert.False(instance2.Equals((object)instance1));
+
+        Assert.False(instance1.Equals(instance2));
+        Assert.False(instance2.Equals(instance1));
+    }
+
+    [Fact]
+    public void Two_TextBlock_instances_are_not_equal_if_their_elements_are_different_02()
+    {
+        // ARRANGE
+        var instance1 = new TextBlock(
+            new PlainTextElement("Some text")
+        );
+
+        var instance2 = new TextBlock(
+            new PlainTextElement("Some text"),
+            new CElement("inline code")
+        );
+
+        // ACT / ASSERT
+        Assert.False(instance1.Equals((object)instance2));
+        Assert.False(instance2.Equals((object)instance1));
+
+        Assert.False(instance1.Equals(instance2));
+        Assert.False(instance2.Equals(instance1));
+    }
+
+    [Fact]
+    public void Equals_returns_false_when_comparing_to_null()
+    {
+        // ARRANGE
+        var sut = new TextBlock();
+
+        // ACT / ASSERT
+        Assert.False(sut.Equals((object?)null));
+        Assert.False(sut!.Equals((TextBlock?)null));
     }
 }

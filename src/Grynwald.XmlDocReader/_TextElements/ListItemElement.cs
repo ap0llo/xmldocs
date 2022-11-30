@@ -63,7 +63,7 @@ public sealed class ListItemElement : TextElement, IEquatable<ListItemElement>
 
         var description = xml.Element("description") is XElement descriptionElement
             ? TextBlock.FromXml(descriptionElement)
-            : TextBlock.Empty;
+            : new TextBlock();  //TODO: Remove empty and use null instead
 
         //TODO: Warn on unrecognized elements
         //TODO: Warn if there are multiple term/description elements

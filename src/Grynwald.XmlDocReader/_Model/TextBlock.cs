@@ -1,37 +1,20 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Reflection.Metadata;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Grynwald.XmlDocReader.Internal;
+﻿namespace Grynwald.XmlDocReader;
 
-namespace Grynwald.XmlDocReader;
-
+/// <summary>
+/// Represents a blcok of formatted text in XML documentation comments.
+/// </summary>
 public class TextBlock : IEquatable<TextBlock>
 {
-    public static readonly TextBlock Empty = new TextBlock(Array.Empty<TextElement>());
-
-    /// <summary>
-    /// Gets whether the text block contains any elements
-    /// </summary>
-    public bool IsEmpty => Elements.Count == 0;
-
     /// <summary>
     /// Gets the text block's text elements.
     /// </summary>
     public IReadOnlyList<TextElement> Elements { get; init; } = Array.Empty<TextElement>();
 
 
-    public TextBlock()
-    {
-
-    }
-
+    /// <summary>
+    /// Initializes a new instance of <see cref="TextBlock"/>.
+    /// </summary>
+    /// <param name="elements">The <see cref="TextElement"/> object the text block consists of.</param>
     public TextBlock(params TextElement[] elements)
     {
         Elements = elements;
@@ -41,13 +24,13 @@ public class TextBlock : IEquatable<TextBlock>
     /// <inheritdoc />
     public override int GetHashCode()
     {
-        if(Elements.Count== 0)
+        if (Elements.Count == 0)
             return 0;
 
         unchecked
         {
             var hash = Elements[0].GetHashCode() * 397;
-            for(int i = 1; i < Elements.Count; i++)
+            for (int i = 1; i < Elements.Count; i++)
             {
                 hash ^= Elements[i].GetHashCode();
             }
@@ -64,21 +47,25 @@ public class TextBlock : IEquatable<TextBlock>
         if (other is null)
             return false;
 
-        if(Elements.Count != other.Elements.Count)
+        if (Elements.Count != other.Elements.Count)
             return false;
 
-
-        for(int i = 0; i < Elements.Count; i++)
+        for (int i = 0; i < Elements.Count; i++)
         {
             if (!Elements[i].Equals(other.Elements[i]))
                 return false;
         }
 
-
         return true;
     }
 
 
+    /// <inheritdoc  cref="FromXml(XElement)" />
+    public static TextBlock FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
+
+    /// <summary>
+    /// Creates a <see cref="TextBlock" /> from its XML representation.
+    /// </summary>
     public static TextBlock FromXml(XElement xml)
     {
         return new TextBlock()
@@ -87,31 +74,27 @@ public class TextBlock : IEquatable<TextBlock>
         };
     }
 
-    internal static TextBlock? FromXmlOrNullIfEmpty(XElement xml)
-    {
-        return xml.Nodes().Any()
-            ? TextBlock.FromXml(xml)
-            : null;
-    }
+
+    internal static TextBlock? FromXmlOrNullIfEmpty(XElement xml) => xml.Nodes().Any() ? FromXml(xml) : null;
 
 
     private static IEnumerable<TextElement> ReadElements(XElement xml)
     {
         var indent = 0;
-        if(xml.Nodes().OfType<XText>().FirstOrDefault() is XText textElement)
+        if (xml.Nodes().OfType<XText>().FirstOrDefault() is XText textElement)
         {
             indent = XmlContentHelper.GetIndentation(textElement.Value);
         }
 
         foreach (var node in xml.Nodes())
         {
-            if(node is XText textNode)
+            if (node is XText textNode)
             {
                 var text = XmlContentHelper.TrimText(textNode.Value, indent);
-                if(!String.IsNullOrEmpty(text))
+                if (!String.IsNullOrEmpty(text))
                     yield return new PlainTextElement(text);
             }
-            else if(node is XElement element)
+            else if (node is XElement element)
             {
                 if (element.Name.LocalName switch
                 {
@@ -123,6 +106,7 @@ public class TextBlock : IEquatable<TextBlock>
                     "see" => SeeElement.FromXml(element),
                     "list" => ListElement.FromXml(element),
 
+                    //TODO: <em> <i> <b>
                     //TODO: Handle unknown elements
 
                     _ => default(TextElement)
@@ -132,7 +116,4 @@ public class TextBlock : IEquatable<TextBlock>
             }
         }
     }
-
-
-
 }
