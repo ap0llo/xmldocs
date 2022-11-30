@@ -30,9 +30,7 @@ public class SeeAlsoCodeReferenceDescription : SeeAlsoDescription
             .RequireAttribute("cref")
             .RequireValue();
 
-        var text = xml.Nodes().Any()
-            ? TextBlock.FromXml(xml)
-            : null;
+        var text = TextBlock.FromXmlOrNullIfEmpty(xml);
 
         return new SeeAlsoCodeReferenceDescription(cref, text);
     }

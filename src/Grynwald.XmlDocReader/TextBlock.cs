@@ -87,6 +87,13 @@ public class TextBlock : IEquatable<TextBlock>
         };
     }
 
+    internal static TextBlock? FromXmlOrNullIfEmpty(XElement xml)
+    {
+        return xml.Nodes().Any()
+            ? TextBlock.FromXml(xml)
+            : null;
+    }
+
 
     private static IEnumerable<TextElement> ReadElements(XElement xml)
     {

@@ -30,9 +30,7 @@ public class SeeAlsoUrlReferenceDescription : SeeAlsoDescription
             .RequireAttribute("href")
             .RequireValue();
 
-        var text = xml.Nodes().Any()
-            ? TextBlock.FromXml(xml)
-            : null;
+        var text = TextBlock.FromXmlOrNullIfEmpty(xml);
 
         return new SeeAlsoUrlReferenceDescription(href, text);
     }

@@ -55,20 +55,7 @@ public abstract class SeeAlsoDescription
 
 
     /// <inheritdoc cref="FromXml(XElement)"/>
-    public static SeeAlsoDescription FromXml(string xml)
-    {
-        XElement parsedXml;
-        try
-        {
-            parsedXml = XElement.Parse(xml, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo);
-        }
-        catch (XmlException ex)
-        {
-            throw new XmlDocReaderException("Failed to parse XML from string", ex);
-        }
-
-        return FromXml(parsedXml);
-    }
+    public static SeeAlsoDescription FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
 
     /// <summary>
     /// Creates a <see cref="SeeAlsoDescription" /> from its XML representation.

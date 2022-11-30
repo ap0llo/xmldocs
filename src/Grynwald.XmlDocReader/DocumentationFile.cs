@@ -39,20 +39,8 @@ public class DocumentationFile
     /// <returns>
     /// Returns a <see cref="DocumentationFile"/> representing the documentation parsed from the specified XML string.
     /// </returns>
-    public static DocumentationFile FromXml(string xml)
-    {
-        XDocument document;
-        try
-        {
-            document = XDocument.Parse(xml, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo);
-        }
-        catch (XmlException ex)
-        {
-            throw new XmlDocReaderException("Failed to parse XML from string", ex);
-        }
-        return FromXml(document);
-    }
-        
+    public static DocumentationFile FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlDocument(xml));
+
     /// <summary>
     /// Creates a <see cref="DocumentationFile" /> by parsing a XML document.
     /// </summary>

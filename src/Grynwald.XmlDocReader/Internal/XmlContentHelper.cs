@@ -24,13 +24,6 @@
 
 //TODO: Also link to MdDocs
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Grynwald.XmlDocReader.Internal;
 
 internal class XmlContentHelper
@@ -139,5 +132,35 @@ internal class XmlContentHelper
                     return line;
             })
             .ToArray());
+    }
+
+
+    public static XDocument ParseXmlDocument(string xml)
+    {
+        XDocument document;
+        try
+        {
+            document = XDocument.Parse(xml, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo);
+        }
+        catch (XmlException ex)
+        {
+            throw new XmlDocReaderException("Failed to parse XML from string", ex);
+        }
+        return document;
+    }
+
+    public static XElement ParseXmlElement(string xml)
+    {
+        XElement parsedXml;
+        try
+        {
+            parsedXml = XElement.Parse(xml, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo);
+        }
+        catch (XmlException ex)
+        {
+            throw new XmlDocReaderException("Failed to parse XML from string", ex);
+        }
+
+        return parsedXml;
     }
 }

@@ -45,7 +45,7 @@ public class MemberDescription
     /// <summary>
     /// Gets the all of the member's <![CDATA[<param />]]> descriptions.
     /// </summary>
-    public IReadOnlyList<Parameter> Parameters { get; init; } = Array.Empty<Parameter>();
+    public IReadOnlyList<ParameterDescription> Parameters { get; init; } = Array.Empty<ParameterDescription>();
 
     /// <summary>
     /// Gets the all of the member's <![CDATA[<typeparam />]]> descriptions.
@@ -78,20 +78,7 @@ public class MemberDescription
 
 
     /// <inheritdoc  cref="FromXml(XElement)" />
-    public static MemberDescription FromXml(string xml)
-    {
-        XElement parsedXml;
-        try
-        {
-            parsedXml = XElement.Parse(xml, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo);
-        }
-        catch (XmlException ex)
-        {
-            throw new XmlDocReaderException("Failed to parse XML from string", ex);
-        }
-
-        return FromXml(parsedXml);
-    }
+    public static MemberDescription FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
 
     /// <summary>
     /// Creates a <see cref="MemberDescription" /> from its XML representation.
@@ -108,7 +95,7 @@ public class MemberDescription
             Returns = TryReadTextBlock(xml, "returns"),
             Value = TryReadTextBlock(xml, "value"),
             Example = TryReadTextBlock(xml, "example"),
-            Parameters = xml.Elements("param").Select(Parameter.FromXml).ToList(),
+            Parameters = xml.Elements("param").Select(ParameterDescription.FromXml).ToList(),
             TypeParameters = xml.Elements("typeparam").Select(TypeParameter.FromXml).ToList(),
             SeeAlso = xml.Elements("seealso").Select(SeeAlsoDescription.FromXml).ToList(),
             Exceptions = xml.Elements("exception").Select(ExceptionDescription.FromXml).ToList(),
