@@ -106,7 +106,7 @@ public class TextBlockTest
             <summary><paramref name="parameter" /></summary>
             """,
             new TextBlock(
-                new ParamRefElement("parameter")
+                new ParameterReferenceElement("parameter")
             )
         );
 
@@ -118,7 +118,7 @@ public class TextBlockTest
             </summary>
             """,
             new TextBlock(
-                new ParamRefElement("parameter")
+                new ParameterReferenceElement("parameter")
             )
         );
 
@@ -130,7 +130,7 @@ public class TextBlockTest
                     </summary>
             """,
             new TextBlock(
-                new ParamRefElement("parameter")
+                new ParameterReferenceElement("parameter")
             )
         );
 

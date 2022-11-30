@@ -99,7 +99,7 @@ public class TextBlock : IEquatable<TextBlock>
                 if (element.Name.LocalName switch
                 {
                     "para" => ParagraphElement.FromXml(element),
-                    "paramref" => ParamRefElement.FromXml(element),
+                    "paramref" => ParameterReferenceElement.FromXml(element),
                     "typeparamref" => TypeParamRefElement.FromXml(element),
                     "code" => CodeElement.FromXml(element),
                     "c" => CElement.FromXml(element),
