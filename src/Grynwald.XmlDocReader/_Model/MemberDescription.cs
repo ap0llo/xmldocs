@@ -50,7 +50,7 @@ public class MemberDescription
     /// <summary>
     /// Gets the all of the member's <![CDATA[<typeparam />]]> descriptions.
     /// </summary>
-    public IReadOnlyList<TypeParameter> TypeParameters { get; init; } = Array.Empty<TypeParameter>();
+    public IReadOnlyList<TypeParameterDescription> TypeParameters { get; init; } = Array.Empty<TypeParameterDescription>();
 
     /// <summary>
     /// Gets the all of the member's <![CDATA[<seealso />]]> descriptions.
@@ -96,7 +96,7 @@ public class MemberDescription
             Value = TryReadTextBlock(xml, "value"),
             Example = TryReadTextBlock(xml, "example"),
             Parameters = xml.Elements("param").Select(ParameterDescription.FromXml).ToList(),
-            TypeParameters = xml.Elements("typeparam").Select(TypeParameter.FromXml).ToList(),
+            TypeParameters = xml.Elements("typeparam").Select(TypeParameterDescription.FromXml).ToList(),
             SeeAlso = xml.Elements("seealso").Select(SeeAlsoDescription.FromXml).ToList(),
             Exceptions = xml.Elements("exception").Select(ExceptionDescription.FromXml).ToList(),
         };
