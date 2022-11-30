@@ -1,9 +1,7 @@
-﻿using Grynwald.XmlDocReader.Internal;
-
-namespace Grynwald.XmlDocReader;
+﻿namespace Grynwald.XmlDocReader;
 
 /// <summary>
-/// Represents a <c><![CDATA[<code>]]></c> element in XML documentation comments.
+/// Represents a <c><![CDATA[<code>]]></c> text element in XML documentation comments.
 /// </summary>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags">Recommended XML tags for C# documentation comments (Microsoft Learn)</seealso>
 public class CodeElement : TextElement, IEquatable<CodeElement>
@@ -27,6 +25,7 @@ public class CodeElement : TextElement, IEquatable<CodeElement>
     /// </summary>
     /// <param name="content">The content of the element.</param>
     /// <param name="language">The language of the code sample. Can be <c>null</c></param>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="content"/> is <c>null</c></exception>
     public CodeElement(string content, string? language)
     {
         Content = content ?? throw new ArgumentNullException(nameof(content));
@@ -62,8 +61,12 @@ public class CodeElement : TextElement, IEquatable<CodeElement>
     }
 
 
+    /// <inheritdoc cref="FromXml(XElement)"/>
+    public static CodeElement FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
 
-
+    /// <summary>
+    /// Creates a <see cref="CodeElement" /> from its XML representation.
+    /// </summary>
     public static CodeElement FromXml(XElement xml)
     {
         xml.EnsureNameIs("code");
@@ -77,5 +80,4 @@ public class CodeElement : TextElement, IEquatable<CodeElement>
         var indent = XmlContentHelper.GetIndentation(xml.Value);
         return new CodeElement(XmlContentHelper.TrimCode(xml.Value, indent), languageAttribute?.Value);
     }
-
 }
