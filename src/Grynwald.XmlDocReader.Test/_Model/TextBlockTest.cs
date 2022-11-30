@@ -93,7 +93,7 @@ public class TextBlockTest
             """,
             new TextBlock(
                 new PlainTextElement("Just some plain text spread over multiple lines."),
-                new ParaElement(
+                new ParagraphElement(
                     new TextBlock(
                         new PlainTextElement("There's also a second paragraph")
                 ))
