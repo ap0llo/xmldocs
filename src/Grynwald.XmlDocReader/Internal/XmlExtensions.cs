@@ -59,11 +59,11 @@ namespace Grynwald.XmlDocReader.Internal
                 throw new InvalidOperationException($"Unexpected element name. Expected: {String.Join<XName>(" or ", validNames)}, actual {element.Name}");
         }
 
-        public static string GetPositionString(this XNode? node)
+        public static string GetPositionString(this IXmlLineInfo? node)
         {
-            if (node is IXmlLineInfo lineInfo)
+            if (node is not null && node.HasLineInfo())
             {
-                return $" (at {lineInfo.LineNumber}:{lineInfo.LinePosition})";
+                return $" (at {node.LineNumber}:{node.LinePosition})";
             }
             return "";
         }

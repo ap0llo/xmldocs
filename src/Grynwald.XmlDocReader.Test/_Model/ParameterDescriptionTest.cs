@@ -51,13 +51,12 @@ public class ParameterDescriptionTest
     }
 
     [Theory]
-    [InlineData(@"<param>description</param>", "Required attribute 'name' on element 'param' (at 0:0) does not exist")]
-    [InlineData(@"<param name="""">description</param>", "Value of attribute 'name' (at 0:0) is empty or whitespace")]
-    [InlineData(@"<param name="" "">description</param>", "Value of attribute 'name' (at 0:0) is empty or whitespace")]
-    public void FromXml_fails_if_the_name_attribute_is_missing_or_empty(string input, string expectedErrorMessage)
+    [InlineData(@"<param>description</param>", "Required attribute 'name' on element 'param' (at 1:2) does not exist")]
+    [InlineData(@"<param name="""">description</param>", "Value of attribute 'name' (at 1:2) is empty or whitespace")]
+    [InlineData(@"<param name="" "">description</param>", "Value of attribute 'name' (at 1:2) is empty or whitespace")]
+    public void FromXml_fails_if_the_name_attribute_is_missing_or_empty(string xml, string expectedErrorMessage)
     {
         // ARRANGE
-        var xml = XElement.Parse(input);
 
         // ACT 
         var ex = Record.Exception(() => ParameterDescription.FromXml(xml));

@@ -53,14 +53,13 @@ public class TypeParameterDescriptionTest
 
 
     [Theory]
-    [InlineData(@"<typeparam>description</typeparam>", "Required attribute 'name' on element 'typeparam' (at 0:0) does not exist")]
-    [InlineData(@"<typeparam name="""">description</typeparam>", "Value of attribute 'name' (at 0:0) is empty or whitespace")]
-    [InlineData(@"<typeparam name="" "">description</typeparam>", "Value of attribute 'name' (at 0:0) is empty or whitespace")]
-    public void FromXml_fails_if_the_name_attribute_is_missing_or_empty(string input, string expectedErrorMessage)
+    [InlineData(@"<typeparam>description</typeparam>", "Required attribute 'name' on element 'typeparam' (at 1:2) does not exist")]
+    [InlineData(@"<typeparam name="""">description</typeparam>", "Value of attribute 'name' (at 1:2) is empty or whitespace")]
+    [InlineData(@"<typeparam name="" "">description</typeparam>", "Value of attribute 'name' (at 1:2) is empty or whitespace")]
+    public void FromXml_fails_if_the_name_attribute_is_missing_or_empty(string xml, string expectedErrorMessage)
     {
         // ARRANGE
-        var xml = XElement.Parse(input);
-
+        // 
         // ACT 
         var ex = Record.Exception(() => TypeParameterDescription.FromXml(xml));
 
