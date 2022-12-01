@@ -97,7 +97,7 @@ public class ParameterReferenceElementTest
     }
 
     [Fact]
-    public void Two_instances_are_not_equal_if_their_parameter_name_is_not_equal_01()
+    public void Two_instances_are_not_equal_if_their_parameter_name_is_not_equal()
     {
         // ARRANGE
         var instance1 = new ParameterReferenceElement("parameter1");
