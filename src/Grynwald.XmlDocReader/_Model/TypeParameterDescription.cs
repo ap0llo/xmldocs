@@ -20,7 +20,6 @@ public class TypeParameterDescription
     public TextBlock? Text { get; }
 
 
-
     /// <summary>
     /// Initializes a new instance of <see cref="TypeParameterDescription"/>.
     /// </summary>
