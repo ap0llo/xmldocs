@@ -142,7 +142,7 @@ public class TextBlockTest
                     </summary>
             """,
             new TextBlock(
-                new TypeParamRefElement("TKey")
+                new TypeParameterReferenceElement("TKey")
             )
         );
 

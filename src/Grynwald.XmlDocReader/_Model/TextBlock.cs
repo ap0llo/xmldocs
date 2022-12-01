@@ -100,7 +100,7 @@ public class TextBlock : IEquatable<TextBlock>
                 {
                     "para" => ParagraphElement.FromXml(element),
                     "paramref" => ParameterReferenceElement.FromXml(element),
-                    "typeparamref" => TypeParamRefElement.FromXml(element),
+                    "typeparamref" => TypeParameterReferenceElement.FromXml(element),
                     "code" => CodeElement.FromXml(element),
                     "c" => CElement.FromXml(element),
                     "see" => SeeElement.FromXml(element),
