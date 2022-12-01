@@ -186,7 +186,7 @@ public class TextBlockTest
             """,
             new TextBlock(
               new PlainTextElement("See also "),
-              new SeeCRefElement("T:SomeType")
+              new SeeCodeReferenceElement("T:SomeType", null)
             )
         );
         yield return TestCase(
@@ -198,7 +198,7 @@ public class TextBlockTest
             """,
             new TextBlock(
               new PlainTextElement("See also "),
-              new SeeHRefElement("https://example.com")
+              new SeeUrlReferenceElement("https://example.com", null)
             )
         );
 
