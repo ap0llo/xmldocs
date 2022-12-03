@@ -119,6 +119,6 @@ public class ParameterReferenceElementTest
 
         // ACT / ASSERT
         Assert.False(sut.Equals((object?)null));
-        Assert.False(sut!.Equals((TextBlock?)null));
+        Assert.False(sut!.Equals((ParameterReferenceElement?)null));
     }
 }

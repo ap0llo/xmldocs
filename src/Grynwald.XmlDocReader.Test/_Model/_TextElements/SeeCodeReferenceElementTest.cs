@@ -93,6 +93,6 @@ public class SeeCodeReferenceElementTest
 
         // ACT / ASSERT
         Assert.False(sut.Equals((object?)null));
-        Assert.False(sut!.Equals((TextBlock?)null));
+        Assert.False(sut!.Equals((SeeCodeReferenceElement?)null));
     }
 }

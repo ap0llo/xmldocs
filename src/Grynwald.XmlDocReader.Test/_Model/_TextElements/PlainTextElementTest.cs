@@ -58,6 +58,6 @@ public class PlainTextElementTest
 
         // ACT / ASSERT
         Assert.False(sut.Equals((object?)null));
-        Assert.False(sut!.Equals((TextBlock?)null));
+        Assert.False(sut!.Equals((PlainTextElement?)null));
     }
 }
