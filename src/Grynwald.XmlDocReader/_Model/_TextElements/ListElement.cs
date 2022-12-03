@@ -41,6 +41,10 @@ public class ListElement : TextElement
 
 
     /// <inheritdoc />
+    public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
+
+
+    /// <inheritdoc />
     public override int GetHashCode() =>
         ListHeader is null
             ? Type.GetHashCode()

@@ -23,6 +23,9 @@ public class PlainTextElement : TextElement, IEquatable<PlainTextElement>
 
 
     /// <inheritdoc />
+    public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
+
+    /// <inheritdoc />
     public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(Content);
 
     /// <inheritdoc />

@@ -24,6 +24,11 @@ public class SeeAlsoUrlReferenceDescription : SeeAlsoDescription
     }
 
 
+
+    /// <inheritdoc />
+    public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
+
+
     internal static new SeeAlsoUrlReferenceDescription FromXml(XElement xml)
     {
         var href = xml

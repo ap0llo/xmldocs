@@ -34,6 +34,9 @@ public class CodeElement : TextElement, IEquatable<CodeElement>
 
 
     /// <inheritdoc />
+    public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
+
+    /// <inheritdoc />
     public override int GetHashCode()
     {
         unchecked

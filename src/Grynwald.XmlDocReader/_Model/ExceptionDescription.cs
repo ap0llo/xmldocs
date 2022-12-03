@@ -36,6 +36,12 @@ public class ExceptionDescription
     }
 
 
+    /// <summary>
+    /// Calls the appropriate <c>Visit</c> method for this element on the specified visitor.
+    /// </summary>
+    public void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
+
+
     /// <inheritdoc cref="FromXml(XElement)"/>
     public static ExceptionDescription FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
 

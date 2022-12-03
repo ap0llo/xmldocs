@@ -26,6 +26,9 @@ public class ParagraphElement : TextElement, IEquatable<ParagraphElement>
 
 
     /// <inheritdoc />
+    public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
+
+    /// <inheritdoc />
     public override int GetHashCode() => Content?.GetHashCode() ?? 0;
 
     /// <inheritdoc />

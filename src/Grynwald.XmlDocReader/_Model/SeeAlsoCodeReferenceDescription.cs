@@ -24,6 +24,10 @@ public class SeeAlsoCodeReferenceDescription : SeeAlsoDescription
     }
 
 
+    /// <inheritdoc />
+    public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
+
+
     internal static new SeeAlsoCodeReferenceDescription FromXml(XElement xml)
     {
         var cref = xml

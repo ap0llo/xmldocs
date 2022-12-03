@@ -28,6 +28,9 @@ public class SeeCodeReferenceElement : SeeElement, IEquatable<SeeCodeReferenceEl
 
 
     /// <inheritdoc />
+    public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
+
+    /// <inheritdoc />
     public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(Reference);
 
     /// <inheritdoc />

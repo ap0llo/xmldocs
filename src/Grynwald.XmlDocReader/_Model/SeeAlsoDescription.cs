@@ -54,6 +54,13 @@ public abstract class SeeAlsoDescription
     }
 
 
+
+    /// <summary>
+    /// Calls the appropriate <c>Visit</c> method for this element on the specified visitor.
+    /// </summary>
+    public abstract void Accept(IDocumentationVisitor visitor);
+
+
     /// <inheritdoc cref="FromXml(XElement)"/>
     public static SeeAlsoDescription FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
 

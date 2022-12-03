@@ -34,6 +34,11 @@ public class DocumentationFile
 
 
     /// <summary>
+    /// Calls the appropriate <c>Visit</c> method for this element on the specified visitor.
+    /// </summary>
+    public void Accept(IDocumentationVisitor vistor) => vistor.Visit(this);
+
+    /// <summary>
     /// Creates a <see cref="DocumentationFile" /> by parsing a XML string.
     /// </summary>
     /// <returns>

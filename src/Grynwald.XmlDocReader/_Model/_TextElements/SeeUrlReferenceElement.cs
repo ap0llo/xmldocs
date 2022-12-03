@@ -31,6 +31,9 @@ public class SeeUrlReferenceElement : SeeElement, IEquatable<SeeUrlReferenceElem
 
 
     /// <inheritdoc />
+    public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
+
+    /// <inheritdoc />
     public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(Link);
 
     /// <inheritdoc />

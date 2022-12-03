@@ -30,6 +30,9 @@ public class TypeParameterReferenceElement : TextElement, IEquatable<TypeParamet
 
 
     /// <inheritdoc />
+    public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
+
+    /// <inheritdoc />
     public override int GetHashCode() => StringComparer.Ordinal.GetHashCode(Name);
 
     /// <inheritdoc />

@@ -6,6 +6,9 @@
 public abstract class TextElement
 {
     /// <inheritdoc />
+    public abstract void Accept(IDocumentationVisitor visitor);
+
+    /// <inheritdoc />
     public abstract override int GetHashCode();
 
     /// <inheritdoc />

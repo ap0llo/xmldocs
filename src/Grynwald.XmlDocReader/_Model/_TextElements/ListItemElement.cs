@@ -34,6 +34,8 @@ public sealed class ListItemElement : TextElement, IEquatable<ListItemElement>
     }
 
 
+    /// <inheritdoc />
+    public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
 
     /// <inheritdoc />
     public override int GetHashCode() => HashCode.Combine(Description, Term);

@@ -21,6 +21,11 @@ public class TextBlock : IEquatable<TextBlock>
     }
 
 
+    /// <summary>
+    /// Calls the appropriate <c>Visit</c> method for this element on the specified visitor.
+    /// </summary>
+    public void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
+
     /// <inheritdoc />
     public override int GetHashCode()
     {
