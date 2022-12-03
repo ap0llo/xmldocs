@@ -1,6 +1,4 @@
-﻿using System.Xml;
-
-namespace Grynwald.XmlDocReader.Internal
+﻿namespace Grynwald.XmlDocReader.Internal
 {
     internal static class XmlExtensions
     {
@@ -56,7 +54,7 @@ namespace Grynwald.XmlDocReader.Internal
         public static void EnsureNameIs(this XElement element, params XName[] validNames)
         {
             if (!validNames.Contains(element.Name))
-                throw new InvalidOperationException($"Unexpected element name. Expected: {String.Join<XName>(" or ", validNames)}, actual {element.Name}");
+                throw new XmlDocReaderException($"Unexpected element name. Expected: {String.Join<XName>(" or ", validNames)}, actual {element.Name}{element.GetPositionString()}");
         }
 
         public static string GetPositionString(this IXmlLineInfo? node)

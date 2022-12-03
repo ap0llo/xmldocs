@@ -1,6 +1,4 @@
-﻿using Grynwald.XmlDocReader.Internal;
-
-namespace Grynwald.XmlDocReader;
+﻿namespace Grynwald.XmlDocReader;
 
 /// <summary>
 /// Represents a <c><![CDATA[<list>]]></c> element in XML documentation comments.
@@ -57,9 +55,6 @@ public class ListElement : TextElement
         if (other is null)
             return false;
 
-        if (ReferenceEquals(this, other))
-            return true;
-
         if (Type != other.Type)
             return false;
 
@@ -78,15 +73,20 @@ public class ListElement : TextElement
     }
 
 
+    /// <inheritdoc cref="FromXml(XElement)"/>
+    public static ListElement FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
 
+    /// <summary>
+    /// Initializes a new <see cref="ListElement" /> from it's XML equivalent.
+    /// </summary>
     public static ListElement FromXml(XElement xml)
     {
         xml.EnsureNameIs("list");
 
         // parse list type
-        if (!Enum.TryParse<ListType>(xml.Attribute("type")?.Value, ignoreCase: true, out var listType))
+        if (!Enum.TryParse<ListType>(xml.RequireAttribute("type").RequireValue(), ignoreCase: true, out var listType))
         {
-            listType = ListType.Unknown;
+            throw new XmlDocReaderException($"Failed to parse <list /> element. Attribute 'type' has unsupoorted value{xml.GetPositionString()}");
         }
 
         var listHeader = xml.Element("listheader") is XElement listHeaderElement

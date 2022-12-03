@@ -1,12 +1,9 @@
-﻿using System;
-using System.Net.Http.Headers;
-using Grynwald.XmlDocReader.Internal;
-
-namespace Grynwald.XmlDocReader;
+﻿namespace Grynwald.XmlDocReader;
 
 /// <summary>
-/// Represents a <c><![CDATA[<item>]]></c> or <c><![CDATA[<listheader>]]></c> element in XML documentation comments.
+/// Represents a <c><![CDATA[<item>]]></c> or <c><![CDATA[<listheader>]]></c> element inside a <![CDATA[<list />]]> element in XML documentation comments.
 /// </summary>
+/// <seealso cref="ListElement"/>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags">Recommended XML tags for C# documentation comments (Microsoft Learn)</seealso>
 public sealed class ListItemElement : TextElement, IEquatable<ListItemElement>
 {
@@ -45,12 +42,33 @@ public sealed class ListItemElement : TextElement, IEquatable<ListItemElement>
     public override bool Equals(object? obj) => Equals(obj as ListItemElement);
 
     /// <inheritdoc />
-    public bool Equals(ListItemElement? other) =>
-        other is not null &&
-        (Term is null && other.Term is null) || (Term is not null && other!.Term is not null && Term.Equals(other.Term)) &&
-        Description.Equals(other.Description);
+    public bool Equals(ListItemElement? other)
+    {
+        if (other is null)
+            return false;
 
 
+        if (Term is not null)
+        {
+            if (!Term.Equals(other.Term))
+                return false;
+        }
+        else
+        {
+            if (other.Term is not null)
+                return false;
+        }
+
+        return Description.Equals(other.Description);
+    }
+
+
+    /// <inheritdoc cref="FromXml(XElement)"/>
+    public static ListItemElement FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
+
+    /// <summary>
+    /// Initializes a new <see cref="ListItemElement" /> from it's XML equivalent.
+    /// </summary>
     public static ListItemElement FromXml(XElement xml)
     {
         xml.EnsureNameIs("listheader", "item"); //TODO: Consider using separate types for items/header
