@@ -42,22 +42,9 @@ public class TextBlock : IEquatable<TextBlock>
     public override bool Equals(object? obj) => Equals(obj as TextBlock);
 
     /// <inheritdoc />
-    public bool Equals(TextBlock? other)
-    {
-        if (other is null)
-            return false;
-
-        if (Elements.Count != other.Elements.Count)
-            return false;
-
-        for (int i = 0; i < Elements.Count; i++)
-        {
-            if (!Elements[i].Equals(other.Elements[i]))
-                return false;
-        }
-
-        return true;
-    }
+    public bool Equals(TextBlock? other) =>
+        other is not null &&
+        Elements.SequenceEqual(other.Elements);
 
 
     /// <inheritdoc  cref="FromXml(XElement)" />
