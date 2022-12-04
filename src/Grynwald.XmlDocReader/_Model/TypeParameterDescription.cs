@@ -7,7 +7,7 @@
 /// <c>typeparam</c> provides information about a type's or method's type parameter.
 /// </remarks>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/">XML documentation comments (Microsoft Learn)</seealso>
-public class TypeParameterDescription
+public class TypeParameterDescription : IDocumentationNode
 {
     /// <summary>
     /// Gets the type parameter's name.
@@ -36,9 +36,7 @@ public class TypeParameterDescription
     }
 
 
-    /// <summary>
-    /// Calls the appropriate <c>Visit</c> method for this element on the specified visitor.
-    /// </summary>
+    /// <inheritdoc />
     public void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
 
 

@@ -37,7 +37,7 @@
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/">XML documentation comments (Microsoft Learn)</seealso>
 /// <seealso cref="SeeAlsoCodeReferenceDescription" />
 /// <seealso cref="SeeAlsoUrlReferenceDescription" />
-public abstract class SeeAlsoDescription
+public abstract class SeeAlsoDescription : IDocumentationNode
 {
     /// <summary>
     /// Gets the <c><![CDATA[<seealso />]]></c> element's text (optional).
@@ -55,9 +55,7 @@ public abstract class SeeAlsoDescription
 
 
 
-    /// <summary>
-    /// Calls the appropriate <c>Visit</c> method for this element on the specified visitor.
-    /// </summary>
+    /// <inheritdoc />
     public abstract void Accept(IDocumentationVisitor visitor);
 
 

@@ -7,7 +7,7 @@
 /// <c>exception</c> provides information about exception that might be thrown by a method.
 /// </remarks>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/">XML documentation comments (Microsoft Learn)</seealso>
-public class ExceptionDescription
+public class ExceptionDescription : IDocumentationNode
 {
     /// <summary>
     /// Gets the reference to the exception's type.
@@ -36,9 +36,7 @@ public class ExceptionDescription
     }
 
 
-    /// <summary>
-    /// Calls the appropriate <c>Visit</c> method for this element on the specified visitor.
-    /// </summary>
+    /// <inheritdoc />
     public void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
 
 

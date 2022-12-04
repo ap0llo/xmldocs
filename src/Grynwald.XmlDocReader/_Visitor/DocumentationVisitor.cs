@@ -76,7 +76,7 @@
         public virtual void Visit(ListElement list)
         {
             list.ListHeader?.Accept(this);
-            foreach(var item in list.Items)
+            foreach (var item in list.Items)
             {
                 item.Accept(this);
             }
@@ -124,7 +124,7 @@
         /// <inheritdoc />
         public virtual void Visit(SeeUrlReferenceElement see)
         {
-            see.Text?.Accept(this);            
+            see.Text?.Accept(this);
         }
 
         /// <inheritdoc />

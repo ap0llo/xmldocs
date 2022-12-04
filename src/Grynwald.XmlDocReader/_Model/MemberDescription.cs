@@ -9,7 +9,7 @@
 /// A member can be a namespace, type, field, property, method or event
 /// </remarks>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/">XML documentation comments (Microsoft Learn)</seealso>
-public class MemberDescription
+public class MemberDescription : IDocumentationNode
 {
     /// <summary>
     /// Gets the name/id of the member.
@@ -77,9 +77,7 @@ public class MemberDescription
     }
 
 
-    /// <summary>
-    /// Calls the appropriate <c>Visit</c> method for this element on the specified visitor.
-    /// </summary>
+    /// <inheritdoc />
     public void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
 
     /// <inheritdoc  cref="FromXml(XElement)" />

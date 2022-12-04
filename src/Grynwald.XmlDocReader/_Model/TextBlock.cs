@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a blcok of formatted text in XML documentation comments.
 /// </summary>
-public class TextBlock : IEquatable<TextBlock>
+public class TextBlock : IEquatable<TextBlock>, IDocumentationNode
 {
     /// <summary>
     /// Gets the text block's text elements.
@@ -21,9 +21,7 @@ public class TextBlock : IEquatable<TextBlock>
     }
 
 
-    /// <summary>
-    /// Calls the appropriate <c>Visit</c> method for this element on the specified visitor.
-    /// </summary>
+    /// <inheritdoc />
     public void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
 
     /// <inheritdoc />

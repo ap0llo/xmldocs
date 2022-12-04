@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a inline text element in a <see cref="TextBlock"/>
 /// </summary>
-public abstract class TextElement
+public abstract class TextElement : IDocumentationNode
 {
     /// <inheritdoc />
     public abstract void Accept(IDocumentationVisitor visitor);
