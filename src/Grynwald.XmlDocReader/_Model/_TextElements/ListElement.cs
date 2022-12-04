@@ -4,7 +4,7 @@
 /// Represents a <c><![CDATA[<list>]]></c> element in XML documentation comments.
 /// </summary>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags">Recommended XML tags for C# documentation comments (Microsoft Learn)</seealso>
-public class ListElement : TextElement
+public class ListElement : TextElement, IEquatable<ListElement>
 {
     /// <summary>
     /// Gets the type of the list.
