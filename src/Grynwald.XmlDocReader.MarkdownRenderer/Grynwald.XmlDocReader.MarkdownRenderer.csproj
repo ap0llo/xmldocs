@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grynwald.MarkdownGenerator" Version="2.5.34" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Grynwald.XmlDocReader\Grynwald.XmlDocReader.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Grynwald.MarkdownGenerator" />
+  </ItemGroup>
+  
+</Project>

@@ -5,6 +5,7 @@
 /// </summary>
 /// <seealso cref="ListElement"/>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags">Recommended XML tags for C# documentation comments (Microsoft Learn)</seealso>
+//TODO: Allow list items without term/descriptions, like <item>Item 1</item>
 public sealed class ListItemElement : TextElement, IEquatable<ListItemElement>
 {
     /// <summary>
