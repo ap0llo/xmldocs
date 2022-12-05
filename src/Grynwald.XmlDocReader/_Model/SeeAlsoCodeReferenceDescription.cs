@@ -7,9 +7,9 @@
 public class SeeAlsoCodeReferenceDescription : SeeAlsoDescription
 {
     /// <summary>
-    /// Gets the content of the <c><![CDATA[<seealso />]]></c> element's <c>cref</c> attribute.
+    /// Gets the content of the <c><![CDATA[<seealso />]]></c> element's <c>cref</c> attribute as <see cref="MemberId"/>.
     /// </summary>
-    public string Reference { get; } = "";
+    public MemberId Reference { get; }
 
 
     /// <summary>
@@ -18,9 +18,9 @@ public class SeeAlsoCodeReferenceDescription : SeeAlsoDescription
     /// <param name="reference">The content of the elements <c>cref</c> attribute.</param>
     /// <param name="text">The element's text (optional).</param>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="reference"/> is <c>null</c>.</exception>
-    public SeeAlsoCodeReferenceDescription(string reference, TextBlock? text) : base(text)
+    public SeeAlsoCodeReferenceDescription(MemberId reference, TextBlock? text) : base(text)
     {
-        Reference = reference ?? throw new ArgumentNullException(nameof(reference));  //TODO: Check for null or whitespace
+        Reference = reference ?? throw new ArgumentNullException(nameof(reference));
     }
 
 
@@ -34,8 +34,15 @@ public class SeeAlsoCodeReferenceDescription : SeeAlsoDescription
             .RequireAttribute("cref")
             .RequireValue();
 
+        if (!MemberId.TryParse(cref, out var reference))
+        {
+            //TODO: Handle unparsable member id
+            throw new NotImplementedException();
+        }
+
+
         var text = TextBlock.FromXmlOrNullIfEmpty(xml);
 
-        return new SeeAlsoCodeReferenceDescription(cref, text);
+        return new SeeAlsoCodeReferenceDescription(reference, text);
     }
 }

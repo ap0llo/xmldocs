@@ -2,7 +2,7 @@
 
 public class FieldDescription : MemberDescription
 {
-    public FieldDescription(string id) : base(id)
+    public FieldDescription(MemberId id) : base(id)
     { }
 
 
@@ -10,10 +10,8 @@ public class FieldDescription : MemberDescription
     public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
 
 
-    internal static new FieldDescription FromXml(XElement xml)
+    internal static FieldDescription FromXml(MemberId id, XElement xml)
     {
-        var id = xml.RequireAttribute("name").RequireValue();
-
         var member = new FieldDescription(id)
         {
             Summary = TryReadTextBlock(xml, "summary"),

@@ -5,20 +5,17 @@
 /// </summary>
 public class ExceptionDescriptionTest
 {
-    [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    [InlineData("  ")]
-    public void Reference_must_not_be_null_or_whitespace(string reference)
+    [Fact]
+    public void Reference_must_not_be_null()
     {
         // ARRANGE
 
         // ACT 
-        var ex = Record.Exception(() => new ExceptionDescription(reference, null!));
+        var ex = Record.Exception(() => new ExceptionDescription(reference: null!, null!));
 
         // ASSERT
-        var argumentException = Assert.IsType<ArgumentException>(ex);
-        Assert.Equal("reference", argumentException.ParamName);
+        var argumentNullException = Assert.IsType<ArgumentNullException>(ex);
+        Assert.Equal("reference", argumentNullException.ParamName);
     }
 
     [Fact]
@@ -77,7 +74,7 @@ public class ExceptionDescriptionTest
         var sut = ExceptionDescription.FromXml(xml);
 
         // ASSERT
-        Assert.Equal(expectedReference, sut.Reference);
+        Assert.Equal(MemberId.Parse(expectedReference), sut.Reference);
 
         if (expectedText is null)
         {

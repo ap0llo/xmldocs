@@ -2,7 +2,7 @@
 
 public class EventDescription : MemberDescription
 {
-    public EventDescription(string id) : base(id)
+    public EventDescription(MemberId id) : base(id)
     { }
 
 
@@ -10,10 +10,8 @@ public class EventDescription : MemberDescription
     public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
 
 
-    internal static new EventDescription FromXml(XElement xml)
+    internal static EventDescription FromXml(MemberId id, XElement xml)
     {
-        var id = xml.RequireAttribute("name").RequireValue();
-
         var member = new EventDescription(id)
         {
             Summary = TryReadTextBlock(xml, "summary"),

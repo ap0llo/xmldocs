@@ -116,8 +116,8 @@ public class DocumentationFileTest
         Assert.NotNull(sut.Members);
         Assert.Collection(
             sut.Members,
-            x => Assert.Equal("T:Project.Class", x.Id),
-            x => Assert.Equal("F:Project.Class.Field", x.Id)
+            x => Assert.Equal(MemberId.Parse("T:Project.Class"), x.Id),
+            x => Assert.Equal(MemberId.Parse("F:Project.Class.Field"), x.Id)
         );
     }
 

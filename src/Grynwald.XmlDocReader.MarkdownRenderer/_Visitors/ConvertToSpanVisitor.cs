@@ -87,13 +87,9 @@ public class ConvertToSpanVisitor : ConvertVisitorBase
             see.Text.Accept(this);
             textSpan = EndNestedSpan();
         }
-        else if (TryParseMemberId(see.Reference, out _, out var name))
-        {
-            textSpan = new MdCodeSpan(name);
-        }
         else
         {
-            textSpan = new MdCodeSpan(see.Reference);
+            textSpan = new MdCodeSpan(see.Reference.Name);
         }
 
         // Default implementation cannot resolve "cref" values because that would require a semantic model of assembly

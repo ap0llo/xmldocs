@@ -6,20 +6,17 @@ namespace Grynwald.XmlDocReader.Test;
 /// </summary>
 public class MemberDescriptionTest
 {
-    [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    [InlineData("  ")]
-    public void Id_must_not_be_null_or_whitespace(string id)
+    [Fact]
+    public void Id_must_not_be_null()
     {
         // ARRANGE
 
         // ACT 
-        var ex = Record.Exception(() => new NamespaceDescription(id));
+        var ex = Record.Exception(() => new NamespaceDescription(null!));
 
         // ASSERT
-        var argumentException = Assert.IsType<ArgumentException>(ex);
-        Assert.Equal("id", argumentException.ParamName);
+        var argumentNullException = Assert.IsType<ArgumentNullException>(ex);
+        Assert.Equal("id", argumentNullException.ParamName);
     }
 
     [Fact]
@@ -49,7 +46,7 @@ public class MemberDescriptionTest
         var sut = MemberDescription.FromXml(input);
 
         // ASSERT
-        Assert.Equal("T:Project.Class", sut.Id);
+        Assert.Equal(MemberId.Parse("T:Project.Class"), sut.Id);
 
         Assert.Null(sut.Summary);
 
@@ -253,7 +250,7 @@ public class MemberDescriptionTest
         // ARRANGE
         var input = """
                 <member name="M:Project.Class.Method">
-                    <seealso cref="member"/>
+                    <seealso cref="P:MyClass.Property"/>
                     <seealso href="link">Link Text</seealso>
                 </member>
                 """;
@@ -289,9 +286,9 @@ public class MemberDescriptionTest
         Assert.NotNull(sut.Exceptions);
         Assert.Collection(
             sut.Exceptions,
-            x => Assert.Equal("T:Exception1", x.Reference),
-            x => Assert.Equal("T:Exception2", x.Reference),
-            x => Assert.Equal("T:Exception3", x.Reference)
+            x => Assert.Equal(MemberId.Parse("T:Exception1"), x.Reference),
+            x => Assert.Equal(MemberId.Parse("T:Exception2"), x.Reference),
+            x => Assert.Equal(MemberId.Parse("T:Exception3"), x.Reference)
         );
     }
 

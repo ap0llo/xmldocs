@@ -186,7 +186,7 @@ public class TextBlockTest
             """,
             new TextBlock(
               new PlainTextElement("See also "),
-              new SeeCodeReferenceElement("T:SomeType", null)
+              new SeeCodeReferenceElement(MemberId.Parse("T:SomeType"), null)
             )
         );
         yield return TestCase(

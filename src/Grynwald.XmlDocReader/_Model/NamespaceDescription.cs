@@ -2,7 +2,7 @@
 
 public class NamespaceDescription : MemberDescription
 {
-    public NamespaceDescription(string id) : base(id)
+    public NamespaceDescription(MemberId id) : base(id)
     { }
 
 
@@ -10,10 +10,8 @@ public class NamespaceDescription : MemberDescription
     public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
 
 
-    internal static new NamespaceDescription FromXml(XElement xml)
+    internal static NamespaceDescription FromXml(MemberId id, XElement xml)
     {
-        var id = xml.RequireAttribute("name").RequireValue();
-
         var member = new NamespaceDescription(id)
         {
             Summary = TryReadTextBlock(xml, "summary"),

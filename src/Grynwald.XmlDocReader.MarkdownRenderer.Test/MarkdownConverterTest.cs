@@ -32,12 +32,12 @@ public class MarkdownConverterTest
                     "MyAssembly",
                     new MemberDescription[]
                     {
-                        new NamespaceDescription("N:MyNamespace"),
-                        new TypeDescription("T:MyNamespace.MyClass"),
-                        new FieldDescription("F:MyNamespace.MyClass.Field"),
-                        new PropertyDescription("P:MyNamespace.MyClass.Property"),
-                        new MethodDescription("M:MyNamespace.MyClass.Method"),
-                        new EventDescription("E:MyNamespace.MyClass.Event"),
+                        new NamespaceDescription(MemberId.Parse("N:MyNamespace")),
+                        new TypeDescription(MemberId.Parse("T:MyNamespace.MyClass")),
+                        new FieldDescription(MemberId.Parse("F:MyNamespace.MyClass.Field")),
+                        new PropertyDescription(MemberId.Parse("P:MyNamespace.MyClass.Property")),
+                        new MethodDescription(MemberId.Parse("M:MyNamespace.MyClass.Method")),
+                        new EventDescription(MemberId.Parse("E:MyNamespace.MyClass.Event")),
                     }),
                 """
             # MyAssembly
@@ -59,7 +59,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T03",
-                new FieldDescription("F:MyNamespace.MyClass.Field"),
+                new FieldDescription(MemberId.Parse("F:MyNamespace.MyClass.Field")),
                 "## MyNamespace.MyClass.Field Field"
             );
 
@@ -155,14 +155,14 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T11",
-                new ExceptionDescription("T:MyNamespace.MyException", null),
+                new ExceptionDescription(MemberId.Parse("T:MyNamespace.MyException"), null),
                 "`MyNamespace.MyException`"
             );
 
             yield return TestCase(
                 "T12",
                 new ExceptionDescription(
-                    "T:MyNamespace.MyException",
+                    MemberId.Parse("T:MyNamespace.MyException"),
                     new TextBlock(new PlainTextElement("Description of the exception"))
                 ),
                 """
@@ -225,13 +225,13 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T17",
-                new SeeAlsoCodeReferenceDescription("T:MyNamespace.MyClass", null),
+                new SeeAlsoCodeReferenceDescription(MemberId.Parse("T:MyNamespace.MyClass"), null),
                 "`MyNamespace.MyClass`"
             );
 
             yield return TestCase(
                 "T18",
-                new SeeAlsoCodeReferenceDescription("T:MyNamespace.MyClass", new TextBlock(new PlainTextElement("Link Text"))),
+                new SeeAlsoCodeReferenceDescription(MemberId.Parse("T:MyNamespace.MyClass"), new TextBlock(new PlainTextElement("Link Text"))),
                 "Link Text"
             );
 
@@ -400,7 +400,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T28",
-                new SeeCodeReferenceElement("M:MyClass.Method", null),
+                new SeeCodeReferenceElement(MemberId.Parse("M:MyClass.Method"), null),
                 """
             `MyClass.Method`
             """
@@ -408,7 +408,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T29",
-                new SeeCodeReferenceElement("M:MyClass.Method", new TextBlock()),
+                new SeeCodeReferenceElement(MemberId.Parse("M:MyClass.Method"), new TextBlock()),
                 """
             `MyClass.Method`
             """
@@ -416,7 +416,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T30",
-                new SeeCodeReferenceElement("M:MyClass.Method", new TextBlock(new PlainTextElement("Link Text"))),
+                new SeeCodeReferenceElement(MemberId.Parse("M:MyClass.Method"), new TextBlock(new PlainTextElement("Link Text"))),
                 """
             Link Text
             """
@@ -735,17 +735,17 @@ public class MarkdownConverterTest
                 new object[] { id, input };
 
             yield return TestCase("T01", new DocumentationFile("MyAssembly", Array.Empty<MemberDescription>()));
-            yield return TestCase("T02", new NamespaceDescription("N:MyNamesapce"));
-            yield return TestCase("T03", new TypeDescription("T:MyClass"));
-            yield return TestCase("T04", new FieldDescription("F:MyClass.Field"));
-            yield return TestCase("T05", new PropertyDescription("P:MyClass.Property"));
-            yield return TestCase("T06", new MethodDescription("M:MyClass.Method"));
-            yield return TestCase("T07", new EventDescription("E:MyClass.Event"));
+            yield return TestCase("T02", new NamespaceDescription(MemberId.Parse("N:MyNamesapce")));
+            yield return TestCase("T03", new TypeDescription(MemberId.Parse("T:MyClass")));
+            yield return TestCase("T04", new FieldDescription(MemberId.Parse("F:MyClass.Field")));
+            yield return TestCase("T05", new PropertyDescription(MemberId.Parse("P:MyClass.Property")));
+            yield return TestCase("T06", new MethodDescription(MemberId.Parse("M:MyClass.Method")));
+            yield return TestCase("T07", new EventDescription(MemberId.Parse("E:MyClass.Event")));
             yield return TestCase("T08", new ParameterDescription("parameter", null));
             yield return TestCase("T09", new TypeParameterDescription("typeParameter", null));
-            yield return TestCase("T10", new ExceptionDescription("T:MyException", null));
+            yield return TestCase("T10", new ExceptionDescription(MemberId.Parse("T:MyException"), null));
             yield return TestCase("T11", new SeeAlsoUrlReferenceDescription("https://example.com", null));
-            yield return TestCase("T12", new SeeAlsoCodeReferenceDescription("M:MyClass.Method", null));
+            yield return TestCase("T12", new SeeAlsoCodeReferenceDescription(MemberId.Parse("M:MyClass.Method"), null));
             yield return TestCase("T13", new CodeElement("Some code", null));
             yield return TestCase("T14", new ListElement(ListType.Bullet, null, Array.Empty<ListItemElement>()));
             yield return TestCase("T15", new ListItemElement(null, new TextBlock()));
@@ -829,19 +829,19 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T08",
-                new SeeCodeReferenceElement("M:MyClass.Method", null),
+                new SeeCodeReferenceElement(MemberId.Parse("M:MyClass.Method"), null),
                 "`MyClass.Method`"
             );
 
             yield return TestCase(
                 "T09",
-                new SeeCodeReferenceElement("M:MyClass.Method", new TextBlock()),
+                new SeeCodeReferenceElement(MemberId.Parse("M:MyClass.Method"), new TextBlock()),
                 "`MyClass.Method`"
             );
 
             yield return TestCase(
                 "T10",
-                new SeeCodeReferenceElement("M:MyClass.Method", new TextBlock(new PlainTextElement("Link Text"))),
+                new SeeCodeReferenceElement(MemberId.Parse("M:MyClass.Method"), new TextBlock(new PlainTextElement("Link Text"))),
                 "Link Text"
             );
 

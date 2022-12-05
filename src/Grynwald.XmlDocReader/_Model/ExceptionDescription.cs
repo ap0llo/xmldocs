@@ -10,9 +10,9 @@
 public class ExceptionDescription : IDocumentationNode
 {
     /// <summary>
-    /// Gets the reference to the exception's type.
+    /// Gets the reference to the exception's type as <see cref="MemberId"/>.
     /// </summary>
-    public string Reference { get; }
+    public MemberId Reference { get; }
 
     /// <summary>
     /// Gets the exception description's text.
@@ -26,12 +26,9 @@ public class ExceptionDescription : IDocumentationNode
     /// <param name="reference">The reference to the exception#s type.</param>
     /// <param name="text">The exception's description.</param>
     /// <exception cref="ArgumentException">Thrown when <paramref name="reference"/> is <c>null</c> or whitespace.</exception>
-    public ExceptionDescription(string reference, TextBlock? text)
+    public ExceptionDescription(MemberId reference, TextBlock? text)
     {
-        if (String.IsNullOrWhiteSpace(reference))
-            throw new ArgumentException("Value must not be null or whitespace", nameof(reference));
-
-        Reference = reference;
+        Reference = reference ?? throw new ArgumentNullException(nameof(reference));
         Text = text;
     }
 
@@ -54,8 +51,15 @@ public class ExceptionDescription : IDocumentationNode
             .RequireAttribute("cref")
             .RequireValue();
 
+        if (!MemberId.TryParse(cref, out var reference))
+        {
+            //TODO: Handle unparsable member id
+            throw new NotImplementedException();
+        }
+
+
         var text = TextBlock.FromXmlOrNullIfEmpty(xml);
 
-        return new ExceptionDescription(cref, text);
+        return new ExceptionDescription(reference, text);
     }
 }

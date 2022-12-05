@@ -2,7 +2,7 @@
 
 public class MethodDescription : MemberDescription
 {
-    public MethodDescription(string id) : base(id)
+    public MethodDescription(MemberId id) : base(id)
     { }
 
 
@@ -10,10 +10,8 @@ public class MethodDescription : MemberDescription
     public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
 
 
-    internal static new MethodDescription FromXml(XElement xml)
+    internal static MethodDescription FromXml(MemberId id, XElement xml)
     {
-        var id = xml.RequireAttribute("name").RequireValue();
-
         var member = new MethodDescription(id)
         {
             Summary = TryReadTextBlock(xml, "summary"),

@@ -9,7 +9,7 @@ public class SeeCodeReferenceElement : SeeElement, IEquatable<SeeCodeReferenceEl
     /// <summary>
     /// Gets the content of the <c><![CDATA[<see />]]></c> element's <c>cref</c> attribute.
     /// </summary>
-    public string Reference { get; }
+    public MemberId Reference { get; }
 
 
     /// <summary>
@@ -18,12 +18,9 @@ public class SeeCodeReferenceElement : SeeElement, IEquatable<SeeCodeReferenceEl
     /// <param name="reference">The content of the elements <c>cref</c> attribute.</param>
     /// <param name="text">The element's text (optional).</param>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="reference"/> is <c>null</c>.</exception>
-    public SeeCodeReferenceElement(string reference, TextBlock? text) : base(text)
+    public SeeCodeReferenceElement(MemberId reference, TextBlock? text) : base(text)
     {
-        if (String.IsNullOrWhiteSpace(reference))
-            throw new ArgumentException("Value must not be null or whitespace", nameof(reference));
-
-        Reference = reference;
+        Reference = reference ?? throw new ArgumentNullException(nameof(reference));
     }
 
 
@@ -58,8 +55,14 @@ public class SeeCodeReferenceElement : SeeElement, IEquatable<SeeCodeReferenceEl
             .RequireAttribute("cref")
             .RequireValue();
 
+        if (!MemberId.TryParse(cref, out var reference))
+        {
+            //TODO: Handle unparsable member id
+            throw new NotImplementedException();
+        }
+
         var text = TextBlock.FromXmlOrNullIfEmpty(xml);
 
-        return new SeeCodeReferenceElement(cref, text);
+        return new SeeCodeReferenceElement(reference, text);
     }
 }

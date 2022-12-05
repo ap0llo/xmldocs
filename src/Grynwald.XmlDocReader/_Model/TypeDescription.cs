@@ -2,7 +2,7 @@
 
 public class TypeDescription : MemberDescription
 {
-    public TypeDescription(string id) : base(id)
+    public TypeDescription(MemberId id) : base(id)
     { }
 
 
@@ -10,10 +10,8 @@ public class TypeDescription : MemberDescription
     public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
 
 
-    internal static new TypeDescription FromXml(XElement xml)
+    internal static TypeDescription FromXml(MemberId id, XElement xml)
     {
-        var id = xml.RequireAttribute("name").RequireValue();
-
         var member = new TypeDescription(id)
         {
             Summary = TryReadTextBlock(xml, "summary"),

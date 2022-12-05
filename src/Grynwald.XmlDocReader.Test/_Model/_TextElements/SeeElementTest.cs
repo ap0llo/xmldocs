@@ -46,7 +46,7 @@ public class SeeElementTest
 
         // ASSERT
         var seeCodeReferenceElement = Assert.IsType<SeeCodeReferenceElement>(result);
-        Assert.Equal("T:SomeType", seeCodeReferenceElement.Reference);
+        Assert.Equal(MemberId.Parse("T:SomeType"), seeCodeReferenceElement.Reference);
 
         if (expectedText is null)
         {

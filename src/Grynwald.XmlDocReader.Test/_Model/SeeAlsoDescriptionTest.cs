@@ -35,9 +35,9 @@ public class SeeAlsoDescriptionTest
     }
 
     [Theory]
-    [InlineData(@"<seealso cref=""MyClass"" />", null)]
-    [InlineData(@"<seealso cref=""MyClass"">Some description</seealso>", "Some description")]
-    [InlineData(@"<seealso cref=""MyClass"" href=""https://Example.com"" />", null)]
+    [InlineData(@"<seealso cref=""T:MyClass"" />", null)]
+    [InlineData(@"<seealso cref=""T:MyClass"">Some description</seealso>", "Some description")]
+    [InlineData(@"<seealso cref=""T:MyClass"" href=""https://Example.com"" />", null)]
     public void FromXml_returns_SeeAlsoCodeReferenceDescription_if_a_cref_attribute_is_present(string xml, string? expectedText)
     {
         // ARRANGE
@@ -47,7 +47,7 @@ public class SeeAlsoDescriptionTest
 
         // ASSERT
         var seeAlsoCodeReference = Assert.IsType<SeeAlsoCodeReferenceDescription>(sut);
-        Assert.Equal("MyClass", seeAlsoCodeReference.Reference);
+        Assert.Equal(MemberId.Parse("T:MyClass"), seeAlsoCodeReference.Reference);
 
         if (expectedText is null)
         {

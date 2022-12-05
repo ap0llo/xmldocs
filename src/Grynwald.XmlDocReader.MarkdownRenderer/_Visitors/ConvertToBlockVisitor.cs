@@ -37,10 +37,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         EndParagraph();
 
-        // remove type prefix ("N:")
-        var name = member.Id[2..];
-
-        CurrentBlock.Add(new MdHeading(2, $"{name} Namespace"));
+        CurrentBlock.Add(new MdHeading(2, $"{member.Id.Name} Namespace"));
 
         base.Visit(member);
     }
@@ -51,10 +48,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         EndParagraph();
 
-        // remove type prefix ("T:")
-        var name = member.Id[2..];
-
-        CurrentBlock.Add(new MdHeading(2, name));
+        CurrentBlock.Add(new MdHeading(2, member.Id.Name));
 
         base.Visit(member);
     }
@@ -65,10 +59,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         EndParagraph();
 
-        // remove type prefix ("F:")
-        var name = member.Id[2..];
-
-        CurrentBlock.Add(new MdHeading(2, $"{name} Field"));
+        CurrentBlock.Add(new MdHeading(2, $"{member.Id.Name} Field"));
 
         base.Visit(member);
     }
@@ -79,10 +70,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         EndParagraph();
 
-        // remove type prefix ("P:")
-        var name = member.Id[2..];
-
-        CurrentBlock.Add(new MdHeading(2, $"{name} Property"));
+        CurrentBlock.Add(new MdHeading(2, $"{member.Id.Name} Property"));
 
         base.Visit(member);
     }
@@ -94,10 +82,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         EndParagraph();
 
-        // remove type prefix ("M:")
-        var name = member.Id[2..];
-
-        CurrentBlock.Add(new MdHeading(2, $"{name} Method"));
+        CurrentBlock.Add(new MdHeading(2, $"{member.Id.Name} Method"));
 
         base.Visit(member);
     }
@@ -108,10 +93,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         EndParagraph();
 
-        // remove type prefix ("E:")
-        var name = member.Id[2..];
-
-        CurrentBlock.Add(new MdHeading(2, $"{name} Event"));
+        CurrentBlock.Add(new MdHeading(2, $"{member.Id.Name} Event"));
 
         base.Visit(member);
     }
@@ -145,10 +127,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         EndParagraph();
 
-        if (!TryParseMemberId(exception.Reference, out _, out var exceptionName))
-            exceptionName = exception.Reference;
-
-        AddToCurrentParagraph(new MdCodeSpan(exceptionName));
+        AddToCurrentParagraph(new MdCodeSpan(exception.Reference.Name));
 
         EndParagraph();
 
@@ -184,13 +163,9 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
         {
             textSpan = m_MarkdownConverter.ConvertToSpan(seeAlso.Text);
         }
-        else if (TryParseMemberId(seeAlso.Reference, out _, out var name))
-        {
-            textSpan = new MdCodeSpan(name);
-        }
         else
         {
-            textSpan = new MdCodeSpan(seeAlso.Reference);
+            textSpan = new MdCodeSpan(seeAlso.Reference.Name);
         }
 
         // Default implementation cannot resolve "cref" values because that would require a semantic model of assembly
@@ -330,13 +305,9 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
         {
             textSpan = m_MarkdownConverter.ConvertToSpan(see.Text);
         }
-        else if (TryParseMemberId(see.Reference, out _, out var name))
-        {
-            textSpan = new MdCodeSpan(name);
-        }
         else
         {
-            textSpan = new MdCodeSpan(see.Reference);
+            textSpan = new MdCodeSpan(see.Reference.Name);
         }
 
         // Default implementation cannot resolve "cref" values because that would require a semantic model of assembly

@@ -15,7 +15,7 @@ public abstract class MemberDescription : IDocumentationNode
     /// <summary>
     /// Gets the id of the member.
     /// </summary>
-    public string Id { get; }
+    public MemberId Id { get; }
 
     /// <summary>
     /// Gets the content of the member's <![CDATA[<summary />]]> text or <c>null</c> is no summary was found.
@@ -68,12 +68,9 @@ public abstract class MemberDescription : IDocumentationNode
     /// </summary>
     /// <param name="id">The name/id of the member</param>
     /// <exception cref="ArgumentException">Thrown if <paramref name="id"/> is null or whitespace</exception>
-    public MemberDescription(string id)
+    public MemberDescription(MemberId id)
     {
-        if (String.IsNullOrWhiteSpace(id))
-            throw new ArgumentException("Value must not be null or whitespace", nameof(id));
-
-        Id = id;
+        Id = id ?? throw new ArgumentNullException(nameof(id));
     }
 
 
@@ -90,24 +87,21 @@ public abstract class MemberDescription : IDocumentationNode
     {
         xml.EnsureNameIs("member");
 
-        var id = xml.RequireAttribute("name").RequireValue();
-
-        var type = id is { Length: >= 2 } && id[1] == ':'
-            ? id[0].ToString()
-            : null;
-
-        return type switch
+        if (!MemberId.TryParse(xml.RequireAttribute("name").RequireValue(), out var id))
         {
-            "N" => NamespaceDescription.FromXml(xml),
-            "T" => TypeDescription.FromXml(xml),
-            "F" => FieldDescription.FromXml(xml),
-            "P" => PropertyDescription.FromXml(xml),
-            "M" => MethodDescription.FromXml(xml),
-            "E" => EventDescription.FromXml(xml),
-            _ => throw new NotImplementedException() //TODO: Handle unknown Id
-        };
+            throw new NotImplementedException(); //TODO: Handle unknown Id
+        }
 
-        //TODO: Handle unknown XML elements
+        return id.Type switch
+        {
+            MemberType.Namespace => NamespaceDescription.FromXml(id, xml),
+            MemberType.Type => TypeDescription.FromXml(id, xml),
+            MemberType.Field => FieldDescription.FromXml(id, xml),
+            MemberType.Property => PropertyDescription.FromXml(id, xml),
+            MemberType.Method => MethodDescription.FromXml(id, xml),
+            MemberType.Event => EventDescription.FromXml(id, xml),
+            _ => throw new InvalidOperationException()
+        };
     }
 
 
