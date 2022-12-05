@@ -1,12 +1,13 @@
 ﻿namespace Grynwald.XmlDocReader;
 
+/// <summary>
+/// The interface for a visitor that traverses the object structure of a XML documentation file.
+/// </summary>
 public interface IDocumentationVisitor
 {
     void Visit(DocumentationFile documentationFile);
 
     void Visit(MemberDescription member);
-
-    void Visit(TextBlock textBlock);
 
     void Visit(ParameterDescription param);
 
@@ -14,27 +15,29 @@ public interface IDocumentationVisitor
 
     void Visit(ExceptionDescription exception);
 
+    void Visit(SeeAlsoUrlReferenceDescription seeAlso);
+
+    void Visit(SeeAlsoCodeReferenceDescription seeAlso);
+
+    void Visit(TextBlock textBlock);
+
+    void Visit(PlainTextElement plainText);
+
     void Visit(ListElement list);
+
+    void Visit(ListItemElement item);
 
     void Visit(CElement c);
 
     void Visit(CodeElement code);
 
-    void Visit(ListItemElement item);
-
     void Visit(ParagraphElement para);
 
     void Visit(ParameterReferenceElement paramRef);
 
-    void Visit(PlainTextElement plainText);
+    void Visit(TypeParameterReferenceElement typeParamRef);
 
     void Visit(SeeCodeReferenceElement see);
 
     void Visit(SeeUrlReferenceElement see);
-
-    void Visit(TypeParameterReferenceElement typeParamRef);
-
-    void Visit(SeeAlsoUrlReferenceDescription seeAlso);
-
-    void Visit(SeeAlsoCodeReferenceDescription seeAlso);
 }

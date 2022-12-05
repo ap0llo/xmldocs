@@ -1,5 +1,8 @@
 ﻿namespace Grynwald.XmlDocReader;
 
+/// <summary>
+/// Base interface for any element in the XML documentation file obejct structure that can be processed by a <see cref="IDocumentationVisitor"/>.
+/// </summary>
 public interface IDocumentationNode
 {
     /// <summary>
