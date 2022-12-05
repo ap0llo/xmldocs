@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-
-namespace Grynwald.XmlDocReader;
+﻿namespace Grynwald.XmlDocReader;
 
 /// <summary>
 /// Represents a <c><![CDATA[<see />]]></c> element referencing an external URL

@@ -20,7 +20,7 @@ public class SeeAlsoCodeReferenceDescription : SeeAlsoDescription
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="reference"/> is <c>null</c>.</exception>
     public SeeAlsoCodeReferenceDescription(string reference, TextBlock? text) : base(text)
     {
-        Reference = reference ?? throw new ArgumentNullException(nameof(reference));
+        Reference = reference ?? throw new ArgumentNullException(nameof(reference));  //TODO: Check for null or whitespace
     }
 
 

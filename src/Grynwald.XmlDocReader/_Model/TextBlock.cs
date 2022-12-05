@@ -96,7 +96,7 @@ public class TextBlock : IEquatable<TextBlock>, IDocumentationNode
                     "see" => SeeElement.FromXml(element),
                     "list" => ListElement.FromXml(element),
 
-                    //TODO: <em> <i> <b>
+                    //TODO: <em> <i> <b> <br/>
                     //TODO: Handle unknown elements
 
                     _ => default(TextElement)

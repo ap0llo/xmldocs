@@ -16,21 +16,21 @@
 /// <example>
 /// A <c><![CDATA[<seealso />]]></c> element without a description text referring to a code element:
 /// <code language="xml"><![CDATA[
-///     <seeaslo cref="MyClass.Method1" />
+///     <seealso cref="MyClass.Method1" />
 /// ]]>
 /// </code>
 /// </example>
 /// <example>
 /// A <c><![CDATA[<seealso />]]></c> element without a description text referring to a URL:
 /// <code language="xml"><![CDATA[
-///     <seeaslo href="https://example.com" />
+///     <seealso href="https://example.com" />
 /// ]]>
 /// </code>
 /// </example>
 /// <example>
 /// A <c><![CDATA[<seealso />]]></c> element with a description text referring to a code element:
 /// <code language="xml"><![CDATA[
-///     <seeaslo cref="MyClass.Method1">Some Description text</seealso>
+///     <seealso cref="MyClass.Method1">Some Description text</seealso>
 /// ]]>
 /// </code>
 /// </example>
@@ -68,7 +68,6 @@ public abstract class SeeAlsoDescription : IDocumentationNode
     /// <returns>
     /// Returns a <see cref="SeeAlsoCodeReferenceDescription"/> if the <c><![CDATA[<seealso />]]></c> element refers to a code element using the <c>cref</c> tag or a
     /// <see cref="SeeAlsoUrlReferenceDescription"/> if the element refers to a URl using the <c>href</c> tag.
-    /// When both <c>cref</c> and <c>href</c> attributes are present, the <c>href</c> attribute is ignored.
     /// </returns>
     public static SeeAlsoDescription FromXml(XElement xml)
     {

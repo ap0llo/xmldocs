@@ -2,6 +2,8 @@
 
 //TODO: Add access to underlying XML to each model object?
 //TODO: Differentiate between different kinds of members (Types, field, properties, methods ..)
+//TODO: Implement equality members for all types
+//TODO: Support multiple examples
 /// <summary>
 /// Represents the documentation of a single member in the documentation file.
 /// </summary>
@@ -40,7 +42,6 @@ public class MemberDescription : IDocumentationNode
     /// Gets the content of the member's <![CDATA[<example />]]> text or <c>null</c> is no example text was found.
     /// </summary>
     public TextBlock? Example { get; init; }
-
 
     /// <summary>
     /// Gets the all of the member's <![CDATA[<param />]]> descriptions.

@@ -1,7 +1,7 @@
 ﻿namespace Grynwald.XmlDocReader;
 
 /// <summary>
-/// Represents a <c><![CDATA[<paramref />]]></c> element in XML documentation comments.
+/// Represents a <c><![CDATA[<paramref />]]></c> text element in XML documentation comments.
 /// </summary>
 /// <remarks>
 /// The <c>paramref</c> tag allows referencing a method's parameter.

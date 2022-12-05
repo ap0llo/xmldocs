@@ -90,7 +90,5 @@ public sealed class ListItemElement : TextElement, IEquatable<ListItemElement>
         //TODO: Should description really be optional???
 
         return new ListItemElement(term, description);
-
-
     }
 }

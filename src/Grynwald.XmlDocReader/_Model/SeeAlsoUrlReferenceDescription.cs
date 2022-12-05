@@ -1,7 +1,7 @@
 ﻿namespace Grynwald.XmlDocReader;
 
 /// <summary>
-/// Represents a <c><![CDATA[<seealso />]]></c> element referencing a external URL
+/// Represents a <c><![CDATA[<seealso />]]></c> element referencing an external URL
 /// </summary>
 /// <seealso cref="SeeAlsoDescription"/>
 public class SeeAlsoUrlReferenceDescription : SeeAlsoDescription
@@ -20,7 +20,7 @@ public class SeeAlsoUrlReferenceDescription : SeeAlsoDescription
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="link"/> is <c>null</c>.</exception>
     public SeeAlsoUrlReferenceDescription(string link, TextBlock? text) : base(text)
     {
-        Link = link ?? throw new ArgumentNullException(nameof(link));
+        Link = link ?? throw new ArgumentNullException(nameof(link)); //TODO: Check for null or whitespace
     }
 
 

@@ -4,6 +4,7 @@
 /// Represents a <c><![CDATA[<code>]]></c> text element in XML documentation comments.
 /// </summary>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags">Recommended XML tags for C# documentation comments (Microsoft Learn)</seealso>
+//TODO: Should content be allowed to be null? (e.g. for <code />)
 public class CodeElement : TextElement, IEquatable<CodeElement>
 {
     /// <summary>

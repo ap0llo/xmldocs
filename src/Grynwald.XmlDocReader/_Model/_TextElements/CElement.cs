@@ -4,6 +4,7 @@
 /// Represents a <c><![CDATA[<c>]]></c> text element in XML documentation comments.
 /// </summary>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags">Recommended XML tags for C# documentation comments (Microsoft Learn)</seealso>
+//TODO: Should content be allowed to be null? (e.g. for <c />)
 public class CElement : TextElement, IEquatable<CElement>
 {
     /// <summary>
@@ -37,6 +38,7 @@ public class CElement : TextElement, IEquatable<CElement>
 
     /// <inheritdoc cref="FromXml(XElement)"/>
     public static CElement FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
+
 
     /// <summary>
     /// Creates a <see cref="CElement" /> from its XML representation.
