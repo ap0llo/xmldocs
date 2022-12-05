@@ -28,39 +28,14 @@ public abstract class MemberDescription : IDocumentationNode
     public TextBlock? Remarks { get; init; }
 
     /// <summary>
-    /// Gets the content of the member's <![CDATA[<value />]]> text or <c>null</c> is no value text was found.
-    /// </summary>
-    public TextBlock? Value { get; init; }
-
-    /// <summary>
-    /// Gets the content of the member's <![CDATA[<returns />]]> text or <c>null</c> is no returns text was found.
-    /// </summary>
-    public TextBlock? Returns { get; init; }
-
-    /// <summary>
     /// Gets the content of the member's <![CDATA[<example />]]> text or <c>null</c> is no example text was found.
     /// </summary>
     public TextBlock? Example { get; init; }
 
     /// <summary>
-    /// Gets the all of the member's <![CDATA[<param />]]> descriptions.
-    /// </summary>
-    public IReadOnlyList<ParameterDescription> Parameters { get; init; } = Array.Empty<ParameterDescription>();
-
-    /// <summary>
-    /// Gets the all of the member's <![CDATA[<typeparam />]]> descriptions.
-    /// </summary>
-    public IReadOnlyList<TypeParameterDescription> TypeParameters { get; init; } = Array.Empty<TypeParameterDescription>();
-
-    /// <summary>
     /// Gets the all of the member's <![CDATA[<seealso />]]> descriptions.
     /// </summary>
     public IReadOnlyList<SeeAlsoDescription> SeeAlso { get; init; } = Array.Empty<SeeAlsoDescription>();
-
-    /// <summary>
-    /// Gets the all of the member's <![CDATA[<exception />]]> descriptions.
-    /// </summary>
-    public IReadOnlyList<ExceptionDescription> Exceptions { get; init; } = Array.Empty<ExceptionDescription>();
 
 
     /// <summary>

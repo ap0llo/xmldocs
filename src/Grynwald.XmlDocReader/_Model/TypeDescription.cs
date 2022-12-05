@@ -2,6 +2,12 @@
 
 public class TypeDescription : MemberDescription
 {
+    /// <summary>
+    /// Gets the all of the type's <![CDATA[<typeparam />]]> descriptions.
+    /// </summary>
+    public IReadOnlyList<TypeParameterDescription> TypeParameters { get; init; } = Array.Empty<TypeParameterDescription>();
+
+
     public TypeDescription(MemberId id) : base(id)
     { }
 
@@ -16,13 +22,9 @@ public class TypeDescription : MemberDescription
         {
             Summary = TryReadTextBlock(xml, "summary"),
             Remarks = TryReadTextBlock(xml, "remarks"),
-            Returns = TryReadTextBlock(xml, "returns"),
-            Value = TryReadTextBlock(xml, "value"),
             Example = TryReadTextBlock(xml, "example"),
-            Parameters = xml.Elements("param").Select(ParameterDescription.FromXml).ToList(),
             TypeParameters = xml.Elements("typeparam").Select(TypeParameterDescription.FromXml).ToList(),
             SeeAlso = xml.Elements("seealso").Select(SeeAlsoDescription.FromXml).ToList(),
-            Exceptions = xml.Elements("exception").Select(ExceptionDescription.FromXml).ToList(),
         };
 
         //TODO: Handle duplicate XML elements (e.g. multiple <summary /> elements)

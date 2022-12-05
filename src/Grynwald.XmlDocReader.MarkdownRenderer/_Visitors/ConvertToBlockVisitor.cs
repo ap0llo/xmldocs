@@ -360,18 +360,18 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void VisitValue(MemberDescription member)
+    public override void VisitValue(MemberDescription propertyOrValue, TextBlock? value)
     {
-        if (member.Value is not null)
+        if (value is not null)
         {
             EndParagraph();
             CurrentBlock.Add(new MdHeading(3, "Value"));
-            base.VisitValue(member);
+            base.VisitValue(propertyOrValue, value);
         }
     }
 
     /// <inheritdoc />
-    public override void VisitReturns(MemberDescription member)
+    public override void VisitReturns(MethodDescription member)
     {
         if (member.Returns is not null)
         {
@@ -393,38 +393,36 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void VisitParameters(MemberDescription member)
+    public override void VisitParameters(MemberDescription methodOrProperty, IReadOnlyList<ParameterDescription> parameters)
     {
-        if (member.Parameters.Count > 0)
+        if (parameters.Count > 0)
         {
             EndParagraph();
             CurrentBlock.Add(new MdHeading(3, "Parameters"));
-            base.VisitParameters(member);
+            base.VisitParameters(methodOrProperty, parameters);
         }
     }
 
     /// <inheritdoc />
-    public override void VisitTypeParameters(MemberDescription member)
+    public override void VisitTypeParameters(MemberDescription typeOrMethod, IReadOnlyCollection<TypeParameterDescription> typeParameters)
     {
-        if (member.TypeParameters.Count > 0)
+        if (typeParameters.Count > 0)
         {
             EndParagraph();
             CurrentBlock.Add(new MdHeading(3, "Type Parameters"));
-            base.VisitTypeParameters(member);
+            base.VisitTypeParameters(typeOrMethod, typeParameters);
         }
     }
 
     /// <inheritdoc />
-    public override void VisitExceptions(MemberDescription member)
+    public override void VisitExceptions(MemberDescription methodOrPropertyOrEvent, IReadOnlyList<ExceptionDescription> exceptions)
     {
-        EndParagraph();
-
-        if (member.Exceptions.Count > 0)
+        if (exceptions.Count > 0)
         {
+            EndParagraph();
             CurrentBlock.Add(new MdHeading(3, "Exceptions"));
+            base.VisitExceptions(methodOrPropertyOrEvent, exceptions);
         }
-
-        base.VisitExceptions(member);
     }
 
     /// <inheritdoc />

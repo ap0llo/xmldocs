@@ -19,111 +19,67 @@ public class DocumentationVisitor : IDocumentationVisitor
     }
 
     /// <inheritdoc />
-    public virtual void Visit(NamespaceDescription member)
+    public virtual void Visit(NamespaceDescription @namespace)
     {
-        VisitSummary(member);
-        VisitRemarks(member);
-        VisitValue(member);
-        VisitReturns(member);
-        VisitExample(member);
-
-        VisitParameters(member);
-
-        VisitTypeParameters(member);
-
-        VisitExceptions(member);
-
-        VisitSeeAlso(member);
+        VisitSummary(@namespace);
+        VisitRemarks(@namespace);
+        VisitExample(@namespace);
+        VisitSeeAlso(@namespace);
     }
 
     /// <inheritdoc />
-    public virtual void Visit(TypeDescription member)
+    public virtual void Visit(TypeDescription type)
     {
-        VisitSummary(member);
-        VisitRemarks(member);
-        VisitValue(member);
-        VisitReturns(member);
-        VisitExample(member);
-
-        VisitParameters(member);
-
-        VisitTypeParameters(member);
-
-        VisitExceptions(member);
-
-        VisitSeeAlso(member);
+        VisitSummary(type);
+        VisitRemarks(type);
+        VisitExample(type);
+        VisitTypeParameters(type, type.TypeParameters);
+        VisitSeeAlso(type);
     }
 
     /// <inheritdoc />
-    public virtual void Visit(FieldDescription member)
+    public virtual void Visit(FieldDescription field)
     {
-        VisitSummary(member);
-        VisitRemarks(member);
-        VisitValue(member);
-        VisitReturns(member);
-        VisitExample(member);
-
-        VisitParameters(member);
-
-        VisitTypeParameters(member);
-
-        VisitExceptions(member);
-
-        VisitSeeAlso(member);
+        VisitSummary(field);
+        VisitRemarks(field);
+        VisitValue(field, field.Value);
+        VisitExample(field);
+        VisitSeeAlso(field);
     }
 
     /// <inheritdoc />
-    public virtual void Visit(PropertyDescription member)
+    public virtual void Visit(PropertyDescription property)
     {
-        VisitSummary(member);
-        VisitRemarks(member);
-        VisitValue(member);
-        VisitReturns(member);
-        VisitExample(member);
-
-        VisitParameters(member);
-
-        VisitTypeParameters(member);
-
-        VisitExceptions(member);
-
-        VisitSeeAlso(member);
+        VisitSummary(property);
+        VisitRemarks(property);
+        VisitValue(property, property.Value);
+        VisitExample(property);
+        VisitParameters(property, property.Parameters);
+        VisitExceptions(property, property.Exceptions);
+        VisitSeeAlso(property);
     }
 
     /// <inheritdoc />
-    public virtual void Visit(MethodDescription member)
+    public virtual void Visit(MethodDescription method)
     {
-        VisitSummary(member);
-        VisitRemarks(member);
-        VisitValue(member);
-        VisitReturns(member);
-        VisitExample(member);
-
-        VisitParameters(member);
-
-        VisitTypeParameters(member);
-
-        VisitExceptions(member);
-
-        VisitSeeAlso(member);
+        VisitSummary(method);
+        VisitRemarks(method);
+        VisitReturns(method);
+        VisitExample(method);
+        VisitParameters(method, method.Parameters);
+        VisitTypeParameters(method, method.TypeParameters);
+        VisitExceptions(method, method.Exceptions);
+        VisitSeeAlso(method);
     }
 
     /// <inheritdoc />
-    public virtual void Visit(EventDescription member)
+    public virtual void Visit(EventDescription @event)
     {
-        VisitSummary(member);
-        VisitRemarks(member);
-        VisitValue(member);
-        VisitReturns(member);
-        VisitExample(member);
-
-        VisitParameters(member);
-
-        VisitTypeParameters(member);
-
-        VisitExceptions(member);
-
-        VisitSeeAlso(member);
+        VisitSummary(@event);
+        VisitRemarks(@event);
+        VisitExample(@event);
+        VisitExceptions(@event, @event.Exceptions);
+        VisitSeeAlso(@event);
     }
 
     /// <inheritdoc />
@@ -232,7 +188,7 @@ public class DocumentationVisitor : IDocumentationVisitor
     /// This method is called by the <c>Visit()</c> methods for types derived from <see cref="MemberDescription" /> instead of visiting the <see cref="MemberDescription.Summary" /> text block directly
     /// to allow derived visitors to perform actions specifically before or after the Summary is processed without having to re-implement the <c>Visit()</c> method.
     /// <para>
-    /// Note that this method will ablso be called if <see cref="MemberDescription.Summary"/> is <c>null</c>.
+    /// Note that this method will also be called if <see cref="MemberDescription.Summary"/> is <c>null</c>.
     /// </para>
     /// </remarks>
     /// <seealso cref="MemberDescription.Summary"/>
@@ -248,7 +204,7 @@ public class DocumentationVisitor : IDocumentationVisitor
     /// This method is called by the <c>Visit()</c> methods for types derived from <see cref="MemberDescription" /> instead of visiting the <see cref="MemberDescription.Remarks" /> text block directly
     /// to allow derived visitors to perform actions specifically before or after the <c>Remarks</c> is processed without having to re-implement the <c>Visit()</c> method.
     /// <para>
-    /// Note that this method will ablso be called if <see cref="MemberDescription.Remarks"/> is <c>null</c>.
+    /// Note that this method will also be called if <see cref="MemberDescription.Remarks"/> is <c>null</c>.
     /// </para>
     /// </remarks>
     /// <seealso cref="MemberDescription.Remarks"/>
@@ -258,33 +214,34 @@ public class DocumentationVisitor : IDocumentationVisitor
     }
 
     /// <summary>
-    /// Visits a a MemberDescription's <c>Value</c>.
+    /// Visits a a FieldDescription's of PropertyDescription's <c>Value</c>.
     /// </summary>
     /// <remarks>
-    /// This method is called by the <c>Visit()</c> methods for types derived from <see cref="MemberDescription" /> instead of visiting the <see cref="MemberDescription.Value" /> text block directly
+    /// This method is called by <see cref="Visit(FieldDescription)"/> and <see cref="Visit(PropertyDescription)"/> instead of visiting the <c>Value</c> text block directly
     /// to allow derived visitors to perform actions specifically before or after <c>Value</c> is processed without having to re-implement the <c>Visit()</c> method.
     /// <para>
-    /// Note that this method will ablso be called if <see cref="MemberDescription.Value"/> is <c>null</c>.
+    /// Note that this method will also be called if <see cref="FieldDescription.Value"/>/<see cref="PropertyDescription.Value"/> is <c>null</c>.
     /// </para>
     /// </remarks>
-    /// <seealso cref="MemberDescription.Value"/>
-    public virtual void VisitValue(MemberDescription member)
+    /// <seealso cref="FieldDescription.Value"/>
+    /// <seealso cref="PropertyDescription.Value"/>
+    public virtual void VisitValue(MemberDescription fieldOrProperty, TextBlock? value)
     {
-        member.Value?.Accept(this);
+        value?.Accept(this);
     }
 
     /// <summary>
-    /// Visits a a MemberDescription's <c>Returns</c>.
+    /// Visits a a MethodDescription's <c>Returns</c>.
     /// </summary>
     /// <remarks>
-    /// This method is called by the <c>Visit()</c> methods for types derived from <see cref="MemberDescription" /> instead of visiting the <see cref="MemberDescription.Returns" /> text block directly
+    /// This method is called by <see cref="Visit(MethodDescription)"/> instead of visiting the <see cref="MethodDescription.Returns" /> text block directly
     /// to allow derived visitors to perform actions specifically before or after <c>Returns</c> is processed without having to re-implement the <c>Visit()</c> method.
     /// <para>
-    /// Note that this method will ablso be called if <see cref="MemberDescription.Returns"/> is <c>null</c>.
+    /// Note that this method will also be called if <see cref="MethodDescription.Returns"/> is <c>null</c>.
     /// </para>
     /// </remarks>
-    /// <seealso cref="MemberDescription.Returns"/>
-    public virtual void VisitReturns(MemberDescription member)
+    /// <seealso cref="MethodDescription.Returns"/>
+    public virtual void VisitReturns(MethodDescription member)
     {
         member.Returns?.Accept(this);
     }
@@ -296,7 +253,7 @@ public class DocumentationVisitor : IDocumentationVisitor
     /// This method is called by the <c>Visit()</c> methods for types derived from <see cref="MemberDescription" /> instead of visiting the <see cref="MemberDescription.Example" /> text block directly
     /// to allow derived visitors to perform actions specifically before or after <c>Example</c> is processed without having to re-implement the <c>Visit()</c> method.
     /// <para>
-    /// Note that this method will ablso be called if <see cref="MemberDescription.Example"/> is <c>null</c>.
+    /// Note that this method will also be called if <see cref="MemberDescription.Example"/> is <c>null</c>.
     /// </para>
     /// </remarks>
     /// <seealso cref="MemberDescription.Example"/>
@@ -306,38 +263,40 @@ public class DocumentationVisitor : IDocumentationVisitor
     }
 
     /// <summary>
-    /// Visits a a MemberDescription's parameters.
+    /// Visits a a PropertyDescription's or MethodDescription's parameters.
     /// </summary>
     /// <remarks>
-    /// This method is called by the <c>Visit()</c> methods for types derived from <see cref="MemberDescription" /> instead of visiting the items in <see cref="MemberDescription.Parameters" /> directly
-    /// to allow derived visitors to perform actions specifically before or after <c>Parameters</c> is processed without having to re-implement the <c>Visit()</c> method.
+    /// This method is called by <see cref="Visit(MethodDescription)"/> and <see cref="Visit(PropertyDescription)"/> instead of visiting the parameters directly
+    /// to allow derived visitors to perform actions specifically before or after <c>Parameters</c> are processed without having to re-implement the <c>Visit()</c> method.
     /// <para>
-    /// Note that this method will ablso be called if <see cref="MemberDescription.Parameters"/> is empty.
+    /// Note that this method will also be called if <see cref="MethodDescription.Parameters"/> or <see cref="PropertyDescription.Parameters"/> is empty.
     /// </para>
     /// </remarks>
-    /// <seealso cref="MemberDescription.Parameters"/>
-    public virtual void VisitParameters(MemberDescription member)
+    /// <seealso cref="MethodDescription.Parameters"/>
+    /// <seealso cref="PropertyDescription.Parameters"/>
+    public virtual void VisitParameters(MemberDescription methodOrProperty, IReadOnlyList<ParameterDescription> parameters)
     {
-        foreach (var parameter in member.Parameters)
+        foreach (var parameter in parameters)
         {
             parameter.Accept(this);
         }
     }
 
     /// <summary>
-    /// Visits a a MemberDescription's type parameters.
+    /// Visits a a TypeDescription's of MethodDescription's type parameters.
     /// </summary>
     /// <remarks>
-    /// This method is called by the <c>Visit()</c> methods for types derived from <see cref="MemberDescription" /> instead of visiting the items in <see cref="MemberDescription.TypeParameters" /> directly
+    /// This method is called by <see cref="Visit(TypeDescription)"/> and <see cref="Visit(MethodDescription)"/> instead of visiting the items in <c>TypeParameters</c> directly
     /// to allow derived visitors to perform actions specifically before or after <c>TypeParameters</c> is processed without having to re-implement the <c>Visit()</c> method.
     /// <para>
-    /// Note that this method will ablso be called if <see cref="MemberDescription.TypeParameters"/> is empty.
+    /// Note that this method will also be called if <see cref="TypeDescription.TypeParameters"/> of <see cref="MethodDescription.TypeParameters"/> is empty.
     /// </para>
     /// </remarks>
-    /// <seealso cref="MemberDescription.TypeParameters"/>
-    public virtual void VisitTypeParameters(MemberDescription member)
+    /// <seealso cref="TypeDescription.TypeParameters"/>
+    /// <seealso cref="MethodDescription.TypeParameters"/>
+    public virtual void VisitTypeParameters(MemberDescription typeOrMethod, IReadOnlyCollection<TypeParameterDescription> typeParameters)
     {
-        foreach (var typeParameter in member.TypeParameters)
+        foreach (var typeParameter in typeParameters)
         {
             typeParameter.Accept(this);
         }
@@ -347,16 +306,18 @@ public class DocumentationVisitor : IDocumentationVisitor
     /// Visits a a MemberDescription's exceptions.
     /// </summary>
     /// <remarks>
-    /// This method is called by the <c>Visit()</c> methods for types derived from <see cref="MemberDescription" /> instead of visiting the items in <see cref="MemberDescription.Exceptions" /> directly
+    /// This method is called by <see cref="Visit(MethodDescription)"/>, <see cref="Visit(PropertyDescription)"/> and <see cref="Visit(EventDescription)"/> instead of visiting the items in <c>Exceptions</c> directly
     /// to allow derived visitors to perform actions specifically before or after <c>Exceptions</c> is processed without having to re-implement the <c>Visit()</c> method.
     /// <para>
-    /// Note that this method will ablso be called if <see cref="MemberDescription.Exceptions"/> is empty.
+    /// Note that this method will also be called if <see cref="MethodDescription.Exceptions"/>, <see cref="PropertyDescription.Exceptions" /> or <see cref="EventDescription.Exceptions"/> is empty.
     /// </para>
     /// </remarks>
-    /// <seealso cref="MemberDescription.Exceptions"/>
-    public virtual void VisitExceptions(MemberDescription member)
+    /// <seealso cref="MethodDescription.Exceptions"/>
+    /// <seealso cref="PropertyDescription.Exceptions"/>
+    /// <seealso cref="EventDescription.Exceptions"/>
+    public virtual void VisitExceptions(MemberDescription methodOrPropertyOrEvent, IReadOnlyList<ExceptionDescription> exceptions)
     {
-        foreach (var exception in member.Exceptions)
+        foreach (var exception in exceptions)
         {
             exception.Accept(this);
         }
@@ -369,7 +330,7 @@ public class DocumentationVisitor : IDocumentationVisitor
     /// This method is called by the <c>Visit()</c> methods for types derived from <see cref="MemberDescription" /> instead of visiting the items in <see cref="MemberDescription.SeeAlso" /> directly
     /// to allow derived visitors to perform actions specifically before or after <c>SeeAlso</c> is processed without having to re-implement the <c>Visit()</c> method.
     /// <para>
-    /// Note that this method will ablso be called if <see cref="MemberDescription.SeeAlso"/> is empty.
+    /// Note that this method will also be called if <see cref="MemberDescription.SeeAlso"/> is empty.
     /// </para>
     /// </remarks>
     /// <seealso cref="MemberDescription.SeeAlso"/>

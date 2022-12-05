@@ -628,9 +628,6 @@ public class MarkdownConverterTest
                     <remarks>
                         Some remarks.
                     </remarks>
-                    <value>
-                        Description of value.
-                    </value>
                     <returns>
                         Documentation of return value.
                     </returns>
@@ -658,10 +655,6 @@ public class MarkdownConverterTest
 
             Some remarks.
 
-            ### Value
-
-            Description of value.
-
             ### Returns
 
             Documentation of return value.
@@ -683,6 +676,74 @@ public class MarkdownConverterTest
             `T1`
 
             Some Description
+
+            ### Exceptions
+
+            `InvalidOperationException`
+
+            Thrown if operation is invalid.
+
+            `NotSupportedException`
+
+            ### See Also
+            
+            [http://example.com](http://example.com/)  
+            [Link Text](http://example.com/)  
+            `MyNamespace.MyClass`
+            """
+            );
+
+            yield return TestCase(
+                "T42",
+                MemberDescription.FromXml("""
+                <member name="P:MyClass.MyProperty">
+                    <summary>
+                        Summary for this method.
+                    </summary>
+                    <remarks>
+                        Some remarks.
+                    </remarks>
+                    <value>
+                        Description of value.
+                    </value>
+                    <example>
+                        Some example
+                    </example>
+                    <param name="someParameter" />                    
+                    <param name="someOtherParameter">Description of <paramref name="someOtherParameter" />.</param>                   
+                    <exception cref="T:InvalidOperationException">Thrown if operation is invalid.</exception>
+                    <exception cref="T:NotSupportedException" />
+                    <seealso href="http://example.com" />
+                    <seealso href="http://example.com">Link Text</seealso>
+                    <seealso cref="T:MyNamespace.MyClass" />
+                </member>
+                """),
+                """
+            ## MyClass.MyProperty Property
+
+            ### Summary
+
+            Summary for this method.
+
+            ### Remarks
+
+            Some remarks.
+
+            ### Value
+
+            Description of value.
+
+            ### Example
+
+            Some example
+
+            ### Parameters
+
+            `someParameter`
+
+            `someOtherParameter`
+
+            Description of `someOtherParameter`.
 
             ### Exceptions
 

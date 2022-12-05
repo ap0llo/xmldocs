@@ -2,6 +2,12 @@
 
 public class EventDescription : MemberDescription
 {
+    /// <summary>
+    /// Gets the all of the member's <![CDATA[<exception />]]> descriptions.
+    /// </summary>
+    public IReadOnlyList<ExceptionDescription> Exceptions { get; init; } = Array.Empty<ExceptionDescription>();
+
+
     public EventDescription(MemberId id) : base(id)
     { }
 
@@ -16,11 +22,7 @@ public class EventDescription : MemberDescription
         {
             Summary = TryReadTextBlock(xml, "summary"),
             Remarks = TryReadTextBlock(xml, "remarks"),
-            Returns = TryReadTextBlock(xml, "returns"),
-            Value = TryReadTextBlock(xml, "value"),
             Example = TryReadTextBlock(xml, "example"),
-            Parameters = xml.Elements("param").Select(ParameterDescription.FromXml).ToList(),
-            TypeParameters = xml.Elements("typeparam").Select(TypeParameterDescription.FromXml).ToList(),
             SeeAlso = xml.Elements("seealso").Select(SeeAlsoDescription.FromXml).ToList(),
             Exceptions = xml.Elements("exception").Select(ExceptionDescription.FromXml).ToList(),
         };
