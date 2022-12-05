@@ -33,26 +33,85 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void Visit(MemberDescription member)
+    public override void Visit(NamespaceDescription member)
     {
-        if (!TryParseMemberId(member.Name, out var type, out var name))
-        {
-            type = null;
-            name = member.Name;
-        }
-
-        var displayType = type switch
-        {
-            "N" => " Namespace",
-            "F" => " Field",
-            "P" => " Property",
-            "M" => " Method",
-            "E" => " Event",
-            _ => ""
-        };
-
         EndParagraph();
-        CurrentBlock.Add(new MdHeading(2, $"{name}{displayType}"));
+
+        // remove type prefix ("N:")
+        var name = member.Id[2..];
+
+        CurrentBlock.Add(new MdHeading(2, $"{name} Namespace"));
+
+        base.Visit(member);
+    }
+
+
+    /// <inheritdoc />
+    public override void Visit(TypeDescription member)
+    {
+        EndParagraph();
+
+        // remove type prefix ("T:")
+        var name = member.Id[2..];
+
+        CurrentBlock.Add(new MdHeading(2, name));
+
+        base.Visit(member);
+    }
+
+
+    /// <inheritdoc />
+    public override void Visit(FieldDescription member)
+    {
+        EndParagraph();
+
+        // remove type prefix ("F:")
+        var name = member.Id[2..];
+
+        CurrentBlock.Add(new MdHeading(2, $"{name} Field"));
+
+        base.Visit(member);
+    }
+
+
+    /// <inheritdoc />
+    public override void Visit(PropertyDescription member)
+    {
+        EndParagraph();
+
+        // remove type prefix ("P:")
+        var name = member.Id[2..];
+
+        CurrentBlock.Add(new MdHeading(2, $"{name} Property"));
+
+        base.Visit(member);
+    }
+
+
+
+    /// <inheritdoc />
+    public override void Visit(MethodDescription member)
+    {
+        EndParagraph();
+
+        // remove type prefix ("M:")
+        var name = member.Id[2..];
+
+        CurrentBlock.Add(new MdHeading(2, $"{name} Method"));
+
+        base.Visit(member);
+    }
+
+
+    /// <inheritdoc />
+    public override void Visit(EventDescription member)
+    {
+        EndParagraph();
+
+        // remove type prefix ("E:")
+        var name = member.Id[2..];
+
+        CurrentBlock.Add(new MdHeading(2, $"{name} Event"));
 
         base.Visit(member);
     }

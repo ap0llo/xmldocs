@@ -30,14 +30,14 @@ public class MarkdownConverterTest
                 "T02",
                 new DocumentationFile(
                     "MyAssembly",
-                    new[]
+                    new MemberDescription[]
                     {
-                new MemberDescription("N:MyNamespace"),
-                new MemberDescription("T:MyNamespace.MyClass"),
-                new MemberDescription("F:MyNamespace.MyClass.Field"),
-                new MemberDescription("P:MyNamespace.MyClass.Property"),
-                new MemberDescription("M:MyNamespace.MyClass.Method"),
-                new MemberDescription("E:MyNamespace.MyClass.Event"),
+                        new NamespaceDescription("N:MyNamespace"),
+                        new TypeDescription("T:MyNamespace.MyClass"),
+                        new FieldDescription("F:MyNamespace.MyClass.Field"),
+                        new PropertyDescription("P:MyNamespace.MyClass.Property"),
+                        new MethodDescription("M:MyNamespace.MyClass.Method"),
+                        new EventDescription("E:MyNamespace.MyClass.Event"),
                     }),
                 """
             # MyAssembly
@@ -59,7 +59,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T03",
-                new MemberDescription("F:MyNamespace.MyClass.Field"),
+                new FieldDescription("F:MyNamespace.MyClass.Field"),
                 "## MyNamespace.MyClass.Field Field"
             );
 
@@ -735,15 +735,20 @@ public class MarkdownConverterTest
                 new object[] { id, input };
 
             yield return TestCase("T01", new DocumentationFile("MyAssembly", Array.Empty<MemberDescription>()));
-            yield return TestCase("T02", new MemberDescription("T:MyClass"));
-            yield return TestCase("T03", new ParameterDescription("parameter", null));
-            yield return TestCase("T04", new TypeParameterDescription("typeParameter", null));
-            yield return TestCase("T05", new ExceptionDescription("T:MyException", null));
-            yield return TestCase("T05", new SeeAlsoUrlReferenceDescription("https://example.com", null));
-            yield return TestCase("T06", new SeeAlsoCodeReferenceDescription("M:MyClass.Method", null));
-            yield return TestCase("T07", new CodeElement("Some code", null));
-            yield return TestCase("T08", new ListElement(ListType.Bullet, null, Array.Empty<ListItemElement>()));
-            yield return TestCase("T09", new ListItemElement(null, new TextBlock()));
+            yield return TestCase("T02", new NamespaceDescription("N:MyNamesapce"));
+            yield return TestCase("T03", new TypeDescription("T:MyClass"));
+            yield return TestCase("T04", new FieldDescription("F:MyClass.Field"));
+            yield return TestCase("T05", new PropertyDescription("P:MyClass.Property"));
+            yield return TestCase("T06", new MethodDescription("M:MyClass.Method"));
+            yield return TestCase("T07", new EventDescription("E:MyClass.Event"));
+            yield return TestCase("T08", new ParameterDescription("parameter", null));
+            yield return TestCase("T09", new TypeParameterDescription("typeParameter", null));
+            yield return TestCase("T10", new ExceptionDescription("T:MyException", null));
+            yield return TestCase("T11", new SeeAlsoUrlReferenceDescription("https://example.com", null));
+            yield return TestCase("T12", new SeeAlsoCodeReferenceDescription("M:MyClass.Method", null));
+            yield return TestCase("T13", new CodeElement("Some code", null));
+            yield return TestCase("T14", new ListElement(ListType.Bullet, null, Array.Empty<ListItemElement>()));
+            yield return TestCase("T15", new ListItemElement(null, new TextBlock()));
 
         }
 

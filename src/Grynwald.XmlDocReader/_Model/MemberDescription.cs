@@ -1,7 +1,6 @@
 ﻿namespace Grynwald.XmlDocReader;
 
 //TODO: Add access to underlying XML to each model object?
-//TODO: Differentiate between different kinds of members (Types, field, properties, methods ..)
 //TODO: Implement equality members for all types
 //TODO: Support multiple examples
 /// <summary>
@@ -11,12 +10,12 @@
 /// A member can be a namespace, type, field, property, method or event
 /// </remarks>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/">XML documentation comments (Microsoft Learn)</seealso>
-public class MemberDescription : IDocumentationNode
+public abstract class MemberDescription : IDocumentationNode
 {
     /// <summary>
-    /// Gets the name/id of the member.
+    /// Gets the id of the member.
     /// </summary>
-    public string Name { get; }
+    public string Id { get; }
 
     /// <summary>
     /// Gets the content of the member's <![CDATA[<summary />]]> text or <c>null</c> is no summary was found.
@@ -67,19 +66,19 @@ public class MemberDescription : IDocumentationNode
     /// <summary>
     /// Initializes a new instance of <see cref="MemberDescription" />.
     /// </summary>
-    /// <param name="name">The name/id of the member</param>
-    /// <exception cref="ArgumentException">Thrown if <paramref name="name"/> is null or whitespace</exception>
-    public MemberDescription(string name)
+    /// <param name="id">The name/id of the member</param>
+    /// <exception cref="ArgumentException">Thrown if <paramref name="id"/> is null or whitespace</exception>
+    public MemberDescription(string id)
     {
-        if (String.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Value must not be null or whitespace", nameof(name));
+        if (String.IsNullOrWhiteSpace(id))
+            throw new ArgumentException("Value must not be null or whitespace", nameof(id));
 
-        Name = name;
+        Id = id;
     }
 
 
     /// <inheritdoc />
-    public void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
+    public abstract void Accept(IDocumentationVisitor visitor);
 
     /// <inheritdoc  cref="FromXml(XElement)" />
     public static MemberDescription FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
@@ -91,28 +90,28 @@ public class MemberDescription : IDocumentationNode
     {
         xml.EnsureNameIs("member");
 
-        var name = xml.RequireAttribute("name").RequireValue();
-        var member = new MemberDescription(name)
+        var id = xml.RequireAttribute("name").RequireValue();
+
+        var type = id is { Length: >= 2 } && id[1] == ':'
+            ? id[0].ToString()
+            : null;
+
+        return type switch
         {
-            Summary = TryReadTextBlock(xml, "summary"),
-            Remarks = TryReadTextBlock(xml, "remarks"),
-            Returns = TryReadTextBlock(xml, "returns"),
-            Value = TryReadTextBlock(xml, "value"),
-            Example = TryReadTextBlock(xml, "example"),
-            Parameters = xml.Elements("param").Select(ParameterDescription.FromXml).ToList(),
-            TypeParameters = xml.Elements("typeparam").Select(TypeParameterDescription.FromXml).ToList(),
-            SeeAlso = xml.Elements("seealso").Select(SeeAlsoDescription.FromXml).ToList(),
-            Exceptions = xml.Elements("exception").Select(ExceptionDescription.FromXml).ToList(),
+            "N" => NamespaceDescription.FromXml(xml),
+            "T" => TypeDescription.FromXml(xml),
+            "F" => FieldDescription.FromXml(xml),
+            "P" => PropertyDescription.FromXml(xml),
+            "M" => MethodDescription.FromXml(xml),
+            "E" => EventDescription.FromXml(xml),
+            _ => throw new NotImplementedException() //TODO: Handle unknown Id
         };
 
         //TODO: Handle unknown XML elements
-        //TODO: Handle duplicate XML elements (e.g. multiple <summary /> elements)
-
-        return member;
     }
 
 
-    private static TextBlock? TryReadTextBlock(XElement parentElement, string elementName)
+    protected static TextBlock? TryReadTextBlock(XElement parentElement, string elementName)
     {
         return parentElement.Element(elementName) is XElement element
             ? TextBlock.FromXml(element)

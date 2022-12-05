@@ -18,7 +18,17 @@ public class ConvertToSpanVisitor : ConvertVisitorBase
 
     public override void Visit(DocumentationFile documentationFile) => ThrowUnsupportedNode();
 
-    public override void Visit(MemberDescription member) => ThrowUnsupportedNode();
+    public override void Visit(NamespaceDescription member) => ThrowUnsupportedNode();
+
+    public override void Visit(TypeDescription member) => ThrowUnsupportedNode();
+
+    public override void Visit(FieldDescription member) => ThrowUnsupportedNode();
+
+    public override void Visit(PropertyDescription member) => ThrowUnsupportedNode();
+
+    public override void Visit(MethodDescription member) => ThrowUnsupportedNode();
+
+    public override void Visit(EventDescription member) => ThrowUnsupportedNode();
 
     public override void Visit(ParameterDescription param) => ThrowUnsupportedNode();
 

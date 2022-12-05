@@ -7,7 +7,16 @@ public interface IDocumentationVisitor
 {
     void Visit(DocumentationFile documentationFile);
 
-    void Visit(MemberDescription member);
+    void Visit(NamespaceDescription member);
+
+    void Visit(TypeDescription member);
+
+    void Visit(FieldDescription member);
+
+    void Visit(PropertyDescription member);
+    void Visit(MethodDescription member);
+
+    void Visit(EventDescription member);
 
     void Visit(ParameterDescription param);
 

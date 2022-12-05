@@ -1,4 +1,5 @@
-﻿namespace Grynwald.XmlDocReader.Test;
+﻿using Xunit;
+namespace Grynwald.XmlDocReader.Test;
 
 /// <summary>
 /// Tests for <see cref="MemberDescription"/>
@@ -9,16 +10,16 @@ public class MemberDescriptionTest
     [InlineData(null)]
     [InlineData("")]
     [InlineData("  ")]
-    public void Name_must_not_be_null_or_whitespace(string name)
+    public void Id_must_not_be_null_or_whitespace(string id)
     {
         // ARRANGE
 
         // ACT 
-        var ex = Record.Exception(() => new MemberDescription(name));
+        var ex = Record.Exception(() => new NamespaceDescription(id));
 
         // ASSERT
         var argumentException = Assert.IsType<ArgumentException>(ex);
-        Assert.Equal("name", argumentException.ParamName);
+        Assert.Equal("id", argumentException.ParamName);
     }
 
     [Fact]
@@ -48,7 +49,7 @@ public class MemberDescriptionTest
         var sut = MemberDescription.FromXml(input);
 
         // ASSERT
-        Assert.Equal("T:Project.Class", sut.Name);
+        Assert.Equal("T:Project.Class", sut.Id);
 
         Assert.Null(sut.Summary);
 
@@ -72,6 +73,30 @@ public class MemberDescriptionTest
         Assert.NotNull(sut.Exceptions);
         Assert.Empty(sut.Exceptions);
     }
+
+
+    [Theory]
+    [InlineData("N:MyNamespace", typeof(NamespaceDescription))]
+    [InlineData("T:MyNamespace.MyClass", typeof(TypeDescription))]
+    [InlineData("F:MyNamespace.MyClass.FieldName", typeof(FieldDescription))]
+    [InlineData("P:MyNamespace.MyClass.PropertyName", typeof(PropertyDescription))]
+    [InlineData("M:MyNamespace.MyClass.Method(System.String)", typeof(MethodDescription))]
+    [InlineData("E:MyNamespace.MyClass.Event", typeof(EventDescription))]
+    public void FromXml_returns_expected_type(string id, Type expectedType)
+    {
+        // ARRANGE
+        var input = $"""
+                <member name="{id}">
+                </member>
+                """;
+        // ACT 
+        var member = MemberDescription.FromXml(input);
+
+        // ASSERT
+        Assert.IsType(expectedType, member);
+    }
+
+
 
     [Fact]
     public void FromXml_reads_summary_element()
