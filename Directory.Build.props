@@ -28,6 +28,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <!-- Disable warning CS1591 (missing XML documentation comments) -->
     <NoWarn>$(NoWarn),1591</NoWarn>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <!-- Reference SourceLink (see https://github.com/dotnet/sourcelink) -->
