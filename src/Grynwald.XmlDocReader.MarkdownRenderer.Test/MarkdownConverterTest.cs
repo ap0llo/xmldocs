@@ -799,7 +799,7 @@ public class MarkdownConverterTest
 
             // ASSERT
             Assert.IsType<InvalidOperationException>(ex);
-            Assert.Equal("ConvertToSpanVisitor can only convert text elements", ex.Message); //TODO: Add better error message
+            Assert.Equal($"Elments of type {input.GetType().Name} cannot be converted to inline Markdown text", ex.Message);
         }
 
         public static IEnumerable<object[]> TestCases()

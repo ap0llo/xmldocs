@@ -33,40 +33,40 @@ public class ConvertToSpanVisitor : DocumentationVisitor
 
 
     /// <inheritdoc />
-    public override void Visit(DocumentationFile documentationFile) => ThrowUnsupportedNode();
+    public override void Visit(DocumentationFile documentationFile) => ThrowUnsupportedNode(documentationFile);
 
     /// <inheritdoc />
-    public override void Visit(NamespaceMemberElement member) => ThrowUnsupportedNode();
+    public override void Visit(NamespaceMemberElement @namespace) => ThrowUnsupportedNode(@namespace);
 
     /// <inheritdoc />
-    public override void Visit(TypeMemberElement member) => ThrowUnsupportedNode();
+    public override void Visit(TypeMemberElement type) => ThrowUnsupportedNode(type);
 
     /// <inheritdoc />
-    public override void Visit(FieldMemberElement member) => ThrowUnsupportedNode();
+    public override void Visit(FieldMemberElement field) => ThrowUnsupportedNode(field);
 
     /// <inheritdoc />
-    public override void Visit(PropertyMemberElement member) => ThrowUnsupportedNode();
+    public override void Visit(PropertyMemberElement property) => ThrowUnsupportedNode(property);
 
     /// <inheritdoc />
-    public override void Visit(MethodMemberElement member) => ThrowUnsupportedNode();
+    public override void Visit(MethodMemberElement method) => ThrowUnsupportedNode(method);
 
     /// <inheritdoc />
-    public override void Visit(EventMemberElement member) => ThrowUnsupportedNode();
+    public override void Visit(EventMemberElement @event) => ThrowUnsupportedNode(@event);
 
     /// <inheritdoc />
-    public override void Visit(ParameterElement param) => ThrowUnsupportedNode();
+    public override void Visit(ParameterElement param) => ThrowUnsupportedNode(param);
 
     /// <inheritdoc />
-    public override void Visit(TypeParameterElement typeParam) => ThrowUnsupportedNode();
+    public override void Visit(TypeParameterElement typeParam) => ThrowUnsupportedNode(typeParam);
 
     /// <inheritdoc />
-    public override void Visit(ExceptionElement exception) => ThrowUnsupportedNode();
+    public override void Visit(ExceptionElement exception) => ThrowUnsupportedNode(exception);
 
     /// <inheritdoc />
-    public override void Visit(SeeAlsoUrlReferenceElement seeAlso) => ThrowUnsupportedNode();
+    public override void Visit(SeeAlsoUrlReferenceElement seeAlso) => ThrowUnsupportedNode(seeAlso);
 
     /// <inheritdoc />
-    public override void Visit(SeeAlsoCodeReferenceElement seeAlso) => ThrowUnsupportedNode();
+    public override void Visit(SeeAlsoCodeReferenceElement seeAlso) => ThrowUnsupportedNode(seeAlso);
 
     /// <inheritdoc />
     public override void Visit(PlainTextElement plainText)
@@ -75,10 +75,10 @@ public class ConvertToSpanVisitor : DocumentationVisitor
     }
 
     /// <inheritdoc />
-    public override void Visit(ListElement list) => ThrowUnsupportedNode();
+    public override void Visit(ListElement list) => ThrowUnsupportedNode(list);
 
     /// <inheritdoc />
-    public override void Visit(ListItemElement item) => ThrowUnsupportedNode();
+    public override void Visit(ListItemElement item) => ThrowUnsupportedNode(item);
 
     /// <inheritdoc />
     public override void Visit(CElement c)
@@ -88,7 +88,7 @@ public class ConvertToSpanVisitor : DocumentationVisitor
     }
 
     /// <inheritdoc />
-    public override void Visit(CodeElement code) => ThrowUnsupportedNode();
+    public override void Visit(CodeElement code) => ThrowUnsupportedNode(code);
 
     /// <inheritdoc />
     public override void Visit(ParagraphElement para)
@@ -156,5 +156,5 @@ public class ConvertToSpanVisitor : DocumentationVisitor
     }
 
 
-    private void ThrowUnsupportedNode() => throw new InvalidOperationException($"{nameof(ConvertToSpanVisitor)} can only convert text elements");
+    private void ThrowUnsupportedNode(DocumentationElement element) => throw new InvalidOperationException($"Elments of type {element.GetType().Name} cannot be converted to inline Markdown text");
 }
