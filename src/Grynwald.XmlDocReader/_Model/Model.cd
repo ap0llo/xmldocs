@@ -1,10 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Grynwald.XmlDocReader.TextBlock" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="18" Y="4.5" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
+  <Class Name="Grynwald.XmlDocReader.TextBlock" BaseTypeListCollapsed="true">
+    <Position X="43" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAgAAQAgAAAAAAAIAAACAAAAAAABA=</HashCode>
       <FileName>_Model\TextBlock.cs</FileName>
@@ -15,7 +12,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Grynwald.XmlDocReader.CElement" Collapsed="true">
-    <Position X="13.5" Y="7.25" Width="1.5" />
+    <Position X="40.5" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAgAAAAAAgAAAAAAAAAAAAIAAACAAAAAAAAA=</HashCode>
       <FileName>_Model\_Inlines\CElement.cs</FileName>
@@ -23,14 +20,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Grynwald.XmlDocReader.InlineElement" Collapsed="true">
-    <Position X="16.25" Y="5.5" Width="1.5" />
+    <Position X="43.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>_Model\_Inlines\InlineElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.ParameterReferenceElement" Collapsed="true">
-    <Position X="15.75" Y="7.25" Width="1.5" />
+    <Position X="42.75" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAgAAAAAQAAAAAAIAAACAAAAAAAAA=</HashCode>
       <FileName>_Model\_Inlines\ParameterReferenceElement.cs</FileName>
@@ -38,7 +35,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Grynwald.XmlDocReader.PlainTextElement" Collapsed="true">
-    <Position X="11.25" Y="7.25" Width="1.5" />
+    <Position X="38.25" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAgAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>_Model\_Inlines\PlainTextElement.cs</FileName>
@@ -46,7 +43,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Grynwald.XmlDocReader.SeeCodeReferenceElement" Collapsed="true">
-    <Position X="18" Y="8.75" Width="1.5" />
+    <Position X="45" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAACAAAAAAAAAgAAAAAAAAAAAAIAAACAAAAAAAAA=</HashCode>
       <FileName>_Model\_Inlines\SeeCodeReferenceElement.cs</FileName>
@@ -54,7 +51,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Grynwald.XmlDocReader.SeeUrlReferenceElement" Collapsed="true">
-    <Position X="20.25" Y="8.75" Width="1.5" />
+    <Position X="47.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAACAAQAAAAAA=</HashCode>
       <FileName>_Model\_Inlines\SeeUrlReferenceElement.cs</FileName>
@@ -62,14 +59,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Grynwald.XmlDocReader.BlockElement" Collapsed="true">
-    <Position X="5.5" Y="5.75" Width="1.5" />
+    <Position X="30.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>_Model\_Blocks\BlockElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.CodeElement" Collapsed="true">
-    <Position X="4.5" Y="7.25" Width="1.5" />
+    <Position X="29.5" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAACgAAAAAAgAAAAAAAAAAAAIAAACAAAAAAAAA=</HashCode>
       <FileName>_Model\_Blocks\CodeElement.cs</FileName>
@@ -77,7 +74,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Grynwald.XmlDocReader.ListElement" Collapsed="true">
-    <Position X="6.75" Y="7.25" Width="1.5" />
+    <Position X="31.75" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAACAAAgAAAAAAAAAAAAIAAASAAAABAAAA=</HashCode>
       <FileName>_Model\_Blocks\ListElement.cs</FileName>
@@ -85,7 +82,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Grynwald.XmlDocReader.ListItemElement" Collapsed="true">
-    <Position X="2.25" Y="7.25" Width="1.5" />
+    <Position X="27.25" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAgAAAAgAAAAAAAAAAAAIAAECAAAAAAAAA=</HashCode>
       <FileName>_Model\_Blocks\ListItemElement.cs</FileName>
@@ -93,7 +90,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Grynwald.XmlDocReader.ParagraphElement" Collapsed="true">
-    <Position X="9" Y="7.25" Width="1.5" />
+    <Position X="34" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAgAAAAAAgAAAAAAAAAAAAIAAACAAAAAAAAA=</HashCode>
       <FileName>_Model\_Blocks\ParagraphElement.cs</FileName>
@@ -101,14 +98,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Grynwald.XmlDocReader.SeeElement" Collapsed="true">
-    <Position X="19" Y="7.25" Width="1.5" />
+    <Position X="46" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAACAAAAAA=</HashCode>
       <FileName>_Model\_Inlines\SeeElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.TypeParameterReferenceElement" Collapsed="true">
-    <Position X="22.5" Y="7.25" Width="1.5" />
+    <Position X="49.5" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAgAAAAAQAAAAAAIAAACAAAAAAAAA=</HashCode>
       <FileName>_Model\_Inlines\TypeParameterReferenceElement.cs</FileName>
@@ -116,112 +113,116 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Grynwald.XmlDocReader.EventMemberElement" Collapsed="true">
-    <Position X="4" Y="2.75" Width="1.75" />
+    <Position X="3.5" Y="5.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAACAAAAAAAAA=</HashCode>
       <FileName>_Model\_Member\EventMemberElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.FieldMemberElement" Collapsed="true">
-    <Position X="8.75" Y="2.75" Width="1.75" />
+    <Position X="8.25" Y="5.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAgAAAAAAA=</HashCode>
       <FileName>_Model\_Member\FieldMemberElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.MemberElement" Collapsed="true">
-    <Position X="7.25" Y="1.5" Width="1.5" />
+    <Position X="6.75" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AICCAAAAAIAAAAAAABKAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <HashCode>AACCAAAAAIAAAAAAABKAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
       <FileName>_Model\_Member\MemberElement.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Grynwald.XmlDocReader.MethodMemberElement" Collapsed="true">
-    <Position X="1.75" Y="2.75" Width="2" />
+    <Position X="1.25" Y="5.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAACAAAAAAAAAAAAAAAAAAAIAAAKgAAAAAAAA=</HashCode>
       <FileName>_Model\_Member\MethodMemberElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.NamespaceMemberElement" Collapsed="true">
-    <Position X="6.25" Y="2.75" Width="2.25" />
+    <Position X="5.75" Y="5.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
       <FileName>_Model\_Member\NamespaceMemberElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.PropertyMemberElement" Collapsed="true">
-    <Position X="10.75" Y="2.75" Width="2" />
+    <Position X="10.25" Y="5.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAKAgAAAAAAA=</HashCode>
       <FileName>_Model\_Member\PropertyMemberElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.TypeMemberElement" Collapsed="true">
-    <Position X="13" Y="2.75" Width="1.75" />
+    <Position X="12.5" Y="5.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAACAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
       <FileName>_Model\_Member\TypeMemberElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.ExceptionElement" Collapsed="true">
-    <Position X="8.25" Y="10.5" Width="1.5" />
+    <Position X="22" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAACAAAAAAAAAAAAAAAAAAAAAAAAAACAACAAAAAA=</HashCode>
-      <FileName>_Model\_TopLevelElements\ExceptionElement.cs</FileName>
+      <FileName>_Model\_Sections\ExceptionElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.ParameterElement" Collapsed="true">
-    <Position X="1.5" Y="10.5" Width="1.5" />
+    <Position X="15.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAACAACAAAAAA=</HashCode>
-      <FileName>_Model\_TopLevelElements\ParameterElement.cs</FileName>
+      <FileName>_Model\_Sections\ParameterElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.SeeAlsoCodeReferenceElement" Collapsed="true">
-    <Position X="3.75" Y="12" Width="1.5" />
+    <Position X="17.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAACAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
-      <FileName>_Model\_TopLevelElements\SeeAlsoCodeReferenceElement.cs</FileName>
+      <FileName>_Model\_Sections\SeeAlsoCodeReferenceElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.SeeAlsoElement" Collapsed="true">
-    <Position X="5" Y="10.5" Width="1.5" />
+    <Position X="18.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAACAAAAAA=</HashCode>
-      <FileName>_Model\_TopLevelElements\SeeAlsoElement.cs</FileName>
+      <FileName>_Model\_Sections\SeeAlsoElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.SeeAlsoUrlReferenceElement" Collapsed="true">
-    <Position X="6" Y="12" Width="1.5" />
+    <Position X="19.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQAAAAAA=</HashCode>
-      <FileName>_Model\_TopLevelElements\SeeAlsoUrlReferenceElement.cs</FileName>
+      <FileName>_Model\_Sections\SeeAlsoUrlReferenceElement.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Grynwald.XmlDocReader.TopLevelElement" Collapsed="true">
-    <Position X="6" Y="9.25" Width="1.5" />
+  <Class Name="Grynwald.XmlDocReader.SectionElement" Collapsed="true">
+    <Position X="19.75" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>_Model\_TopLevelElements\TopLevelElement.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>_Model\_Sections\SectionElement.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Grynwald.XmlDocReader.TypeParameterElement" Collapsed="true">
-    <Position X="10.5" Y="10.5" Width="1.5" />
+    <Position X="24.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAACAACAAAAAA=</HashCode>
-      <FileName>_Model\_TopLevelElements\TypeParameterElement.cs</FileName>
+      <FileName>_Model\_Sections\TypeParameterElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.TextElement" Collapsed="true">
-    <Position X="12.25" Y="4.5" Width="1.5" />
+    <Position X="35.25" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>_Model\TextElement.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Grynwald.XmlDocReader.DocumentationElement" Collapsed="true">
+    <Position X="17.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>_Model\DocumentationElement.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

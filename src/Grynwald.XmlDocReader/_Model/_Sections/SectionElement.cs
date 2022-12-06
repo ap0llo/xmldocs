@@ -1,7 +1,5 @@
 ﻿namespace Grynwald.XmlDocReader;
 
-public abstract class SectionElement : IDocumentationNode
+public abstract class SectionElement : DocumentationElement
 {
-    /// <inheritdoc />
-    public abstract void Accept(IDocumentationVisitor visitor);
 }

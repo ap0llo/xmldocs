@@ -3,7 +3,7 @@
 public class MarkdownConverter : IMarkdownConverter
 {
     /// <inheritdoc />
-    public virtual MdBlock ConvertToBlock(IDocumentationNode documentationNode)
+    public virtual MdBlock ConvertToBlock(DocumentationElement documentationNode)
     {
         if (documentationNode is null)
             throw new ArgumentNullException(nameof(documentationNode));
@@ -15,7 +15,7 @@ public class MarkdownConverter : IMarkdownConverter
     }
 
     /// <inheritdoc />
-    public virtual MdSpan ConvertToSpan(IDocumentationNode documentationNode)
+    public virtual MdSpan ConvertToSpan(DocumentationElement documentationNode)
     {
         if (documentationNode is null)
             throw new ArgumentNullException(nameof(documentationNode));

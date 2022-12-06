@@ -1,10 +1,7 @@
 ﻿namespace Grynwald.XmlDocReader;
 
-public abstract class TextElement : IDocumentationNode
+public abstract class TextElement : DocumentationElement
 {
-    /// <inheritdoc />
-    public abstract void Accept(IDocumentationVisitor visitor);
-
     /// <inheritdoc />
     public abstract override int GetHashCode();
 

@@ -5,7 +5,7 @@ public interface IMarkdownConverter
     /// <summary>
     /// Converts the specified documentation node to a Markdown block.
     /// </summary>
-    MdBlock ConvertToBlock(IDocumentationNode documentationNode);
+    MdBlock ConvertToBlock(DocumentationElement documentationNode);
 
     /// <summary>
     /// Converts the specified documentation node to a Markdown span (inline text element).
@@ -15,5 +15,5 @@ public interface IMarkdownConverter
     /// </remarks>
     /// <param name="documentationNode"></param>
     // TODO: Introduce separate interface for inline elements?
-    MdSpan ConvertToSpan(IDocumentationNode documentationNode);
+    MdSpan ConvertToSpan(DocumentationElement documentationNode);
 }

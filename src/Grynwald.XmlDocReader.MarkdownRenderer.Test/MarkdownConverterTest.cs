@@ -16,7 +16,7 @@ public class MarkdownConverterTest
 
         public static IEnumerable<object[]> TestCases()
         {
-            object[] TestCase(string id, IDocumentationNode input, string expectedMarkdown) =>
+            object[] TestCase(string id, DocumentationElement input, string expectedMarkdown) =>
                 new object[] { id, input, expectedMarkdown };
 
 
@@ -748,7 +748,7 @@ public class MarkdownConverterTest
 
         [Theory]
         [MemberData(nameof(TestCases))]
-        public void Documentation_is_converted_to_expected_Markdown_content(string id, IDocumentationNode input, string expectedMarkdown)
+        public void Documentation_is_converted_to_expected_Markdown_content(string id, DocumentationElement input, string expectedMarkdown)
         {
             m_TestOutputHelper.WriteLine($"Test Id: {id}");
 
@@ -776,7 +776,7 @@ public class MarkdownConverterTest
 
         public static IEnumerable<object[]> UnsupportedDocumentationNodeTestCases()
         {
-            object[] TestCase(string id, IDocumentationNode input) =>
+            object[] TestCase(string id, DocumentationElement input) =>
                 new object[] { id, input };
 
             yield return TestCase("T01", new DocumentationFile("MyAssembly", Array.Empty<MemberElement>()));
@@ -799,7 +799,7 @@ public class MarkdownConverterTest
 
         [Theory]
         [MemberData(nameof(UnsupportedDocumentationNodeTestCases))]
-        public void Throws_InvalidOperationException_for_unsuppored_documentation_nodes(string id, IDocumentationNode input)
+        public void Throws_InvalidOperationException_for_unsuppored_documentation_nodes(string id, DocumentationElement input)
         {
             m_TestOutputHelper.WriteLine($"Test Id: {id}");
 
@@ -816,7 +816,7 @@ public class MarkdownConverterTest
 
         public static IEnumerable<object[]> TestCases()
         {
-            object[] TestCase(string id, IDocumentationNode input, string expectedMarkdown) =>
+            object[] TestCase(string id, DocumentationElement input, string expectedMarkdown) =>
                 new object[] { id, input, expectedMarkdown };
 
             yield return TestCase(
@@ -900,7 +900,7 @@ public class MarkdownConverterTest
 
         [Theory]
         [MemberData(nameof(TestCases))]
-        public void Documentation_is_converted_to_expected_Markdown_content(string id, IDocumentationNode input, string expectedMarkdown)
+        public void Documentation_is_converted_to_expected_Markdown_content(string id, DocumentationElement input, string expectedMarkdown)
         {
             m_TestOutputHelper.WriteLine($"Test Id: {id}");
 

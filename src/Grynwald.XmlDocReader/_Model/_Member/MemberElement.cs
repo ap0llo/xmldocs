@@ -10,7 +10,7 @@
 /// A member can be a namespace, type, field, property, method or event
 /// </remarks>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/">XML documentation comments (Microsoft Learn)</seealso>
-public abstract class MemberElement : IDocumentationNode
+public abstract class MemberElement : DocumentationElement
 {
     /// <summary>
     /// Gets the id of the member.
@@ -48,10 +48,7 @@ public abstract class MemberElement : IDocumentationNode
         Id = id ?? throw new ArgumentNullException(nameof(id));
     }
 
-
-    /// <inheritdoc />
-    public abstract void Accept(IDocumentationVisitor visitor);
-
+    
     /// <inheritdoc  cref="FromXml(XElement)" />
     public static MemberElement FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
 

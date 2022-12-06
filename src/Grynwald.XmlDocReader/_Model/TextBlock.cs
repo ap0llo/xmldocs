@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a block of formatted text in XML documentation comments.
 /// </summary>
-public class TextBlock : IEquatable<TextBlock>, IDocumentationNode
+public class TextBlock : DocumentationElement, IEquatable<TextBlock>
 {
     /// <summary>
     /// Gets the text block's text elements.
@@ -22,7 +22,7 @@ public class TextBlock : IEquatable<TextBlock>, IDocumentationNode
 
 
     /// <inheritdoc />
-    public void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
+    public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
 
     /// <inheritdoc />
     public override int GetHashCode()

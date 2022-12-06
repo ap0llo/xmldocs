@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a XML documentation file.
 /// </summary>
-public class DocumentationFile : IDocumentationNode
+public class DocumentationFile : DocumentationElement
 {
     /// <summary>
     /// Gets the name of the assembly the documetnation applies to.
@@ -34,7 +34,7 @@ public class DocumentationFile : IDocumentationNode
 
 
     /// <inheritdoc />
-    public void Accept(IDocumentationVisitor vistor) => vistor.Visit(this);
+    public override void Accept(IDocumentationVisitor vistor) => vistor.Visit(this);
 
     /// <summary>
     /// Creates a <see cref="DocumentationFile" /> by parsing a XML string.
