@@ -18,27 +18,27 @@ public class ConvertToSpanVisitor : ConvertVisitorBase
 
     public override void Visit(DocumentationFile documentationFile) => ThrowUnsupportedNode();
 
-    public override void Visit(NamespaceDescription member) => ThrowUnsupportedNode();
+    public override void Visit(NamespaceMemberElement member) => ThrowUnsupportedNode();
 
-    public override void Visit(TypeDescription member) => ThrowUnsupportedNode();
+    public override void Visit(TypeMemberElement member) => ThrowUnsupportedNode();
 
-    public override void Visit(FieldDescription member) => ThrowUnsupportedNode();
+    public override void Visit(FieldMemberElement member) => ThrowUnsupportedNode();
 
-    public override void Visit(PropertyDescription member) => ThrowUnsupportedNode();
+    public override void Visit(PropertyMemberElement member) => ThrowUnsupportedNode();
 
-    public override void Visit(MethodDescription member) => ThrowUnsupportedNode();
+    public override void Visit(MethodMemberElement member) => ThrowUnsupportedNode();
 
-    public override void Visit(EventDescription member) => ThrowUnsupportedNode();
+    public override void Visit(EventMemberElement member) => ThrowUnsupportedNode();
 
-    public override void Visit(ParameterDescription param) => ThrowUnsupportedNode();
+    public override void Visit(ParameterElement param) => ThrowUnsupportedNode();
 
-    public override void Visit(TypeParameterDescription typeParam) => ThrowUnsupportedNode();
+    public override void Visit(TypeParameterElement typeParam) => ThrowUnsupportedNode();
 
-    public override void Visit(ExceptionDescription exception) => ThrowUnsupportedNode();
+    public override void Visit(ExceptionElement exception) => ThrowUnsupportedNode();
 
-    public override void Visit(SeeAlsoUrlReferenceDescription seeAlso) => ThrowUnsupportedNode();
+    public override void Visit(SeeAlsoUrlReferenceElement seeAlso) => ThrowUnsupportedNode();
 
-    public override void Visit(SeeAlsoCodeReferenceDescription seeAlso) => ThrowUnsupportedNode();
+    public override void Visit(SeeAlsoCodeReferenceElement seeAlso) => ThrowUnsupportedNode();
 
     public override void Visit(PlainTextElement plainText)
     {

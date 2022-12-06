@@ -1,7 +1,7 @@
 ﻿namespace Grynwald.XmlDocReader;
 
 /// <summary>
-/// Represents a blcok of formatted text in XML documentation comments.
+/// Represents a block of formatted text in XML documentation comments.
 /// </summary>
 public class TextBlock : IEquatable<TextBlock>, IDocumentationNode
 {
@@ -14,7 +14,7 @@ public class TextBlock : IEquatable<TextBlock>, IDocumentationNode
     /// <summary>
     /// Initializes a new instance of <see cref="TextBlock"/>.
     /// </summary>
-    /// <param name="elements">The <see cref="TextElement"/> object the text block consists of.</param>
+    /// <param name="elements">The <see cref="InlineElement"/> object the text block consists of.</param>
     public TextBlock(params TextElement[] elements)
     {
         Elements = elements;

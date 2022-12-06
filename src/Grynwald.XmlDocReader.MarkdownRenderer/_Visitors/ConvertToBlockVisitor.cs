@@ -33,7 +33,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void Visit(NamespaceDescription member)
+    public override void Visit(NamespaceMemberElement member)
     {
         EndParagraph();
 
@@ -44,7 +44,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
 
 
     /// <inheritdoc />
-    public override void Visit(TypeDescription member)
+    public override void Visit(TypeMemberElement member)
     {
         EndParagraph();
 
@@ -55,7 +55,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
 
 
     /// <inheritdoc />
-    public override void Visit(FieldDescription member)
+    public override void Visit(FieldMemberElement member)
     {
         EndParagraph();
 
@@ -66,7 +66,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
 
 
     /// <inheritdoc />
-    public override void Visit(PropertyDescription member)
+    public override void Visit(PropertyMemberElement member)
     {
         EndParagraph();
 
@@ -78,7 +78,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
 
 
     /// <inheritdoc />
-    public override void Visit(MethodDescription member)
+    public override void Visit(MethodMemberElement member)
     {
         EndParagraph();
 
@@ -89,7 +89,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
 
 
     /// <inheritdoc />
-    public override void Visit(EventDescription member)
+    public override void Visit(EventMemberElement member)
     {
         EndParagraph();
 
@@ -99,7 +99,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void Visit(ParameterDescription parameter)
+    public override void Visit(ParameterElement parameter)
     {
         EndParagraph();
 
@@ -111,7 +111,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void Visit(TypeParameterDescription typeParameter)
+    public override void Visit(TypeParameterElement typeParameter)
     {
         EndParagraph();
 
@@ -123,7 +123,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void Visit(ExceptionDescription exception)
+    public override void Visit(ExceptionElement exception)
     {
         EndParagraph();
 
@@ -137,7 +137,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void Visit(SeeAlsoUrlReferenceDescription seeAlso)
+    public override void Visit(SeeAlsoUrlReferenceElement seeAlso)
     {
         MdSpan linkText;
 
@@ -155,7 +155,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void Visit(SeeAlsoCodeReferenceDescription seeAlso)
+    public override void Visit(SeeAlsoCodeReferenceElement seeAlso)
     {
         MdSpan textSpan;
 
@@ -338,7 +338,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void VisitSummary(MemberDescription member)
+    public override void VisitSummary(MemberElement member)
     {
         if (member.Summary is not null)
         {
@@ -349,7 +349,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void VisitRemarks(MemberDescription member)
+    public override void VisitRemarks(MemberElement member)
     {
         if (member.Remarks is not null)
         {
@@ -360,7 +360,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void VisitValue(MemberDescription propertyOrValue, TextBlock? value)
+    public override void VisitValue(MemberElement propertyOrValue, TextBlock? value)
     {
         if (value is not null)
         {
@@ -371,7 +371,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void VisitReturns(MethodDescription member)
+    public override void VisitReturns(MethodMemberElement member)
     {
         if (member.Returns is not null)
         {
@@ -382,7 +382,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void VisitExample(MemberDescription member)
+    public override void VisitExample(MemberElement member)
     {
         if (member.Example is not null)
         {
@@ -393,7 +393,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void VisitParameters(MemberDescription methodOrProperty, IReadOnlyList<ParameterDescription> parameters)
+    public override void VisitParameters(MemberElement methodOrProperty, IReadOnlyList<ParameterElement> parameters)
     {
         if (parameters.Count > 0)
         {
@@ -404,7 +404,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void VisitTypeParameters(MemberDescription typeOrMethod, IReadOnlyCollection<TypeParameterDescription> typeParameters)
+    public override void VisitTypeParameters(MemberElement typeOrMethod, IReadOnlyCollection<TypeParameterElement> typeParameters)
     {
         if (typeParameters.Count > 0)
         {
@@ -415,7 +415,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void VisitExceptions(MemberDescription methodOrPropertyOrEvent, IReadOnlyList<ExceptionDescription> exceptions)
+    public override void VisitExceptions(MemberElement methodOrPropertyOrEvent, IReadOnlyList<ExceptionElement> exceptions)
     {
         if (exceptions.Count > 0)
         {
@@ -426,7 +426,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void VisitSeeAlso(MemberDescription member)
+    public override void VisitSeeAlso(MemberElement member)
     {
         if (member.SeeAlso.Count > 0)
         {

@@ -15,7 +15,7 @@ public class DocumentationFileTest
         // ARRANGE
 
         // ACT 
-        var ex = Record.Exception(() => new DocumentationFile(assemblyName: assemblyName, Array.Empty<MemberDescription>()));
+        var ex = Record.Exception(() => new DocumentationFile(assemblyName: assemblyName, Array.Empty<MemberElement>()));
 
         // ASSERT
         var argumentException = Assert.IsType<ArgumentException>(ex);

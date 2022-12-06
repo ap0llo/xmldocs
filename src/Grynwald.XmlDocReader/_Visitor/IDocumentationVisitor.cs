@@ -7,26 +7,26 @@ public interface IDocumentationVisitor
 {
     void Visit(DocumentationFile documentationFile);
 
-    void Visit(NamespaceDescription member);
+    void Visit(NamespaceMemberElement member);
 
-    void Visit(TypeDescription member);
+    void Visit(TypeMemberElement member);
 
-    void Visit(FieldDescription member);
+    void Visit(FieldMemberElement member);
 
-    void Visit(PropertyDescription member);
-    void Visit(MethodDescription member);
+    void Visit(PropertyMemberElement member);
+    void Visit(MethodMemberElement member);
 
-    void Visit(EventDescription member);
+    void Visit(EventMemberElement member);
 
-    void Visit(ParameterDescription param);
+    void Visit(ParameterElement param);
 
-    void Visit(TypeParameterDescription typeParam);
+    void Visit(TypeParameterElement typeParam);
 
-    void Visit(ExceptionDescription exception);
+    void Visit(ExceptionElement exception);
 
-    void Visit(SeeAlsoUrlReferenceDescription seeAlso);
+    void Visit(SeeAlsoUrlReferenceElement seeAlso);
 
-    void Visit(SeeAlsoCodeReferenceDescription seeAlso);
+    void Visit(SeeAlsoCodeReferenceElement seeAlso);
 
     void Visit(TextBlock textBlock);
 

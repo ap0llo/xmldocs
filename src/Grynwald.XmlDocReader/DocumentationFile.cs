@@ -13,7 +13,7 @@ public class DocumentationFile : IDocumentationNode
     /// <summary>
     /// Gets the documented members in the documentation file.
     /// </summary>
-    public IReadOnlyList<MemberDescription> Members { get; }
+    public IReadOnlyList<MemberElement> Members { get; }
 
 
     /// <summary>
@@ -23,7 +23,7 @@ public class DocumentationFile : IDocumentationNode
     /// <param name="members">The documented members in the documentation file.</param>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="assemblyName"/> is <c>null</c> or whitespace.</exception>
     /// <exception cref="ArgumentException">Thrown is <paramref name="members"/> is <c>null</c>.</exception>
-    public DocumentationFile(string assemblyName, IReadOnlyList<MemberDescription> members)
+    public DocumentationFile(string assemblyName, IReadOnlyList<MemberElement> members)
     {
         if (String.IsNullOrWhiteSpace(assemblyName))
             throw new ArgumentException("Value must not be null or whitespace", nameof(assemblyName));
@@ -62,8 +62,8 @@ public class DocumentationFile : IDocumentationNode
             .RequireValue();
 
         var members = (root.Element("members") is XElement membersElement)
-                 ? membersElement.Elements("member").Select(MemberDescription.FromXml).ToArray()
-                 : Array.Empty<MemberDescription>();
+                 ? membersElement.Elements("member").Select(MemberElement.FromXml).ToArray()
+                 : Array.Empty<MemberElement>();
 
         return new DocumentationFile(assemblyName, members);
     }

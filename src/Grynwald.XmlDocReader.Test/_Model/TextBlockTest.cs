@@ -1,5 +1,4 @@
 ﻿using Grynwald.XmlDocReader.Internal;
-using Xunit;
 
 namespace Grynwald.XmlDocReader.Test;
 

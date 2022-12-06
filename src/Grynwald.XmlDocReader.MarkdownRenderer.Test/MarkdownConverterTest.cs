@@ -22,7 +22,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T01",
-                new DocumentationFile("MyAssembly", Array.Empty<MemberDescription>()),
+                new DocumentationFile("MyAssembly", Array.Empty<MemberElement>()),
                 $"# MyAssembly"
             );
 
@@ -30,14 +30,14 @@ public class MarkdownConverterTest
                 "T02",
                 new DocumentationFile(
                     "MyAssembly",
-                    new MemberDescription[]
+                    new MemberElement[]
                     {
-                        new NamespaceDescription(MemberId.Parse("N:MyNamespace")),
-                        new TypeDescription(MemberId.Parse("T:MyNamespace.MyClass")),
-                        new FieldDescription(MemberId.Parse("F:MyNamespace.MyClass.Field")),
-                        new PropertyDescription(MemberId.Parse("P:MyNamespace.MyClass.Property")),
-                        new MethodDescription(MemberId.Parse("M:MyNamespace.MyClass.Method")),
-                        new EventDescription(MemberId.Parse("E:MyNamespace.MyClass.Event")),
+                        new NamespaceMemberElement(MemberId.Parse("N:MyNamespace")),
+                        new TypeMemberElement(MemberId.Parse("T:MyNamespace.MyClass")),
+                        new FieldMemberElement(MemberId.Parse("F:MyNamespace.MyClass.Field")),
+                        new PropertyMemberElement(MemberId.Parse("P:MyNamespace.MyClass.Property")),
+                        new MethodMemberElement(MemberId.Parse("M:MyNamespace.MyClass.Method")),
+                        new EventMemberElement(MemberId.Parse("E:MyNamespace.MyClass.Event")),
                     }),
                 """
                 # MyAssembly
@@ -59,13 +59,13 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T03",
-                new FieldDescription(MemberId.Parse("F:MyNamespace.MyClass.Field")),
+                new FieldMemberElement(MemberId.Parse("F:MyNamespace.MyClass.Field")),
                 "## MyNamespace.MyClass.Field Field"
             );
 
             yield return TestCase(
                 "T04",
-                MemberDescription.FromXml("""
+                MemberElement.FromXml("""
                 <member name="M:MyClass.MyMethod">
                     <param name="someParameter" />                    
                     <param name="someOtherParameter">Some Description</param>
@@ -86,13 +86,13 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T05",
-                new ParameterDescription("parameter1", null),
+                new ParameterElement("parameter1", null),
                 "`parameter1`"
             );
 
             yield return TestCase(
                 "T06",
-                new ParameterDescription(
+                new ParameterElement(
                     "parameter1",
                     new TextBlock(new PlainTextElement("Description of parameter1"))
                 ),
@@ -105,13 +105,13 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T07",
-                new TypeParameterDescription("typeParameter1", null),
+                new TypeParameterElement("typeParameter1", null),
                 "`typeParameter1`"
             );
 
             yield return TestCase(
                 "T08",
-                new TypeParameterDescription(
+                new TypeParameterElement(
                     "typeParameter1",
                     new TextBlock(new PlainTextElement("Description of typeParameter1"))
                 ),
@@ -125,7 +125,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T09",
-                MemberDescription.FromXml("""
+                MemberElement.FromXml("""
                 <member name="M:MyClass.MyMethod">
                     <param name="someParameter" />                    
                     <typeparam name="T1">Some Description</typeparam>
@@ -155,13 +155,13 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T11",
-                new ExceptionDescription(MemberId.Parse("T:MyNamespace.MyException"), null),
+                new ExceptionElement(MemberId.Parse("T:MyNamespace.MyException"), null),
                 "`MyNamespace.MyException`"
             );
 
             yield return TestCase(
                 "T12",
-                new ExceptionDescription(
+                new ExceptionElement(
                     MemberId.Parse("T:MyNamespace.MyException"),
                     new TextBlock(new PlainTextElement("Description of the exception"))
                 ),
@@ -174,7 +174,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T13",
-                MemberDescription.FromXml("""
+                MemberElement.FromXml("""
                 <member name="M:MyClass.MyMethod">
                     <exception cref="T:MyNamespace.MyException1" />
                     <exception cref="T:MyNamespace.MyException2">Thrown in some cases</exception>
@@ -195,19 +195,19 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T14",
-                new SeeAlsoUrlReferenceDescription("http://example.com", null),
+                new SeeAlsoUrlReferenceElement("http://example.com", null),
                 "[http://example.com](http://example.com/)"
             );
 
             yield return TestCase(
                 "T15",
-                new SeeAlsoUrlReferenceDescription("http://example.com", new TextBlock(new PlainTextElement("Link Text"))),
+                new SeeAlsoUrlReferenceElement("http://example.com", new TextBlock(new PlainTextElement("Link Text"))),
                 "[Link Text](http://example.com/)"
             );
 
             yield return TestCase(
                 "T16",
-                MemberDescription.FromXml("""
+                MemberElement.FromXml("""
                 <member name="M:MyClass.MyMethod">
                     <seealso href="http://example.com" />
                     <seealso href="http://example.com">Link Text</seealso>
@@ -225,19 +225,19 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T17",
-                new SeeAlsoCodeReferenceDescription(MemberId.Parse("T:MyNamespace.MyClass"), null),
+                new SeeAlsoCodeReferenceElement(MemberId.Parse("T:MyNamespace.MyClass"), null),
                 "`MyNamespace.MyClass`"
             );
 
             yield return TestCase(
                 "T18",
-                new SeeAlsoCodeReferenceDescription(MemberId.Parse("T:MyNamespace.MyClass"), new TextBlock(new PlainTextElement("Link Text"))),
+                new SeeAlsoCodeReferenceElement(MemberId.Parse("T:MyNamespace.MyClass"), new TextBlock(new PlainTextElement("Link Text"))),
                 "Link Text"
             );
 
             yield return TestCase(
                 "T19",
-                MemberDescription.FromXml("""
+                MemberElement.FromXml("""
                 <member name="M:MyClass.MyMethod">
                     <seealso cref="T:MyNamespace.MyClass" />
                     <seealso cref="T:MyNamespace.MyClass">Link Text</seealso>
@@ -262,7 +262,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T21",
-                MemberDescription.FromXml("""
+                MemberElement.FromXml("""
                 <member name="M:MyClass.MyMethod">
                     <summary>
                         This is some text with <c>inline code</c>.
@@ -308,7 +308,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T24",
-                MemberDescription.FromXml("""
+                MemberElement.FromXml("""
                 <member name="M:MyClass.MyMethod">
                     <summary>
                         This is some text with a code block.
@@ -343,7 +343,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T26",
-                MemberDescription.FromXml("""
+                MemberElement.FromXml("""
                 <member name="M:MyClass.MyMethod">
                     <summary>
                         This is the first paragraph.
@@ -374,7 +374,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T26",
-                MemberDescription.FromXml("""
+                MemberElement.FromXml("""
                 <member name="M:MyClass.MyMethod">
                     <summary>
                         Text referencing <paramref name="parameter1" />.
@@ -416,7 +416,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T31",
-                MemberDescription.FromXml("""
+                MemberElement.FromXml("""
                 <member name="M:MyClass.MyMethod">
                     <summary>
                         Text with a inline code reference to <see cref="T:MyClass">definition of MyClass</see>.
@@ -451,7 +451,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T34",
-                MemberDescription.FromXml("""
+                MemberElement.FromXml("""
                 <member name="M:MyClass.MyMethod">
                     <summary>
                         Text with a inline link to <see href="https://example.com">example.com</see>.
@@ -470,7 +470,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T35",
-                MemberDescription.FromXml("""
+                MemberElement.FromXml("""
                 <member name="M:MyClass.MyMethod">
                     <summary>
                         Text referencing type parameter <typeparamref name="parameter1" />.
@@ -604,7 +604,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T41",
-                MemberDescription.FromXml("""
+                MemberElement.FromXml("""
                 <member name="M:MyClass.MyMethod">
                     <summary>
                         Summary for this method.
@@ -679,7 +679,7 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T42",
-                MemberDescription.FromXml("""
+                MemberElement.FromXml("""
                 <member name="P:MyClass.MyProperty">
                     <summary>
                         Summary for this method.
@@ -779,18 +779,18 @@ public class MarkdownConverterTest
             object[] TestCase(string id, IDocumentationNode input) =>
                 new object[] { id, input };
 
-            yield return TestCase("T01", new DocumentationFile("MyAssembly", Array.Empty<MemberDescription>()));
-            yield return TestCase("T02", new NamespaceDescription(MemberId.Parse("N:MyNamesapce")));
-            yield return TestCase("T03", new TypeDescription(MemberId.Parse("T:MyClass")));
-            yield return TestCase("T04", new FieldDescription(MemberId.Parse("F:MyClass.Field")));
-            yield return TestCase("T05", new PropertyDescription(MemberId.Parse("P:MyClass.Property")));
-            yield return TestCase("T06", new MethodDescription(MemberId.Parse("M:MyClass.Method")));
-            yield return TestCase("T07", new EventDescription(MemberId.Parse("E:MyClass.Event")));
-            yield return TestCase("T08", new ParameterDescription("parameter", null));
-            yield return TestCase("T09", new TypeParameterDescription("typeParameter", null));
-            yield return TestCase("T10", new ExceptionDescription(MemberId.Parse("T:MyException"), null));
-            yield return TestCase("T11", new SeeAlsoUrlReferenceDescription("https://example.com", null));
-            yield return TestCase("T12", new SeeAlsoCodeReferenceDescription(MemberId.Parse("M:MyClass.Method"), null));
+            yield return TestCase("T01", new DocumentationFile("MyAssembly", Array.Empty<MemberElement>()));
+            yield return TestCase("T02", new NamespaceMemberElement(MemberId.Parse("N:MyNamesapce")));
+            yield return TestCase("T03", new TypeMemberElement(MemberId.Parse("T:MyClass")));
+            yield return TestCase("T04", new FieldMemberElement(MemberId.Parse("F:MyClass.Field")));
+            yield return TestCase("T05", new PropertyMemberElement(MemberId.Parse("P:MyClass.Property")));
+            yield return TestCase("T06", new MethodMemberElement(MemberId.Parse("M:MyClass.Method")));
+            yield return TestCase("T07", new EventMemberElement(MemberId.Parse("E:MyClass.Event")));
+            yield return TestCase("T08", new ParameterElement("parameter", null));
+            yield return TestCase("T09", new TypeParameterElement("typeParameter", null));
+            yield return TestCase("T10", new ExceptionElement(MemberId.Parse("T:MyException"), null));
+            yield return TestCase("T11", new SeeAlsoUrlReferenceElement("https://example.com", null));
+            yield return TestCase("T12", new SeeAlsoCodeReferenceElement(MemberId.Parse("M:MyClass.Method"), null));
             yield return TestCase("T13", new CodeElement("Some code", null));
             yield return TestCase("T14", new ListElement(ListType.Bullet, null, Array.Empty<ListItemElement>()));
             yield return TestCase("T15", new ListItemElement(null, new TextBlock()));
