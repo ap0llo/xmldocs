@@ -14,6 +14,7 @@ public interface IDocumentationVisitor
     void Visit(FieldMemberElement member);
 
     void Visit(PropertyMemberElement member);
+
     void Visit(MethodMemberElement member);
 
     void Visit(EventMemberElement member);
@@ -27,6 +28,16 @@ public interface IDocumentationVisitor
     void Visit(SeeAlsoUrlReferenceElement seeAlso);
 
     void Visit(SeeAlsoCodeReferenceElement seeAlso);
+
+    void Visit(SummaryElement summary);
+
+    void Visit(RemarksElement summary);
+
+    void Visit(ExampleElement summary);
+
+    void Visit(ValueElement summary);
+
+    void Visit(ReturnsElement summary);
 
     void Visit(TextBlock textBlock);
 

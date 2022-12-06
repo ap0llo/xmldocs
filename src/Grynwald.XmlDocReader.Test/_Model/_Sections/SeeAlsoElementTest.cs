@@ -50,9 +50,13 @@ public class SeeAlsoElementTest
         Assert.Equal(MemberId.Parse("T:MyClass"), seeAlsoCodeReference.Reference);
 
         if (expectedText is null)
+        {
             Assert.Null(sut.Text);
+        }
         else
+        {
             Assert.Equal(new TextBlock(new PlainTextElement(expectedText)), sut.Text);
+        }
     }
 
     [Theory]
@@ -70,9 +74,13 @@ public class SeeAlsoElementTest
         Assert.Equal("https://example.com", seeAlsoUrlReference.Link);
 
         if (expectedText is null)
+        {
             Assert.Null(sut.Text);
+        }
         else
+        {
             Assert.Equal(new TextBlock(new PlainTextElement(expectedText)), sut.Text);
+        }
     }
 
     [Theory]

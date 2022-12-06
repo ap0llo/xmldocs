@@ -66,7 +66,8 @@ public class PropertyMemberElementTest
         // ASSERT
         var propertyDescription = Assert.IsType<PropertyMemberElement>(sut);
         Assert.NotNull(propertyDescription.Value);
-        Assert.Equal(new TextBlock(new PlainTextElement("The value means something")), propertyDescription.Value);
+        Assert.NotNull(propertyDescription.Value!.Text);
+        Assert.Equal(new TextBlock(new PlainTextElement("The value means something")), propertyDescription.Value.Text);
     }
 
     [Fact]

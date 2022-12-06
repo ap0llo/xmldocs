@@ -20,9 +20,9 @@ public class EventMemberElement : MemberElement
     {
         var member = new EventMemberElement(id)
         {
-            Summary = TryReadTextBlock(xml, "summary"),
-            Remarks = TryReadTextBlock(xml, "remarks"),
-            Example = TryReadTextBlock(xml, "example"),
+            Summary = TryReadElement(xml, "summary", SummaryElement.FromXml),
+            Remarks = TryReadElement(xml, "remarks", RemarksElement.FromXml),
+            Example = TryReadElement(xml, "example", ExampleElement.FromXml),
             SeeAlso = xml.Elements("seealso").Select(SeeAlsoElement.FromXml).ToList(),
             Exceptions = xml.Elements("exception").Select(ExceptionElement.FromXml).ToList(),
         };

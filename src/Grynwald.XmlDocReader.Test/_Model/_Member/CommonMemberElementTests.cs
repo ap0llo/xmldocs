@@ -24,7 +24,8 @@ public abstract class CommonMemberElementTests
 
         // ASSERT            
         Assert.NotNull(sut.Summary);
-        Assert.Equal(new TextBlock(new PlainTextElement("Example summary")), sut.Summary);
+        Assert.NotNull(sut!.Summary!.Text);
+        Assert.Equal(new TextBlock(new PlainTextElement("Example summary")), sut.Summary.Text);
     }
 
     [Fact]
@@ -47,7 +48,8 @@ public abstract class CommonMemberElementTests
 
         // ASSERT            
         Assert.NotNull(sut.Remarks);
-        Assert.Equal(new TextBlock(new PlainTextElement("Example remarks")), sut.Remarks);
+        Assert.NotNull(sut!.Remarks!.Text);
+        Assert.Equal(new TextBlock(new PlainTextElement("Example remarks")), sut.Remarks.Text);
     }
 
     [Fact]
@@ -67,7 +69,8 @@ public abstract class CommonMemberElementTests
 
         // ASSERT            
         Assert.NotNull(sut.Example);
-        Assert.Equal(new TextBlock(new PlainTextElement("Some example")), sut.Example);
+        Assert.NotNull(sut!.Example!.Text);
+        Assert.Equal(new TextBlock(new PlainTextElement("Some example")), sut.Example.Text);
     }
 
     [Fact]

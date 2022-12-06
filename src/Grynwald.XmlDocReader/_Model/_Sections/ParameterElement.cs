@@ -14,11 +14,6 @@ public class ParameterElement : SectionElement
     /// </summary>
     public string Name { get; }
 
-    /// <summary>
-    /// Gets the parameter's desciption text.
-    /// </summary>
-    public TextBlock? Text { get; }
-
 
     /// <summary>
     /// Initializes a new instance of <see cref="ParameterElement" />.
@@ -26,13 +21,12 @@ public class ParameterElement : SectionElement
     /// <param name="name">The name of the parameter.</param>
     /// <param name="text">The (optional) description of the parameter.</param>
     /// <exception cref="ArgumentException">Thrown if <paramref name="name"/> is <c>null</c> or whitespace.</exception>
-    public ParameterElement(string name, TextBlock? text)
+    public ParameterElement(string name, TextBlock? text) : base(text)
     {
         if (String.IsNullOrWhiteSpace(name))
             throw new ArgumentException("Value must not be null or whitespace", nameof(name));
 
         Name = name;
-        Text = text;
     }
 
 

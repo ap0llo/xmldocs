@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a block of formatted text in XML documentation comments.
 /// </summary>
-public class TextBlock : DocumentationElement, IEquatable<TextBlock>
+public class TextBlock : TextElement, IEquatable<TextBlock>
 {
     /// <summary>
     /// Gets the text block's text elements.

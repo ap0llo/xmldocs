@@ -20,17 +20,17 @@ public abstract class MemberElement : DocumentationElement
     /// <summary>
     /// Gets the content of the member's <![CDATA[<summary />]]> text or <c>null</c> is no summary was found.
     /// </summary>
-    public TextBlock? Summary { get; init; }
+    public SummaryElement? Summary { get; init; }
 
     /// <summary>
     /// Gets the content of the member's <![CDATA[<remarks />]]> text or <c>null</c> is no remarks were found.
     /// </summary>
-    public TextBlock? Remarks { get; init; }
+    public RemarksElement? Remarks { get; init; }
 
     /// <summary>
     /// Gets the content of the member's <![CDATA[<example />]]> text or <c>null</c> is no example text was found.
     /// </summary>
-    public TextBlock? Example { get; init; }
+    public ExampleElement? Example { get; init; }
 
     /// <summary>
     /// Gets the all of the member's <![CDATA[<seealso />]]> descriptions.
@@ -48,7 +48,7 @@ public abstract class MemberElement : DocumentationElement
         Id = id ?? throw new ArgumentNullException(nameof(id));
     }
 
-    
+
     /// <inheritdoc  cref="FromXml(XElement)" />
     public static MemberElement FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
 
@@ -78,11 +78,11 @@ public abstract class MemberElement : DocumentationElement
     }
 
 
-    protected static TextBlock? TryReadTextBlock(XElement parentElement, string elementName)
+    protected static T? TryReadElement<T>(XElement parentElement, string elementName, Func<XElement, T> factory)
     {
         return parentElement.Element(elementName) is XElement element
-            ? TextBlock.FromXml(element)
-            : null;
+            ? factory(element)
+            : default;
     }
 }
 

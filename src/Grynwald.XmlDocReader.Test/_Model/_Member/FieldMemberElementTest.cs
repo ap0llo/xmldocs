@@ -57,6 +57,7 @@ public class FieldMemberElementTest : CommonMemberElementTests
         // ASSERT
         var fieldDescription = Assert.IsType<FieldMemberElement>(sut);
         Assert.NotNull(fieldDescription.Value);
-        Assert.Equal(new TextBlock(new PlainTextElement("The value means something")), fieldDescription.Value);
+        Assert.NotNull(fieldDescription!.Value!.Text);
+        Assert.Equal(new TextBlock(new PlainTextElement("The value means something")), fieldDescription.Value.Text);
     }
 }

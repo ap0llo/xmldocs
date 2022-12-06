@@ -68,7 +68,8 @@ public class MethodMemberElementTest : CommonMemberElementTests
         var methodDescription = Assert.IsType<MethodMemberElement>(sut);
 
         Assert.NotNull(methodDescription.Returns);
-        Assert.Equal(new TextBlock(new PlainTextElement("Returns some value")), methodDescription.Returns);
+        Assert.NotNull(methodDescription.Returns!.Text);
+        Assert.Equal(new TextBlock(new PlainTextElement("Returns some value")), methodDescription.Returns.Text);
     }
 
     [Fact]

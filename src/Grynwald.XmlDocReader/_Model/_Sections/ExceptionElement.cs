@@ -15,21 +15,14 @@ public class ExceptionElement : SectionElement
     public MemberId Reference { get; }
 
     /// <summary>
-    /// Gets the exception description's text.
-    /// </summary>
-    public TextBlock? Text { get; }
-
-
-    /// <summary>
     /// Initializes a new instance of <see cref="ExceptionElement"/>.
     /// </summary>
     /// <param name="reference">The reference to the exception#s type.</param>
     /// <param name="text">The exception's description.</param>
     /// <exception cref="ArgumentException">Thrown when <paramref name="reference"/> is <c>null</c> or whitespace.</exception>
-    public ExceptionElement(MemberId reference, TextBlock? text)
+    public ExceptionElement(MemberId reference, TextBlock? text) : base(text)
     {
         Reference = reference ?? throw new ArgumentNullException(nameof(reference));
-        Text = text;
     }
 
 

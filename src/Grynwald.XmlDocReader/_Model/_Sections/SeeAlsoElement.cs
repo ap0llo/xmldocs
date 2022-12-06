@@ -40,18 +40,11 @@
 public abstract class SeeAlsoElement : SectionElement
 {
     /// <summary>
-    /// Gets the <c><![CDATA[<seealso />]]></c> element's text (optional).
-    /// </summary>
-    public TextBlock? Text { get; }
-
-    /// <summary>
     /// Initializes a new instance of <see cref="SeeAlsoElement"/>.
     /// </summary>
     /// <param name="text">The element's text (optional).</param>
-    public SeeAlsoElement(TextBlock? text)
-    {
-        Text = text;
-    }
+    public SeeAlsoElement(TextBlock? text) : base(text)
+    { }
 
 
     /// <inheritdoc cref="FromXml(XElement)"/>

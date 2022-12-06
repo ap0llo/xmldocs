@@ -21,18 +21,18 @@ public class DocumentationVisitor : IDocumentationVisitor
     /// <inheritdoc />
     public virtual void Visit(NamespaceMemberElement @namespace)
     {
-        VisitSummary(@namespace);
-        VisitRemarks(@namespace);
-        VisitExample(@namespace);
+        @namespace.Summary?.Accept(this);
+        @namespace.Remarks?.Accept(this);
+        @namespace.Example?.Accept(this);
         VisitSeeAlso(@namespace);
     }
 
     /// <inheritdoc />
     public virtual void Visit(TypeMemberElement type)
     {
-        VisitSummary(type);
-        VisitRemarks(type);
-        VisitExample(type);
+        type.Summary?.Accept(this);
+        type.Remarks?.Accept(this);
+        type.Example?.Accept(this);
         VisitTypeParameters(type, type.TypeParameters);
         VisitSeeAlso(type);
     }
@@ -40,20 +40,20 @@ public class DocumentationVisitor : IDocumentationVisitor
     /// <inheritdoc />
     public virtual void Visit(FieldMemberElement field)
     {
-        VisitSummary(field);
-        VisitRemarks(field);
-        VisitValue(field, field.Value);
-        VisitExample(field);
+        field.Summary?.Accept(this);
+        field.Remarks?.Accept(this);
+        field.Value?.Accept(this);
+        field.Example?.Accept(this);
         VisitSeeAlso(field);
     }
 
     /// <inheritdoc />
     public virtual void Visit(PropertyMemberElement property)
     {
-        VisitSummary(property);
-        VisitRemarks(property);
-        VisitValue(property, property.Value);
-        VisitExample(property);
+        property.Summary?.Accept(this);
+        property.Remarks?.Accept(this);
+        property.Value?.Accept(this);
+        property.Example?.Accept(this);
         VisitParameters(property, property.Parameters);
         VisitExceptions(property, property.Exceptions);
         VisitSeeAlso(property);
@@ -62,10 +62,10 @@ public class DocumentationVisitor : IDocumentationVisitor
     /// <inheritdoc />
     public virtual void Visit(MethodMemberElement method)
     {
-        VisitSummary(method);
-        VisitRemarks(method);
-        VisitReturns(method);
-        VisitExample(method);
+        method.Summary?.Accept(this);
+        method.Remarks?.Accept(this);
+        method.Returns?.Accept(this);
+        method.Example?.Accept(this);
         VisitParameters(method, method.Parameters);
         VisitTypeParameters(method, method.TypeParameters);
         VisitExceptions(method, method.Exceptions);
@@ -75,11 +75,30 @@ public class DocumentationVisitor : IDocumentationVisitor
     /// <inheritdoc />
     public virtual void Visit(EventMemberElement @event)
     {
-        VisitSummary(@event);
-        VisitRemarks(@event);
-        VisitExample(@event);
+        @event.Summary?.Accept(this);
+        @event.Remarks?.Accept(this);
+        @event.Example?.Accept(this);
         VisitExceptions(@event, @event.Exceptions);
         VisitSeeAlso(@event);
+    }
+
+    /// <inheritdoc />
+    public virtual void Visit(SummaryElement summary)
+    {
+        summary.Text?.Accept(this);
+    }
+
+
+    /// <inheritdoc />
+    public virtual void Visit(RemarksElement remarks)
+    {
+        remarks.Text?.Accept(this);
+    }
+
+    /// <inheritdoc />
+    public virtual void Visit(ExampleElement example)
+    {
+        example.Text?.Accept(this);
     }
 
     /// <inheritdoc />
@@ -181,85 +200,17 @@ public class DocumentationVisitor : IDocumentationVisitor
         see.Text?.Accept(this);
     }
 
-    /// <summary>
-    /// Visits a a MemberDescription's <c>Summary</c>.
-    /// </summary>
-    /// <remarks>
-    /// This method is called by the <c>Visit()</c> methods for types derived from <see cref="MemberElement" /> instead of visiting the <see cref="MemberElement.Summary" /> text block directly
-    /// to allow derived visitors to perform actions specifically before or after the Summary is processed without having to re-implement the <c>Visit()</c> method.
-    /// <para>
-    /// Note that this method will also be called if <see cref="MemberElement.Summary"/> is <c>null</c>.
-    /// </para>
-    /// </remarks>
-    /// <seealso cref="MemberElement.Summary"/>
-    public virtual void VisitSummary(MemberElement member)
+
+    /// <inheritdoc />
+    public virtual void Visit(ValueElement value)
     {
-        member.Summary?.Accept(this);
+        value.Text?.Accept(this);
     }
 
-    /// <summary>
-    /// Visits a a MemberDescription's <c>Remarks</c>.
-    /// </summary>
-    /// <remarks>
-    /// This method is called by the <c>Visit()</c> methods for types derived from <see cref="MemberElement" /> instead of visiting the <see cref="MemberElement.Remarks" /> text block directly
-    /// to allow derived visitors to perform actions specifically before or after the <c>Remarks</c> is processed without having to re-implement the <c>Visit()</c> method.
-    /// <para>
-    /// Note that this method will also be called if <see cref="MemberElement.Remarks"/> is <c>null</c>.
-    /// </para>
-    /// </remarks>
-    /// <seealso cref="MemberElement.Remarks"/>
-    public virtual void VisitRemarks(MemberElement member)
+    /// <inheritdoc />
+    public virtual void Visit(ReturnsElement returns)
     {
-        member.Remarks?.Accept(this);
-    }
-
-    /// <summary>
-    /// Visits a a FieldDescription's of PropertyDescription's <c>Value</c>.
-    /// </summary>
-    /// <remarks>
-    /// This method is called by <see cref="Visit(FieldMemberElement)"/> and <see cref="Visit(PropertyMemberElement)"/> instead of visiting the <c>Value</c> text block directly
-    /// to allow derived visitors to perform actions specifically before or after <c>Value</c> is processed without having to re-implement the <c>Visit()</c> method.
-    /// <para>
-    /// Note that this method will also be called if <see cref="FieldMemberElement.Value"/>/<see cref="PropertyMemberElement.Value"/> is <c>null</c>.
-    /// </para>
-    /// </remarks>
-    /// <seealso cref="FieldMemberElement.Value"/>
-    /// <seealso cref="PropertyMemberElement.Value"/>
-    public virtual void VisitValue(MemberElement fieldOrProperty, TextBlock? value)
-    {
-        value?.Accept(this);
-    }
-
-    /// <summary>
-    /// Visits a a MethodDescription's <c>Returns</c>.
-    /// </summary>
-    /// <remarks>
-    /// This method is called by <see cref="Visit(MethodMemberElement)"/> instead of visiting the <see cref="MethodMemberElement.Returns" /> text block directly
-    /// to allow derived visitors to perform actions specifically before or after <c>Returns</c> is processed without having to re-implement the <c>Visit()</c> method.
-    /// <para>
-    /// Note that this method will also be called if <see cref="MethodMemberElement.Returns"/> is <c>null</c>.
-    /// </para>
-    /// </remarks>
-    /// <seealso cref="MethodMemberElement.Returns"/>
-    public virtual void VisitReturns(MethodMemberElement member)
-    {
-        member.Returns?.Accept(this);
-    }
-
-    /// <summary>
-    /// Visits a a MemberDescription's <c>Example</c>.
-    /// </summary>
-    /// <remarks>
-    /// This method is called by the <c>Visit()</c> methods for types derived from <see cref="MemberElement" /> instead of visiting the <see cref="MemberElement.Example" /> text block directly
-    /// to allow derived visitors to perform actions specifically before or after <c>Example</c> is processed without having to re-implement the <c>Visit()</c> method.
-    /// <para>
-    /// Note that this method will also be called if <see cref="MemberElement.Example"/> is <c>null</c>.
-    /// </para>
-    /// </remarks>
-    /// <seealso cref="MemberElement.Example"/>
-    public virtual void VisitExample(MemberElement member)
-    {
-        member.Example?.Accept(this);
+        returns.Text?.Accept(this);
     }
 
     /// <summary>

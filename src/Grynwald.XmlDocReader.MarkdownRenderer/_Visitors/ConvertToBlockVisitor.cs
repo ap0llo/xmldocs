@@ -338,57 +338,57 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <inheritdoc />
-    public override void VisitSummary(MemberElement member)
+    public override void Visit(SummaryElement summary)
     {
-        if (member.Summary is not null)
+        if (summary.Text is not null)
         {
             EndParagraph();
             CurrentBlock.Add(new MdHeading(3, "Summary"));
-            base.VisitSummary(member);
+            base.Visit(summary);
         }
     }
 
     /// <inheritdoc />
-    public override void VisitRemarks(MemberElement member)
+    public override void Visit(RemarksElement remarks)
     {
-        if (member.Remarks is not null)
+        if (remarks.Text is not null)
         {
             EndParagraph();
             CurrentBlock.Add(new MdHeading(3, "Remarks"));
-            base.VisitRemarks(member);
+            base.Visit(remarks);
         }
     }
 
     /// <inheritdoc />
-    public override void VisitValue(MemberElement propertyOrValue, TextBlock? value)
+    public override void Visit(ValueElement value)
     {
         if (value is not null)
         {
             EndParagraph();
             CurrentBlock.Add(new MdHeading(3, "Value"));
-            base.VisitValue(propertyOrValue, value);
+            base.Visit(value);
         }
     }
 
     /// <inheritdoc />
-    public override void VisitReturns(MethodMemberElement member)
+    public override void Visit(ReturnsElement returns)
     {
-        if (member.Returns is not null)
+        if (returns.Text is not null)
         {
             EndParagraph();
             CurrentBlock.Add(new MdHeading(3, "Returns"));
-            base.VisitReturns(member);
+            base.Visit(returns);
         }
     }
 
     /// <inheritdoc />
-    public override void VisitExample(MemberElement member)
+    public override void Visit(ExampleElement example)
     {
-        if (member.Example is not null)
+        if (example.Text is not null)
         {
             EndParagraph();
             CurrentBlock.Add(new MdHeading(3, "Example"));
-            base.VisitExample(member);
+            base.Visit(example);
         }
     }
 

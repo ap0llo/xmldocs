@@ -5,7 +5,7 @@ public class MethodMemberElement : MemberElement
     /// <summary>
     /// Gets the content of the method's <![CDATA[<returns />]]> text or <c>null</c> is no returns text was found.
     /// </summary>
-    public TextBlock? Returns { get; init; }
+    public ReturnsElement? Returns { get; init; }
 
     /// <summary>
     /// Gets the all of the methods's <![CDATA[<param />]]> descriptions.
@@ -35,10 +35,10 @@ public class MethodMemberElement : MemberElement
     {
         var member = new MethodMemberElement(id)
         {
-            Summary = TryReadTextBlock(xml, "summary"),
-            Remarks = TryReadTextBlock(xml, "remarks"),
-            Returns = TryReadTextBlock(xml, "returns"),
-            Example = TryReadTextBlock(xml, "example"),
+            Summary = TryReadElement(xml, "summary", SummaryElement.FromXml),
+            Remarks = TryReadElement(xml, "remarks", RemarksElement.FromXml),
+            Returns = TryReadElement(xml, "returns", ReturnsElement.FromXml),
+            Example = TryReadElement(xml, "example", ExampleElement.FromXml),
             Parameters = xml.Elements("param").Select(ParameterElement.FromXml).ToList(),
             TypeParameters = xml.Elements("typeparam").Select(TypeParameterElement.FromXml).ToList(),
             SeeAlso = xml.Elements("seealso").Select(SeeAlsoElement.FromXml).ToList(),
