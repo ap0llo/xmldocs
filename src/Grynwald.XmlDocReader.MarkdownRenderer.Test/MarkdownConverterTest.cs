@@ -776,30 +776,18 @@ public class MarkdownConverterTest
 
         public static IEnumerable<object[]> UnsupportedDocumentationNodeTestCases()
         {
-            object[] TestCase(string id, DocumentationElement input) =>
+            object[] TestCase(string id, TextElement input) =>
                 new object[] { id, input };
 
-            yield return TestCase("T01", new DocumentationFile("MyAssembly", Array.Empty<MemberElement>()));
-            yield return TestCase("T02", new NamespaceMemberElement(MemberId.Parse("N:MyNamesapce")));
-            yield return TestCase("T03", new TypeMemberElement(MemberId.Parse("T:MyClass")));
-            yield return TestCase("T04", new FieldMemberElement(MemberId.Parse("F:MyClass.Field")));
-            yield return TestCase("T05", new PropertyMemberElement(MemberId.Parse("P:MyClass.Property")));
-            yield return TestCase("T06", new MethodMemberElement(MemberId.Parse("M:MyClass.Method")));
-            yield return TestCase("T07", new EventMemberElement(MemberId.Parse("E:MyClass.Event")));
-            yield return TestCase("T08", new ParameterElement("parameter", null));
-            yield return TestCase("T09", new TypeParameterElement("typeParameter", null));
-            yield return TestCase("T10", new ExceptionElement(MemberId.Parse("T:MyException"), null));
-            yield return TestCase("T11", new SeeAlsoUrlReferenceElement("https://example.com", null));
-            yield return TestCase("T12", new SeeAlsoCodeReferenceElement(MemberId.Parse("M:MyClass.Method"), null));
-            yield return TestCase("T13", new CodeElement("Some code", null));
-            yield return TestCase("T14", new ListElement(ListType.Bullet, null, Array.Empty<ListItemElement>()));
-            yield return TestCase("T15", new ListItemElement(null, new TextBlock()));
+            yield return TestCase("T01", new CodeElement("Some code", null));
+            yield return TestCase("T02", new ListElement(ListType.Bullet, null, Array.Empty<ListItemElement>()));
+            yield return TestCase("T03", new ListItemElement(null, new TextBlock()));
 
         }
 
         [Theory]
         [MemberData(nameof(UnsupportedDocumentationNodeTestCases))]
-        public void Throws_InvalidOperationException_for_unsuppored_documentation_nodes(string id, DocumentationElement input)
+        public void Throws_InvalidOperationException_for_unsuppored_documentation_nodes(string id, TextElement input)
         {
             m_TestOutputHelper.WriteLine($"Test Id: {id}");
 
@@ -816,7 +804,7 @@ public class MarkdownConverterTest
 
         public static IEnumerable<object[]> TestCases()
         {
-            object[] TestCase(string id, DocumentationElement input, string expectedMarkdown) =>
+            object[] TestCase(string id, TextElement input, string expectedMarkdown) =>
                 new object[] { id, input, expectedMarkdown };
 
             yield return TestCase(
@@ -900,7 +888,7 @@ public class MarkdownConverterTest
 
         [Theory]
         [MemberData(nameof(TestCases))]
-        public void Documentation_is_converted_to_expected_Markdown_content(string id, DocumentationElement input, string expectedMarkdown)
+        public void Documentation_is_converted_to_expected_Markdown_content(string id, TextElement input, string expectedMarkdown)
         {
             m_TestOutputHelper.WriteLine($"Test Id: {id}");
 

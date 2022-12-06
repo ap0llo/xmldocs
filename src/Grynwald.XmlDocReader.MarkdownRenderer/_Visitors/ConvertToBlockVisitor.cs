@@ -1,14 +1,31 @@
 ﻿namespace Grynwald.XmlDocReader.MarkdownRenderer;
 
 //TODO: Allow setting the heading levels
+/// <summary>
+/// A visitor that traverses a <see cref="DocumentationFile"/> and generates Markdown from it (as <see cref="MdBlock"/>).
+/// </summary>
+/// <remarks>
+/// Note that this class is intended to serve as the basis for a documentation generator by offering conversions to Markdown for the contents of an XML documentation file
+/// but is not sufficient to generate the complete documentation for a .NET library.
+/// <para>
+/// The XML documentation file does not contain all members of an assembly but only the members for which the compiler found any XML documentation comments.
+/// To generate the full documentation of an assembly requires building a semantic model of that assembly which can be achieved using libraries like Mono.Cecil or Roslyn (Microsoft.CodeAnalyis).
+/// </para>
+/// <para>
+/// The semantic model is also required to resolve references between elements (e.g. <c><![CDATA[<see cref="SomeClass"/>]]></c>) which this implementation also will not be able to handle.
+/// To resolve references, you can customize this visitor by overriding the corresponding <c>Visit()</c> methods.
+/// </para>
+/// </remarks>
+/// <seealso href="https://en.wikipedia.org/wiki/Visitor_pattern">Visitor pattern (Wikipedia)</seealso>
 public class ConvertToBlockVisitor : ConvertVisitorBase
 {
     private readonly IMarkdownConverter m_MarkdownConverter;
     private readonly Stack<MdContainerBlockBase> m_Stack = new(new[] { new MdContainerBlock() });
     private MdParagraph? m_CurrentParagraph;
 
+
     /// <summary>
-    /// Gets the root block of the generated markdown
+    /// Gets the root block of the generated Markdown
     /// </summary>
     public MdBlock Result => m_Stack.Single();
 
@@ -18,121 +35,85 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     private MdContainerBlockBase CurrentBlock => m_Stack.Peek();
 
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="ConvertToBlockVisitor"/>
+    /// </summary>
+    /// <param name="markdownConverter">The <see cref="IMarkdownConverter"/> to use for creating inline elements.</param>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="markdownConverter"/> is <c>null</c>.</exception>
     public ConvertToBlockVisitor(IMarkdownConverter markdownConverter)
     {
         m_MarkdownConverter = markdownConverter ?? throw new ArgumentNullException(nameof(markdownConverter));
     }
 
+
     /// <inheritdoc />
     public override void Visit(DocumentationFile documentationFile)
     {
-        EndParagraph();
-        CurrentBlock.Add(new MdHeading(1, documentationFile.AssemblyName));
-
+        AppendBlock(new MdHeading(1, documentationFile.AssemblyName));
         base.Visit(documentationFile);
     }
 
     /// <inheritdoc />
     public override void Visit(NamespaceMemberElement member)
     {
-        EndParagraph();
-
-        CurrentBlock.Add(new MdHeading(2, $"{member.Id.Name} Namespace"));
-
+        AppendBlock(new MdHeading(2, $"{member.Id.Name} Namespace"));
         base.Visit(member);
     }
-
 
     /// <inheritdoc />
     public override void Visit(TypeMemberElement member)
     {
-        EndParagraph();
-
-        CurrentBlock.Add(new MdHeading(2, member.Id.Name));
-
+        AppendBlock(new MdHeading(2, member.Id.Name));
         base.Visit(member);
     }
-
 
     /// <inheritdoc />
     public override void Visit(FieldMemberElement member)
     {
-        EndParagraph();
-
-        CurrentBlock.Add(new MdHeading(2, $"{member.Id.Name} Field"));
-
+        AppendBlock(new MdHeading(2, $"{member.Id.Name} Field"));
         base.Visit(member);
     }
-
 
     /// <inheritdoc />
     public override void Visit(PropertyMemberElement member)
-    {
-        EndParagraph();
-
-        CurrentBlock.Add(new MdHeading(2, $"{member.Id.Name} Property"));
-
+    {        
+        AppendBlock(new MdHeading(2, $"{member.Id.Name} Property"));
         base.Visit(member);
     }
-
-
 
     /// <inheritdoc />
     public override void Visit(MethodMemberElement member)
     {
-        EndParagraph();
-
-        CurrentBlock.Add(new MdHeading(2, $"{member.Id.Name} Method"));
-
+        AppendBlock(new MdHeading(2, $"{member.Id.Name} Method"));
         base.Visit(member);
     }
-
 
     /// <inheritdoc />
     public override void Visit(EventMemberElement member)
     {
-        EndParagraph();
-
-        CurrentBlock.Add(new MdHeading(2, $"{member.Id.Name} Event"));
-
+        AppendBlock(new MdHeading(2, $"{member.Id.Name} Event"));
         base.Visit(member);
     }
 
     /// <inheritdoc />
     public override void Visit(ParameterElement parameter)
     {
-        EndParagraph();
-
-        AddToCurrentParagraph(new MdCodeSpan(parameter.Name));
-
-        EndParagraph();
-
+        AppendBlock(new MdParagraph(new MdCodeSpan(parameter.Name)));
         base.Visit(parameter);
     }
 
     /// <inheritdoc />
     public override void Visit(TypeParameterElement typeParameter)
     {
-        EndParagraph();
-
-        AddToCurrentParagraph(new MdCodeSpan(typeParameter.Name));
-
-        EndParagraph();
-
+        AppendBlock(new MdParagraph(new MdCodeSpan(typeParameter.Name)));
         base.Visit(typeParameter);
     }
 
     /// <inheritdoc />
     public override void Visit(ExceptionElement exception)
     {
-        EndParagraph();
-
-        AddToCurrentParagraph(new MdCodeSpan(exception.Reference.Name));
-
-        EndParagraph();
-
+        AppendBlock(new MdParagraph(new MdCodeSpan(exception.Reference.Name)));
         //TODO: Use TryGetLinkForCodeReference
-
         base.Visit(exception);
     }
 
@@ -182,8 +163,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     /// <inheritdoc />
     public override void Visit(TextBlock textBlock)
     {
-        EndParagraph();
-
+        EndCurrentParagraph();
         base.Visit(textBlock);
     }
 
@@ -201,11 +181,10 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
         //TODO: Implement full list support, use Sandcastle list example as guideline: http://ewsoftware.github.io/XMLCommentsGuide/html/4fe0d5e6-7a33-a185-f424-7ea249f15596.htm
         if (listElement.Type == ListType.Bullet || listElement.Type == ListType.Number)
         {
-            EndParagraph();
 
             var outputList = listElement.Type == ListType.Number ? new MdOrderedList() : (MdList)new MdBulletList();
 
-            CurrentBlock.Add(outputList);
+            AppendBlock(outputList);
 
             foreach (var inputItem in listElement.Items)
             {
@@ -220,13 +199,12 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
                 inputItem.Accept(this);
 
                 // end the current paragraph and restore previous current block
-                EndParagraph();
+                EndCurrentParagraph();
                 m_Stack.Pop();
             }
         }
         else if (listElement.Type == ListType.Table)
         {
-            EndParagraph();
 
             MdTableRow CreateRow(ListItemElement? itemElement)
             {
@@ -251,7 +229,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
                 listElement.Items.Select(CreateRow)
             );
 
-            CurrentBlock.Add(table);
+            AppendBlock(table);
         }
     }
 
@@ -280,8 +258,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     /// <inheritdoc />
     public override void Visit(CodeElement code)
     {
-        EndParagraph();
-        CurrentBlock.Add(new MdCodeBlock(code.Content, code.Language));
+        AppendBlock(new MdCodeBlock(code.Content, code.Language));
     }
 
     /// <inheritdoc />
@@ -342,8 +319,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         if (summary.Text is not null)
         {
-            EndParagraph();
-            CurrentBlock.Add(new MdHeading(3, "Summary"));
+            AppendBlock(new MdHeading(3, "Summary"));
             base.Visit(summary);
         }
     }
@@ -353,8 +329,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         if (remarks.Text is not null)
         {
-            EndParagraph();
-            CurrentBlock.Add(new MdHeading(3, "Remarks"));
+            AppendBlock(new MdHeading(3, "Remarks"));
             base.Visit(remarks);
         }
     }
@@ -364,8 +339,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         if (value is not null)
         {
-            EndParagraph();
-            CurrentBlock.Add(new MdHeading(3, "Value"));
+            AppendBlock(new MdHeading(3, "Value"));
             base.Visit(value);
         }
     }
@@ -375,8 +349,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         if (returns.Text is not null)
         {
-            EndParagraph();
-            CurrentBlock.Add(new MdHeading(3, "Returns"));
+            AppendBlock(new MdHeading(3, "Returns"));
             base.Visit(returns);
         }
     }
@@ -386,8 +359,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         if (example.Text is not null)
         {
-            EndParagraph();
-            CurrentBlock.Add(new MdHeading(3, "Example"));
+            AppendBlock(new MdHeading(3, "Example"));
             base.Visit(example);
         }
     }
@@ -397,8 +369,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         if (parameters.Count > 0)
         {
-            EndParagraph();
-            CurrentBlock.Add(new MdHeading(3, "Parameters"));
+            AppendBlock(new MdHeading(3, "Parameters"));
             base.VisitParameters(methodOrProperty, parameters);
         }
     }
@@ -408,8 +379,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         if (typeParameters.Count > 0)
         {
-            EndParagraph();
-            CurrentBlock.Add(new MdHeading(3, "Type Parameters"));
+            AppendBlock(new MdHeading(3, "Type Parameters"));
             base.VisitTypeParameters(typeOrMethod, typeParameters);
         }
     }
@@ -419,8 +389,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         if (exceptions.Count > 0)
         {
-            EndParagraph();
-            CurrentBlock.Add(new MdHeading(3, "Exceptions"));
+            AppendBlock(new MdHeading(3, "Exceptions"));
             base.VisitExceptions(methodOrPropertyOrEvent, exceptions);
         }
     }
@@ -430,12 +399,20 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         if (member.SeeAlso.Count > 0)
         {
-            EndParagraph();
-            CurrentBlock.Add(new MdHeading(3, "See Also"));
+            AppendBlock(new MdHeading(3, "See Also"));
             base.VisitSeeAlso(member);
         }
     }
 
+
+    /// <summary>
+    /// Appends the specified block to the output
+    /// </summary>
+    protected virtual void AppendBlock(MdBlock block)
+    {
+        EndCurrentParagraph();
+        CurrentBlock.Add(block);
+    }
 
     /// <summary>
     /// Adds the specified span to the current paragraph.
@@ -454,9 +431,10 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     }
 
     /// <summary>
-    /// Ends the current paragraph
+    /// Ends the current paragraph.
+    /// Any further content via <see cref="AddToCurrentParagraph(MdSpan)"/> will be added to a new paragraph.
     /// </summary>
-    protected virtual void EndParagraph()
+    protected virtual void EndCurrentParagraph()
     {
         m_CurrentParagraph = null;
     }

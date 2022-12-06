@@ -1,5 +1,21 @@
 ﻿namespace Grynwald.XmlDocReader.MarkdownRenderer;
 
+/// <summary>
+/// A visitor that converts a <see cref="TextElement"/> to Markdown (as <see cref="MdSpan"/>).
+/// </summary>
+/// <remarks>
+/// Note that this class is intended to serve as the basis for a documentation generator by offering conversions to Markdown for the contents of an XML documentation file
+/// but is not sufficient to generate the complete documentation for a .NET library.
+/// <para>
+/// The XML documentation file does not contain all members of an assembly but only the members for which the compiler found any XML documentation comments.
+/// To generate the full documentation of an assembly requires building a semantic model of that assembly which can be achieved using libraries like Mono.Cecil or Roslyn (Microsoft.CodeAnalyis).
+/// </para>
+/// <para>
+/// The semantic model is also required to resolve references between elements (e.g. <c><![CDATA[<see cref="SomeClass"/>]]></c>) which this implementation also will not be able to handle.
+/// To resolve references, you can customize this visitor by overriding the corresponding <c>Visit()</c> methods.
+/// </para>
+/// </remarks>
+/// <seealso href="https://en.wikipedia.org/wiki/Visitor_pattern">Visitor pattern (Wikipedia)</seealso>
 public class ConvertToSpanVisitor : ConvertVisitorBase
 {
     private readonly Stack<MdCompositeSpan> m_Stack = new();
