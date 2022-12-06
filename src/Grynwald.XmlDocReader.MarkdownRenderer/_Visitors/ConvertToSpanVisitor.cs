@@ -16,7 +16,7 @@
 /// </para>
 /// </remarks>
 /// <seealso href="https://en.wikipedia.org/wiki/Visitor_pattern">Visitor pattern (Wikipedia)</seealso>
-public class ConvertToSpanVisitor : ConvertVisitorBase
+public class ConvertToSpanVisitor : DocumentationVisitor
 {
     private readonly Stack<MdCompositeSpan> m_Stack = new();
 
@@ -32,47 +32,65 @@ public class ConvertToSpanVisitor : ConvertVisitorBase
     }
 
 
+    /// <inheritdoc />
     public override void Visit(DocumentationFile documentationFile) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(NamespaceMemberElement member) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(TypeMemberElement member) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(FieldMemberElement member) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(PropertyMemberElement member) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(MethodMemberElement member) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(EventMemberElement member) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(ParameterElement param) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(TypeParameterElement typeParam) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(ExceptionElement exception) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(SeeAlsoUrlReferenceElement seeAlso) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(SeeAlsoCodeReferenceElement seeAlso) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(PlainTextElement plainText)
     {
         CurrentSpan.Add(new MdTextSpan(plainText.Content));
     }
 
+    /// <inheritdoc />
     public override void Visit(ListElement list) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(ListItemElement item) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(CElement c)
     {
         if (!String.IsNullOrEmpty(c.Content))
             CurrentSpan.Add(new MdCodeSpan(c.Content));
     }
 
+    /// <inheritdoc />
     public override void Visit(CodeElement code) => ThrowUnsupportedNode();
 
+    /// <inheritdoc />
     public override void Visit(ParagraphElement para)
     {
         // a single span cannot contain multiple paragraphs, but we can at least add a line break
@@ -82,11 +100,13 @@ public class ConvertToSpanVisitor : ConvertVisitorBase
         base.Visit(para);
     }
 
+    /// <inheritdoc />
     public override void Visit(ParameterReferenceElement paramRef)
     {
         CurrentSpan.Add(new MdCodeSpan(paramRef.Name));
     }
 
+    /// <inheritdoc />
     public override void Visit(TypeParameterReferenceElement typeParamRef)
     {
         CurrentSpan.Add(new MdCodeSpan(typeParamRef.Name));
@@ -95,27 +115,14 @@ public class ConvertToSpanVisitor : ConvertVisitorBase
     /// <inheritdoc />
     public override void Visit(SeeCodeReferenceElement see)
     {
-        MdSpan textSpan;
-
         if (see.Text is not null)
         {
-            BeginNestedSpan();
             see.Text.Accept(this);
-            textSpan = EndNestedSpan();
         }
         else
         {
-            textSpan = new MdCodeSpan(see.Reference.Name);
+            CurrentSpan.Add(new MdCodeSpan(see.Reference.Name));
         }
-
-        // Default implementation cannot resolve "cref" values because that would require a semantic model of assembly
-        var linkTarget = TryGetLinkForCodeReference(see.Reference);
-        if (linkTarget is not null)
-        {
-            textSpan = new MdLinkSpan(textSpan, linkTarget);
-        }
-
-        CurrentSpan.Add(textSpan);
     }
 
     /// <inheritdoc />

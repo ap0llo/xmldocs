@@ -17,7 +17,7 @@
 /// </para>
 /// </remarks>
 /// <seealso href="https://en.wikipedia.org/wiki/Visitor_pattern">Visitor pattern (Wikipedia)</seealso>
-public class ConvertToBlockVisitor : ConvertVisitorBase
+public class ConvertToBlockVisitor : DocumentationVisitor
 {
     private readonly IMarkdownConverter m_MarkdownConverter;
     private readonly Stack<MdContainerBlockBase> m_Stack = new(new[] { new MdContainerBlock() });
@@ -76,7 +76,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
 
     /// <inheritdoc />
     public override void Visit(PropertyMemberElement member)
-    {        
+    {
         AppendBlock(new MdHeading(2, $"{member.Id.Name} Property"));
         base.Visit(member);
     }
@@ -113,7 +113,6 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     public override void Visit(ExceptionElement exception)
     {
         AppendBlock(new MdParagraph(new MdCodeSpan(exception.Reference.Name)));
-        //TODO: Use TryGetLinkForCodeReference
         base.Visit(exception);
     }
 
@@ -138,25 +137,11 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     /// <inheritdoc />
     public override void Visit(SeeAlsoCodeReferenceElement seeAlso)
     {
-        MdSpan textSpan;
+        var span = seeAlso.Text is not null
+            ? m_MarkdownConverter.ConvertToSpan(seeAlso.Text)
+            : new MdCodeSpan(seeAlso.Reference.Name);
 
-        if (seeAlso.Text is not null)
-        {
-            textSpan = m_MarkdownConverter.ConvertToSpan(seeAlso.Text);
-        }
-        else
-        {
-            textSpan = new MdCodeSpan(seeAlso.Reference.Name);
-        }
-
-        // Default implementation cannot resolve "cref" values because that would require a semantic model of assembly
-        var linkTarget = TryGetLinkForCodeReference(seeAlso.Reference);
-        if (linkTarget is not null)
-        {
-            textSpan = new MdLinkSpan(textSpan, linkTarget);
-        }
-
-        AddToCurrentParagraph(textSpan);
+        AddToCurrentParagraph(span);
         AddToCurrentParagraph(new MdRawMarkdownSpan(Environment.NewLine));
     }
 
@@ -276,25 +261,11 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     /// <inheritdoc />
     public override void Visit(SeeCodeReferenceElement see)
     {
-        MdSpan textSpan;
+        var span = see.Text is not null
+            ? m_MarkdownConverter.ConvertToSpan(see.Text)
+            : new MdCodeSpan(see.Reference.Name);
 
-        if (see.Text is not null)
-        {
-            textSpan = m_MarkdownConverter.ConvertToSpan(see.Text);
-        }
-        else
-        {
-            textSpan = new MdCodeSpan(see.Reference.Name);
-        }
-
-        // Default implementation cannot resolve "cref" values because that would require a semantic model of assembly
-        var linkTarget = TryGetLinkForCodeReference(see.Reference);
-        if (linkTarget is not null)
-        {
-            textSpan = new MdLinkSpan(textSpan, linkTarget);
-        }
-
-        AddToCurrentParagraph(textSpan);
+        AddToCurrentParagraph(span);
     }
 
     /// <inheritdoc />
