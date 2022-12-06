@@ -3,7 +3,7 @@
 public class TypeMemberElement : MemberElement
 {
     /// <summary>
-    /// Gets the all of the type's <![CDATA[<typeparam />]]> descriptions.
+    /// Gets all the type's <![CDATA[<typeparam />]]> descriptions.
     /// </summary>
     public IReadOnlyList<TypeParameterElement> TypeParameters { get; init; } = Array.Empty<TypeParameterElement>();
 

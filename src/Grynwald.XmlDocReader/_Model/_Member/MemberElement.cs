@@ -33,7 +33,7 @@ public abstract class MemberElement : DocumentationElement
     public ExampleElement? Example { get; init; }
 
     /// <summary>
-    /// Gets the all of the member's <![CDATA[<seealso />]]> descriptions.
+    /// Gets all the member's <![CDATA[<seealso />]]> descriptions.
     /// </summary>
     public IReadOnlyList<SeeAlsoElement> SeeAlso { get; init; } = Array.Empty<SeeAlsoElement>();
 

@@ -2,7 +2,7 @@
 
 public abstract class ConvertVisitorBase : DocumentationVisitor
 {
-    //TODO: Add test if this is really used
+    //TODO: Remove this
     protected virtual string? TryGetLinkForCodeReference(MemberId reference)
     {
         // Extension point for derived classes.

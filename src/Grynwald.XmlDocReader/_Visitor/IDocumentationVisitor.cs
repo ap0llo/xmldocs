@@ -1,8 +1,9 @@
 ﻿namespace Grynwald.XmlDocReader;
 
 /// <summary>
-/// The interface for a visitor that traverses the object structure of a XML documentation file.
+/// The interface for a visitor that traverses the object structure of an XML documentation file.
 /// </summary>
+/// <seealso href="https://en.wikipedia.org/wiki/Visitor_pattern">Visitor pattern (Wikipedia)</seealso>
 public interface IDocumentationVisitor
 {
     void Visit(DocumentationFile documentationFile);

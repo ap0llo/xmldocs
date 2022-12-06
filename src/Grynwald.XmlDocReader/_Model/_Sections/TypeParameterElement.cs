@@ -20,7 +20,7 @@ public class TypeParameterElement : SectionElement
     /// </summary>
     /// <param name="name">The type parameter's name.</param>
     /// <param name="text">The (optional) description of the parameter.</param>
-    /// <exception cref="ArgumentException">Thrown if <paramref name="name"/> is <c>null</c> or whitspace.</exception>
+    /// <exception cref="ArgumentException">Thrown if <paramref name="name"/> is <c>null</c> or whitespace.</exception>
     public TypeParameterElement(string name, TextBlock? text) : base(text)
     {
         if (String.IsNullOrWhiteSpace(name))

@@ -3,7 +3,7 @@
 public class EventMemberElement : MemberElement
 {
     /// <summary>
-    /// Gets the all of the member's <![CDATA[<exception />]]> descriptions.
+    /// Gets all the member's <![CDATA[<exception />]]> descriptions.
     /// </summary>
     public IReadOnlyList<ExceptionElement> Exceptions { get; init; } = Array.Empty<ExceptionElement>();
 

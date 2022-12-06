@@ -17,7 +17,7 @@ public class ExceptionElement : SectionElement
     /// <summary>
     /// Initializes a new instance of <see cref="ExceptionElement"/>.
     /// </summary>
-    /// <param name="reference">The reference to the exception#s type.</param>
+    /// <param name="reference">The reference to the exception's type.</param>
     /// <param name="text">The exception's description.</param>
     /// <exception cref="ArgumentException">Thrown when <paramref name="reference"/> is <c>null</c> or whitespace.</exception>
     public ExceptionElement(MemberId reference, TextBlock? text) : base(text)

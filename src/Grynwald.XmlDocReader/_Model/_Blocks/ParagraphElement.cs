@@ -4,7 +4,7 @@
 /// Represents a paragraph (<c><![CDATA[<para />]]></c>) text element in XML documentation comments.
 /// </summary>
 /// <remarks>
-/// The <c>para</c> tag an be used to structure a text block into paragraphs.
+/// The <c>para</c> tag can be used to structure a text block into paragraphs.
 /// </remarks>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags">Recommended XML tags for C# documentation comments (Microsoft Learn)</seealso>
 public class ParagraphElement : BlockElement, IEquatable<ParagraphElement>

@@ -8,17 +8,17 @@ public class MethodMemberElement : MemberElement
     public ReturnsElement? Returns { get; init; }
 
     /// <summary>
-    /// Gets the all of the methods's <![CDATA[<param />]]> descriptions.
+    /// Gets all the methods's <![CDATA[<param />]]> descriptions.
     /// </summary>
     public IReadOnlyList<ParameterElement> Parameters { get; init; } = Array.Empty<ParameterElement>();
 
     /// <summary>
-    /// Gets the all of the method's <![CDATA[<typeparam />]]> descriptions.
+    /// Gets all the method's <![CDATA[<typeparam />]]> descriptions.
     /// </summary>
     public IReadOnlyList<TypeParameterElement> TypeParameters { get; init; } = Array.Empty<TypeParameterElement>();
 
     /// <summary>
-    /// Gets the all of the member's <![CDATA[<exception />]]> descriptions.
+    /// Gets all the member's <![CDATA[<exception />]]> descriptions.
     /// </summary>
     public IReadOnlyList<ExceptionElement> Exceptions { get; init; } = Array.Empty<ExceptionElement>();
 

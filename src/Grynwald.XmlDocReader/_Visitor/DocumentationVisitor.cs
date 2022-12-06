@@ -214,7 +214,7 @@ public class DocumentationVisitor : IDocumentationVisitor
     }
 
     /// <summary>
-    /// Visits a a PropertyDescription's or MethodDescription's parameters.
+    /// Visits a PropertyDescription's or MethodDescription's parameters.
     /// </summary>
     /// <remarks>
     /// This method is called by <see cref="Visit(MethodMemberElement)"/> and <see cref="Visit(PropertyMemberElement)"/> instead of visiting the parameters directly
@@ -234,7 +234,7 @@ public class DocumentationVisitor : IDocumentationVisitor
     }
 
     /// <summary>
-    /// Visits a a TypeDescription's of MethodDescription's type parameters.
+    /// Visits a TypeDescription's of MethodDescription's type parameters.
     /// </summary>
     /// <remarks>
     /// This method is called by <see cref="Visit(TypeMemberElement)"/> and <see cref="Visit(MethodMemberElement)"/> instead of visiting the items in <c>TypeParameters</c> directly
@@ -254,7 +254,7 @@ public class DocumentationVisitor : IDocumentationVisitor
     }
 
     /// <summary>
-    /// Visits a a MemberDescription's exceptions.
+    /// Visits a MemberDescription's exceptions.
     /// </summary>
     /// <remarks>
     /// This method is called by <see cref="Visit(MethodMemberElement)"/>, <see cref="Visit(PropertyMemberElement)"/> and <see cref="Visit(EventMemberElement)"/> instead of visiting the items in <c>Exceptions</c> directly
@@ -275,7 +275,7 @@ public class DocumentationVisitor : IDocumentationVisitor
     }
 
     /// <summary>
-    /// Visits a a MemberDescription's "See Also" references.
+    /// Visits a MemberDescription's "See Also" references.
     /// </summary>
     /// <remarks>
     /// This method is called by the <c>Visit()</c> methods for types derived from <see cref="MemberElement" /> instead of visiting the items in <see cref="MemberElement.SeeAlso" /> directly

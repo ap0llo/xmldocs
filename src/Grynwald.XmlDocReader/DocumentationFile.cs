@@ -1,12 +1,12 @@
 ﻿namespace Grynwald.XmlDocReader;
 
 /// <summary>
-/// Represents a XML documentation file.
+/// Represents an XML documentation file.
 /// </summary>
 public class DocumentationFile : DocumentationElement
 {
     /// <summary>
-    /// Gets the name of the assembly the documetnation applies to.
+    /// Gets the name of the assembly the documentation applies to.
     /// </summary>
     public string AssemblyName { get; }
 
@@ -17,7 +17,7 @@ public class DocumentationFile : DocumentationElement
 
 
     /// <summary>
-    /// Initialzes a new instance of <see cref="DocumentationFile"/>
+    /// Initializes a new instance of <see cref="DocumentationFile"/>
     /// </summary>
     /// <param name="assemblyName">The name of the assembly the documentation applies to.</param>
     /// <param name="members">The documented members in the documentation file.</param>
