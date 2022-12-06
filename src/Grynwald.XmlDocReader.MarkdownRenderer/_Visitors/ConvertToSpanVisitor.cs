@@ -81,7 +81,7 @@ public class ConvertToSpanVisitor : ConvertVisitorBase
     {
         MdSpan textSpan;
 
-        if (see.Text is not null && see.Text.Elements.Count > 0)
+        if (see.Text is not null)
         {
             BeginNestedSpan();
             see.Text.Accept(this);
@@ -107,7 +107,7 @@ public class ConvertToSpanVisitor : ConvertVisitorBase
     {
         MdSpan linkText;
 
-        if (see.Text is not null && see.Text.Elements.Count > 0)
+        if (see.Text is not null)
         {
             BeginNestedSpan();
             see.Text.Accept(this);

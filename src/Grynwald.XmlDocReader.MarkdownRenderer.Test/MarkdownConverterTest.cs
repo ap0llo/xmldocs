@@ -40,20 +40,20 @@ public class MarkdownConverterTest
                         new EventDescription(MemberId.Parse("E:MyNamespace.MyClass.Event")),
                     }),
                 """
-            # MyAssembly
+                # MyAssembly
            
-            ## MyNamespace Namespace
+                ## MyNamespace Namespace
            
-            ## MyNamespace.MyClass
+                ## MyNamespace.MyClass
            
-            ## MyNamespace.MyClass.Field Field
+                ## MyNamespace.MyClass.Field Field
            
-            ## MyNamespace.MyClass.Property Property
+                ## MyNamespace.MyClass.Property Property
            
-            ## MyNamespace.MyClass.Method Method
+                ## MyNamespace.MyClass.Method Method
            
-            ## MyNamespace.MyClass.Event Event
-            """
+                ## MyNamespace.MyClass.Event Event
+                """
             );
 
 
@@ -72,16 +72,16 @@ public class MarkdownConverterTest
                 </member>
                 """),
                 """
-            ## MyClass.MyMethod Method
+                ## MyClass.MyMethod Method
 
-            ### Parameters
+                ### Parameters
 
-            `someParameter`
+                `someParameter`
 
-            `someOtherParameter`
+                `someOtherParameter`
 
-            Some Description
-            """
+                Some Description
+                """
             );
 
             yield return TestCase(
@@ -97,10 +97,10 @@ public class MarkdownConverterTest
                     new TextBlock(new PlainTextElement("Description of parameter1"))
                 ),
                 """
-            `parameter1`
+                `parameter1`
   
-            Description of parameter1
-            """
+                Description of parameter1
+                """
             );
 
             yield return TestCase(
@@ -116,10 +116,10 @@ public class MarkdownConverterTest
                     new TextBlock(new PlainTextElement("Description of typeParameter1"))
                 ),
                 """
-            `typeParameter1`
+                `typeParameter1`
   
-            Description of typeParameter1
-            """
+                Description of typeParameter1
+                """
             );
 
 
@@ -132,18 +132,18 @@ public class MarkdownConverterTest
                 </member>
                 """),
                 """
-            ## MyClass.MyMethod Method
+                ## MyClass.MyMethod Method
 
-            ### Parameters
+                ### Parameters
 
-            `someParameter`
+                `someParameter`
 
-            ### Type Parameters
+                ### Type Parameters
 
-            `T1`
+                `T1`
 
-            Some Description
-            """
+                Some Description
+                """
             );
 
 
@@ -166,10 +166,10 @@ public class MarkdownConverterTest
                     new TextBlock(new PlainTextElement("Description of the exception"))
                 ),
                 """
-            `MyNamespace.MyException`
+                `MyNamespace.MyException`
 
-            Description of the exception
-            """
+                Description of the exception
+                """
             );
 
             yield return TestCase(
@@ -181,16 +181,16 @@ public class MarkdownConverterTest
                 </member>
                 """),
                 """
-            ## MyClass.MyMethod Method
+                ## MyClass.MyMethod Method
 
-            ### Exceptions
+                ### Exceptions
 
-            `MyNamespace.MyException1`
+                `MyNamespace.MyException1`
 
-            `MyNamespace.MyException2`
+                `MyNamespace.MyException2`
 
-            Thrown in some cases
-            """
+                Thrown in some cases
+                """
             );
 
             yield return TestCase(
@@ -214,13 +214,13 @@ public class MarkdownConverterTest
                 </member>
                 """),
                 """
-            ## MyClass.MyMethod Method
+                ## MyClass.MyMethod Method
 
-            ### See Also
+                ### See Also
 
-            [http://example.com](http://example.com/)  
-            [Link Text](http://example.com/)
-            """
+                [http://example.com](http://example.com/)  
+                [Link Text](http://example.com/)
+                """
             );
 
             yield return TestCase(
@@ -244,13 +244,13 @@ public class MarkdownConverterTest
                 </member>
                 """),
                 """
-            ## MyClass.MyMethod Method
+                ## MyClass.MyMethod Method
 
-            ### See Also
+                ### See Also
 
-            `MyNamespace.MyClass`  
-            Link Text
-            """
+                `MyNamespace.MyClass`  
+                Link Text
+                """
             );
 
 
@@ -270,40 +270,40 @@ public class MarkdownConverterTest
                 </member>
                 """),
                 """
-            ## MyClass.MyMethod Method
+                ## MyClass.MyMethod Method
 
-            ### Summary
+                ### Summary
 
-            This is some text with `inline code`.
-            """
+                This is some text with `inline code`.
+                """
             );
 
             yield return TestCase(
                 "T22",
                 new CodeElement(
                     """
-                Some Code content
-                """,
+                    Some Code content
+                    """,
                     language: null),
                 """
-            ```
-            Some Code content
-            ```
-            """
+                ```
+                Some Code content
+                ```
+                """
             );
 
             yield return TestCase(
                 "T23",
                 new CodeElement(
                     """
-                Some Code content
-                """,
+                    Some Code content
+                    """,
                     language: "lang"),
                 """
-            ```lang
-            Some Code content
-            ```
-            """
+                ```lang
+                Some Code content
+                ```
+                """
             );
 
             yield return TestCase(
@@ -319,16 +319,16 @@ public class MarkdownConverterTest
                 </member>
                 """),
                 """
-            ## MyClass.MyMethod Method
+                ## MyClass.MyMethod Method
 
-            ### Summary
+                ### Summary
 
-            This is some text with a code block.
+                This is some text with a code block.
 
-            ```lang
-            Some Code
-            ```
-            """
+                ```lang
+                Some Code
+                ```
+                """
             );
 
             yield return TestCase(
@@ -337,8 +337,8 @@ public class MarkdownConverterTest
                     new TextBlock(new PlainTextElement("Some Text"))
                 ),
                 """
-            Some Text
-            """
+                Some Text
+                """
             );
 
             yield return TestCase(
@@ -354,22 +354,22 @@ public class MarkdownConverterTest
                 </member>
                 """),
                 """
-            ## MyClass.MyMethod Method
+                ## MyClass.MyMethod Method
 
-            ### Summary
+                ### Summary
 
-            This is the first paragraph.
+                This is the first paragraph.
 
-            This is the second paragraph.
-            """
+                This is the second paragraph.
+                """
             );
 
             yield return TestCase(
                 "T27",
                 new ParameterReferenceElement("parameter"),
                 """
-            `parameter`
-            """
+                `parameter`
+                """
             );
 
             yield return TestCase(
@@ -391,35 +391,27 @@ public class MarkdownConverterTest
             );
 
             yield return TestCase(
-                "T27",
+                "T28",
                 new TypeParameterReferenceElement("parameter"),
                 """
-            `parameter`
-            """
-            );
-
-            yield return TestCase(
-                "T28",
-                new SeeCodeReferenceElement(MemberId.Parse("M:MyClass.Method"), null),
+                `parameter`
                 """
-            `MyClass.Method`
-            """
             );
 
             yield return TestCase(
                 "T29",
-                new SeeCodeReferenceElement(MemberId.Parse("M:MyClass.Method"), new TextBlock()),
+                new SeeCodeReferenceElement(MemberId.Parse("M:MyClass.Method"), null),
                 """
-            `MyClass.Method`
-            """
+                `MyClass.Method`
+                """
             );
 
             yield return TestCase(
                 "T30",
                 new SeeCodeReferenceElement(MemberId.Parse("M:MyClass.Method"), new TextBlock(new PlainTextElement("Link Text"))),
                 """
-            Link Text
-            """
+                Link Text
+                """
             );
 
             yield return TestCase(
@@ -432,36 +424,28 @@ public class MarkdownConverterTest
                 </member>
                 """),
                 """
-            ## MyClass.MyMethod Method
+                ## MyClass.MyMethod Method
 
-            ### Summary
+                ### Summary
 
-            Text with a inline code reference to definition of MyClass.
-            """
-            );
-
-            yield return TestCase(
-                "T31",
-                new SeeUrlReferenceElement("https://example.com", null),
+                Text with a inline code reference to definition of MyClass.
                 """
-            [https://example.com](https://example.com/)
-            """
             );
 
             yield return TestCase(
                 "T32",
-                new SeeUrlReferenceElement("https://example.com", new TextBlock()),
+                new SeeUrlReferenceElement("https://example.com", null),
                 """
-            [https://example.com](https://example.com/)
-            """
+                [https://example.com](https://example.com/)
+                """
             );
 
             yield return TestCase(
                 "T33",
                 new SeeUrlReferenceElement("https://example.com", new TextBlock(new PlainTextElement("Link Text"))),
                 """
-            [Link Text](https://example.com/)
-            """
+                [Link Text](https://example.com/)
+                """
             );
 
 
@@ -475,12 +459,12 @@ public class MarkdownConverterTest
                 </member>
                 """),
                 """
-            ## MyClass.MyMethod Method
+                ## MyClass.MyMethod Method
 
-            ### Summary
+                ### Summary
 
-            Text with a inline link to [example.com](https://example.com/).
-            """
+                Text with a inline link to [example.com](https://example.com/).
+                """
             );
 
 
@@ -494,12 +478,12 @@ public class MarkdownConverterTest
                 </member>
                 """),
                 """
-            ## MyClass.MyMethod Method
+                ## MyClass.MyMethod Method
 
-            ### Summary
+                ### Summary
 
-            Text referencing type parameter `parameter1`.
-            """
+                Text referencing type parameter `parameter1`.
+                """
             );
 
 
@@ -645,52 +629,52 @@ public class MarkdownConverterTest
                 </member>
                 """),
                 """
-            ## MyClass.MyMethod Method
+                ## MyClass.MyMethod Method
 
-            ### Summary
+                ### Summary
 
-            Summary for this method.
+                Summary for this method.
 
-            ### Remarks
+                ### Remarks
 
-            Some remarks.
+                Some remarks.
 
-            ### Returns
+                ### Returns
 
-            Documentation of return value.
+                Documentation of return value.
 
-            ### Example
+                ### Example
 
-            Some example
+                Some example
 
-            ### Parameters
+                ### Parameters
 
-            `someParameter`
+                `someParameter`
 
-            `someOtherParameter`
+                `someOtherParameter`
 
-            Description of `someOtherParameter`.
+                Description of `someOtherParameter`.
 
-            ### Type Parameters
+                ### Type Parameters
 
-            `T1`
+                `T1`
 
-            Some Description
+                Some Description
 
-            ### Exceptions
+                ### Exceptions
 
-            `InvalidOperationException`
+                `InvalidOperationException`
 
-            Thrown if operation is invalid.
+                Thrown if operation is invalid.
 
-            `NotSupportedException`
+                `NotSupportedException`
 
-            ### See Also
+                ### See Also
             
-            [http://example.com](http://example.com/)  
-            [Link Text](http://example.com/)  
-            `MyNamespace.MyClass`
-            """
+                [http://example.com](http://example.com/)  
+                [Link Text](http://example.com/)  
+                `MyNamespace.MyClass`
+                """
             );
 
             yield return TestCase(
@@ -719,46 +703,46 @@ public class MarkdownConverterTest
                 </member>
                 """),
                 """
-            ## MyClass.MyProperty Property
+                ## MyClass.MyProperty Property
 
-            ### Summary
+                ### Summary
 
-            Summary for this method.
+                Summary for this method.
 
-            ### Remarks
+                ### Remarks
 
-            Some remarks.
+                Some remarks.
 
-            ### Value
+                ### Value
 
-            Description of value.
+                Description of value.
 
-            ### Example
+                ### Example
 
-            Some example
+                Some example
 
-            ### Parameters
+                ### Parameters
 
-            `someParameter`
+                `someParameter`
 
-            `someOtherParameter`
+                `someOtherParameter`
 
-            Description of `someOtherParameter`.
+                Description of `someOtherParameter`.
 
-            ### Exceptions
+                ### Exceptions
 
-            `InvalidOperationException`
+                `InvalidOperationException`
 
-            Thrown if operation is invalid.
+                Thrown if operation is invalid.
 
-            `NotSupportedException`
+                `NotSupportedException`
 
-            ### See Also
+                ### See Also
             
-            [http://example.com](http://example.com/)  
-            [Link Text](http://example.com/)  
-            `MyNamespace.MyClass`
-            """
+                [http://example.com](http://example.com/)  
+                [Link Text](http://example.com/)  
+                `MyNamespace.MyClass`
+                """
             );
         }
 
@@ -896,30 +880,19 @@ public class MarkdownConverterTest
 
             yield return TestCase(
                 "T09",
-                new SeeCodeReferenceElement(MemberId.Parse("M:MyClass.Method"), new TextBlock()),
-                "`MyClass.Method`"
-            );
-
-            yield return TestCase(
-                "T10",
                 new SeeCodeReferenceElement(MemberId.Parse("M:MyClass.Method"), new TextBlock(new PlainTextElement("Link Text"))),
                 "Link Text"
             );
 
             yield return TestCase(
-                "T11",
+                "T10",
                 new SeeUrlReferenceElement("https://example.com", null),
                 "[https://example.com](https://example.com/)"
             );
 
-            yield return TestCase(
-                "T12",
-                new SeeUrlReferenceElement("https://example.com", new TextBlock()),
-                "[https://example.com](https://example.com/)"
-            );
 
             yield return TestCase(
-                "T23",
+                "T11",
                 new SeeUrlReferenceElement("https://example.com", new TextBlock(new PlainTextElement("Link Text"))),
                 "[Link Text](https://example.com/)"
             );

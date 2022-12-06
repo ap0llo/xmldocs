@@ -141,7 +141,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         MdSpan linkText;
 
-        if (seeAlso.Text is not null && seeAlso.Text.Elements.Count > 0)
+        if (seeAlso.Text is not null)
         {
             linkText = m_MarkdownConverter.ConvertToSpan(seeAlso.Text);
         }
@@ -159,7 +159,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         MdSpan textSpan;
 
-        if (seeAlso.Text is not null && seeAlso.Text.Elements.Count > 0)
+        if (seeAlso.Text is not null)
         {
             textSpan = m_MarkdownConverter.ConvertToSpan(seeAlso.Text);
         }
@@ -301,7 +301,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         MdSpan textSpan;
 
-        if (see.Text is not null && see.Text.Elements.Count > 0)
+        if (see.Text is not null)
         {
             textSpan = m_MarkdownConverter.ConvertToSpan(see.Text);
         }
@@ -325,7 +325,7 @@ public class ConvertToBlockVisitor : ConvertVisitorBase
     {
         MdSpan linkText;
 
-        if (see.Text is not null && see.Text.Elements.Count > 0)
+        if (see.Text is not null)
         {
             linkText = m_MarkdownConverter.ConvertToSpan(see.Text);
         }
