@@ -17,6 +17,9 @@ jobs:
     
 
   steps:
+  - checkout: self
+    fetchDepth: 0
+    displayName: Checkout
   - task: PowerShell@2
     displayName: Cake Build
     inputs:
