@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Grynwald.XmlDocReader.MarkdownRenderer;
+﻿namespace Grynwald.XmlDocReader.MarkdownRenderer;
 
 public abstract class ConvertVisitorBase : DocumentationVisitor
 {

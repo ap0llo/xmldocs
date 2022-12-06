@@ -95,6 +95,6 @@ public class SeeAlsoDescriptionTest
 
         // ASSERT
         Assert.IsType<XmlDocReaderException>(ex);
-        Assert.Equal<object>("Failed to parse <seealso /> element. Expected either a 'cref' or 'href' attribute to be present but found neither (at 1:2)", ex.Message);
+        Assert.Equal("Failed to parse <seealso /> element. Expected either a 'cref' or 'href' attribute to be present but found neither (at 1:2)", ex.Message);
     }
 }

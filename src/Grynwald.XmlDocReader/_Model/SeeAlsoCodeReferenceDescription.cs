@@ -36,8 +36,7 @@ public class SeeAlsoCodeReferenceDescription : SeeAlsoDescription
 
         if (!MemberId.TryParse(cref, out var reference))
         {
-            //TODO: Handle unparsable member id
-            throw new NotImplementedException();
+            throw new XmlDocReaderException($"Failed to parse code reference in <seealso /> element. Invalid reference '{cref}'{xml.GetPositionString()}");
         }
 
 

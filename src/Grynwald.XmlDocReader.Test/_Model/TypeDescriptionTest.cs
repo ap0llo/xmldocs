@@ -6,7 +6,7 @@ namespace Grynwald.XmlDocReader.Test;
 /// <summary>
 /// Tests for <see cref="TypeDescription"/>
 /// </summary>
-public class TypeDescriptionTest : MemberDesciptionCommonTest
+public class TypeDescriptionTest : MemberDescriptionCommonTest
 {
     protected override MemberDescription CreateInstanceFromXml(string xml) =>
         TypeDescription.FromXml(MemberId.Parse("T:MyNamespace.MyClass"), XmlContentHelper.ParseXmlElement(xml));

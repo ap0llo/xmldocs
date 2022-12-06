@@ -63,6 +63,24 @@ public class ExceptionDescriptionTest
         Assert.Equal(expectedErrorMessage, ex.Message);
     }
 
+    [Fact]
+    public void FromXml_fails_if_cref_cannot_be_parsed()
+    {
+        // ARRANGE
+        var input = """
+            <exception cref="not-a-member-id">
+            </exception>
+            """;
+
+        // ACT 
+        var ex = Record.Exception(() => ExceptionDescription.FromXml(input));
+
+        // ASSERT
+        Assert.IsType<XmlDocReaderException>(ex);
+        Assert.Equal("Failed to parse code reference in <exception /> element. Invalid reference 'not-a-member-id' (at 1:2)", ex.Message);
+    }
+
+
     [Theory]
     [InlineData(@"<exception cref=""T:MyException""/>", "T:MyException", null)]
     [InlineData(@"<exception cref=""T:MyException"">Description text</exception>", "T:MyException", "Description text")]

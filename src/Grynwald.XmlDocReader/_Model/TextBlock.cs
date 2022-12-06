@@ -86,6 +86,7 @@ public class TextBlock : IEquatable<TextBlock>, IDocumentationNode
             }
             else if (node is XElement element)
             {
+                //TODO: <em> <i> <b> <br/>
                 if (element.Name.LocalName switch
                 {
                     "para" => ParagraphElement.FromXml(element),
@@ -95,10 +96,6 @@ public class TextBlock : IEquatable<TextBlock>, IDocumentationNode
                     "c" => CElement.FromXml(element),
                     "see" => SeeElement.FromXml(element),
                     "list" => ListElement.FromXml(element),
-
-                    //TODO: <em> <i> <b> <br/>
-                    //TODO: Handle unknown elements
-
                     _ => default(TextElement)
 
                 } is TextElement parsed)

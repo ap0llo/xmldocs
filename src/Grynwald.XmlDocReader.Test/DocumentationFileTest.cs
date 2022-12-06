@@ -5,8 +5,39 @@
 /// </summary>
 public class DocumentationFileTest
 {
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    public void AssemblyName_must_not_be_null_or_whitespace(string assemblyName)
+    {
+        // ARRANGE
+
+        // ACT 
+        var ex = Record.Exception(() => new DocumentationFile(assemblyName: assemblyName, Array.Empty<MemberDescription>()));
+
+        // ASSERT
+        var argumentException = Assert.IsType<ArgumentException>(ex);
+        Assert.Equal("assemblyName", argumentException.ParamName);
+    }
+
     [Fact]
-    public void FromXml_fails_on_invald_xml()
+    public void Members_must_not_be_null()
+    {
+        // ARRANGE
+
+        // ACT 
+        var ex = Record.Exception(() => new DocumentationFile("AssemblyName", members: null!));
+
+        // ASSERT
+        var argumentNullException = Assert.IsType<ArgumentNullException>(ex);
+        Assert.Equal("members", argumentNullException.ParamName);
+    }
+
+
+    [Fact]
+    public void FromXml_fails_on_invald_xml_01()
     {
         // ARRANGE
         var input = "not xml";
@@ -18,6 +49,21 @@ public class DocumentationFileTest
         Assert.IsType<XmlDocReaderException>(ex);
         Assert.IsType<XmlException>(ex.InnerException);
     }
+
+    [Fact]
+    public void FromXml_fails_on_invald_xml_2()
+    {
+        // ARRANGE
+        var input = new XDocument();
+
+        // ACT 
+        var ex = Record.Exception(() => DocumentationFile.FromXml(input));
+
+        // ASSERT
+        Assert.IsType<XmlDocReaderException>(ex);
+        Assert.Equal("XML document has not root element", ex.Message);
+    }
+
 
     [Fact]
     public void FromXml_fails_on_invald_root_element_name()

@@ -3,7 +3,7 @@
 /// <summary>
 /// Tests shared between all derived classes of <see cref="MemberDescription"/>.
 /// </summary>
-public abstract class MemberDesciptionCommonTest
+public abstract class MemberDescriptionCommonTest
 {
     protected abstract MemberDescription CreateInstanceFromXml(string xml);
 

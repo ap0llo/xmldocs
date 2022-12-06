@@ -5,7 +5,7 @@ namespace Grynwald.XmlDocReader.Test;
 /// <summary>
 /// Tests for <see cref="EventDescription"/>-
 /// </summary>
-public class EventDescriptionTest : MemberDesciptionCommonTest
+public class EventDescriptionTest : MemberDescriptionCommonTest
 {
     protected override MemberDescription CreateInstanceFromXml(string xml) =>
         EventDescription.FromXml(MemberId.Parse("E:MyNamespace.MyClass.Event"), XmlContentHelper.ParseXmlElement(xml));

@@ -2,7 +2,7 @@
 
 namespace Grynwald.XmlDocReader.Test;
 
-public class NamespaceDescriptionTest : MemberDesciptionCommonTest
+public class NamespaceDescriptionTest : MemberDescriptionCommonTest
 {
     protected override MemberDescription CreateInstanceFromXml(string xml) =>
         NamespaceDescription.FromXml(MemberId.Parse("N:MyNamespace"), XmlContentHelper.ParseXmlElement(xml));

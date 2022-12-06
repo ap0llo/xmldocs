@@ -2,6 +2,16 @@
 
 internal static class XmlExtensions
 {
+    public static XElement RequireRootElement(this XDocument document)
+    {
+        var root = document.Root;
+
+        if (root is null)
+            throw new XmlDocReaderException($"XML document has not root element");
+
+        return root;
+    }
+
     public static XElement RequireElement(this XElement parent, XName name)
     {
         var element = parent.Element(name);

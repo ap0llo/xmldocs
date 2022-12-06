@@ -27,9 +27,6 @@ public class FieldDescription : MemberDescription
             SeeAlso = xml.Elements("seealso").Select(SeeAlsoDescription.FromXml).ToList(),
         };
 
-        //TODO: Handle duplicate XML elements (e.g. multiple <summary /> elements)
-        //TODO: Handle unknown XML elements
-
         return member;
     }
 }

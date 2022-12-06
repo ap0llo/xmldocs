@@ -53,10 +53,8 @@ public class ExceptionDescription : IDocumentationNode
 
         if (!MemberId.TryParse(cref, out var reference))
         {
-            //TODO: Handle unparsable member id
-            throw new NotImplementedException();
+            throw new XmlDocReaderException($"Failed to parse code reference in <exception /> element. Invalid reference '{cref}'{xml.GetPositionString()}");
         }
-
 
         var text = TextBlock.FromXmlOrNullIfEmpty(xml);
 

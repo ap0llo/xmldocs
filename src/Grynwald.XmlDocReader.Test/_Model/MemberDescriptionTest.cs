@@ -1,6 +1,4 @@
-﻿using Grynwald.XmlDocReader.Internal;
-
-namespace Grynwald.XmlDocReader.Test;
+﻿namespace Grynwald.XmlDocReader.Test;
 
 /// <summary>
 /// Tests for <see cref="MemberDescription"/>
@@ -89,5 +87,22 @@ public class MemberDescriptionTest
 
         // ASSERT
         Assert.IsType<XmlDocReaderException>(ex);
+    }
+
+    [Fact]
+    public void FromXml_fails_if_name_cannot_be_parsed()
+    {
+        // ARRANGE
+        var input = """
+            <member name="not-a-member-id">
+            </member>
+            """;
+
+        // ACT 
+        var ex = Record.Exception(() => MemberDescription.FromXml(input));
+
+        // ASSERT
+        Assert.IsType<XmlDocReaderException>(ex);
+        Assert.Equal("Failed to parse member. Invalid member name 'not-a-member-id' (at 1:2)", ex.Message);
     }
 }

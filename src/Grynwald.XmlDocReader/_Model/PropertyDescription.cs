@@ -42,9 +42,6 @@ public class PropertyDescription : MemberDescription
             Exceptions = xml.Elements("exception").Select(ExceptionDescription.FromXml).ToList(),
         };
 
-        //TODO: Handle duplicate XML elements (e.g. multiple <summary /> elements)
-        //TODO: Handle unknown XML elements
-
         return member;
     }
 }

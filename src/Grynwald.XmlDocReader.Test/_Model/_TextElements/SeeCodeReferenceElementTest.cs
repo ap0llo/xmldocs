@@ -18,6 +18,37 @@ public class SeeCodeReferenceElementTest
         Assert.Equal("reference", argumentNullException.ParamName);
     }
 
+    [Theory]
+    [InlineData(@"<see cref="""">description</see>", "Value of attribute 'cref' (at 1:2) is empty or whitespace")]
+    [InlineData(@"<see cref="" "">description</see>", "Value of attribute 'cref' (at 1:2) is empty or whitespace")]
+    public void FromXml_fails_if_cref_attribute_has_empty_vale(string xml, string expectedErrorMessage)
+    {
+        // ARRANGE
+
+        // ACT 
+        var ex = Record.Exception(() => SeeElement.FromXml(xml));
+
+        // ASSERT
+        Assert.IsType<XmlDocReaderException>(ex);
+        Assert.Equal(expectedErrorMessage, ex.Message);
+    }
+
+    [Fact]
+    public void FromXml_fails_if_cref_cannot_be_parsed()
+    {
+        // ARRANGE
+        var input = """
+            <see cref="not-a-member-id" />
+            """;
+
+        // ACT 
+        var ex = Record.Exception(() => SeeElement.FromXml(input));
+
+        // ASSERT
+        Assert.IsType<XmlDocReaderException>(ex);
+        Assert.Equal("Failed to parse code reference in <see /> element. Invalid reference 'not-a-member-id' (at 1:2)", ex.Message);
+    }
+
     [Fact]
     public void Two_instances_are_equal_if_reference_and_text_are_equal_01()
     {

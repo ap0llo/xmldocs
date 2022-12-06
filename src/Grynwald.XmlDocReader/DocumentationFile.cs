@@ -52,21 +52,18 @@ public class DocumentationFile : IDocumentationNode
     /// </returns>
     public static DocumentationFile FromXml(XDocument xml)
     {
-        if (xml is null)
-            throw new ArgumentNullException(nameof(xml));
+        var root = xml.RequireRootElement();
 
-        xml.Root!.EnsureNameIs("doc");
+        root.EnsureNameIs("doc");
 
-        var assemblyName = xml.Root!
+        var assemblyName = root
             .RequireElement("assembly")
             .RequireElement("name")
             .RequireValue();
 
-        var members = xml.Root!
-            .Element("members")
-            ?.Elements("member")
-            ?.Select(MemberDescription.FromXml)
-            ?.ToArray() ?? Array.Empty<MemberDescription>();
+        var members = (root.Element("members") is XElement membersElement)
+                 ? membersElement.Elements("member").Select(MemberDescription.FromXml).ToArray()
+                 : Array.Empty<MemberDescription>();
 
         return new DocumentationFile(assemblyName, members);
     }

@@ -20,7 +20,10 @@ public class SeeAlsoUrlReferenceDescription : SeeAlsoDescription
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="link"/> is <c>null</c>.</exception>
     public SeeAlsoUrlReferenceDescription(string link, TextBlock? text) : base(text)
     {
-        Link = link ?? throw new ArgumentNullException(nameof(link)); //TODO: Check for null or whitespace
+        if (String.IsNullOrWhiteSpace(link))
+            throw new ArgumentException("Value must not be null or whitespace", nameof(link));
+
+        Link = link;
     }
 
 

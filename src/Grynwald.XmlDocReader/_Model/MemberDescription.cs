@@ -62,9 +62,10 @@ public abstract class MemberDescription : IDocumentationNode
     {
         xml.EnsureNameIs("member");
 
-        if (!MemberId.TryParse(xml.RequireAttribute("name").RequireValue(), out var id))
+        var name = xml.RequireAttribute("name").RequireValue();
+        if (!MemberId.TryParse(name, out var id))
         {
-            throw new NotImplementedException(); //TODO: Handle unknown Id
+            throw new XmlDocReaderException($"Failed to parse member. Invalid member name '{name}'{xml.GetPositionString()}");
         }
 
         return id.Type switch
