@@ -11,4 +11,9 @@
     <Using Include="Grynwald.XmlDocReader.Internal" />
   </ItemGroup>
 
+  <!--NuGet package properties -->
+  <PropertyGroup>
+    <Description>A library for reading .NET XML documentation files.</Description>
+  </PropertyGroup>
+
 </Project>

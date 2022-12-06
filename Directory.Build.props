@@ -43,11 +43,10 @@
 
   <!--NuGet package properties -->
   <PropertyGroup>
-    <Authors>TODO</Authors>
-    <PackageProjectUrl>TODO</PackageProjectUrl>
-    <PackageLicenseExpression>TODO</PackageLicenseExpression>
-    <Description>TODO</Description>
-    <Copyright>TODO</Copyright>
+    <Authors>Andreas Gruenwald</Authors>
+    <PackageProjectUrl>https://github.com/ap0llo/xmldocreader</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>Copyright (c) 2022, Andreas Gruenwald</Copyright>
   </PropertyGroup>
 
   <!-- Use NuGet lock file -->

@@ -16,5 +16,10 @@
   <ItemGroup>
     <Using Include="Grynwald.MarkdownGenerator" />
   </ItemGroup>
+
+  <!--NuGet package properties -->
+  <PropertyGroup>
+    <Description>A library for converting .NET XML documentation files to Markdown.</Description>
+  </PropertyGroup>
   
 </Project>
