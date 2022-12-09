@@ -66,5 +66,7 @@ public interface IDocumentationVisitor
 
     void Visit(UnrecognizedTextElement unrecognizedElement);
 
-    void Visit(EmphasisElement emphasisElement);
+    void Visit(EmphasisElement emphasis);
+
+    void Visit(IdiomaticElement idiomatic);
 }

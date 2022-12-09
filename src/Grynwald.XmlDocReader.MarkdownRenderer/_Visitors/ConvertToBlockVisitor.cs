@@ -334,11 +334,21 @@ public class ConvertToBlockVisitor : DocumentationVisitor
         }
     }
 
-    public override void Visit(EmphasisElement emphasisElement)
+    /// <inheritdoc />
+    public override void Visit(EmphasisElement emphasis)
     {
-        if (!String.IsNullOrEmpty(emphasisElement.Content))
+        if (!String.IsNullOrEmpty(emphasis.Content))
         {
-            AddToCurrentParagraph(new MdEmphasisSpan(emphasisElement.Content));
+            AddToCurrentParagraph(new MdEmphasisSpan(emphasis.Content));
+        }
+    }
+
+    /// <inheritdoc />
+    public override void Visit(IdiomaticElement idiomatic)
+    {
+        if (!String.IsNullOrEmpty(idiomatic.Content))
+        {
+            AddToCurrentParagraph(new MdEmphasisSpan(idiomatic.Content));
         }
     }
 

@@ -221,8 +221,13 @@ public class DocumentationVisitor : IDocumentationVisitor
     }
 
     /// <inheritdoc />
-    public virtual void Visit(EmphasisElement emphasisElement)
+    public virtual void Visit(EmphasisElement emphasis)
     { }
+
+    /// <inheritdoc />
+    public virtual void Visit(IdiomaticElement idiomatic)
+    { }
+
 
     /// <inheritdoc />
     public virtual void Visit(UnrecognizedTextElement unrecognizedElement)

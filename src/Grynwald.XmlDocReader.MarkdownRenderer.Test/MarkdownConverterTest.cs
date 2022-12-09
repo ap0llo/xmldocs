@@ -810,6 +810,29 @@ public class MarkdownConverterTest
                 """
             );
 
+            yield return TestCase(
+                "T45",
+                new IdiomaticElement("Some Text"),
+                "*Some Text*"
+            );
+
+            yield return TestCase(
+                "T44",
+                MemberElement.FromXml("""
+                <member name="P:MyClass.MyProperty">
+                    <summary>
+                        Summary with <i>italic</i> text.
+                    </summary>                    
+                </member>
+                """),
+                """
+                ## MyClass.MyProperty Property
+
+                ### Summary
+
+                Summary with *italic* text.
+                """
+            );
         }
 
         [Theory]
@@ -964,6 +987,12 @@ public class MarkdownConverterTest
             yield return TestCase(
                 "T13",
                 new EmphasisElement("Some Text"),
+                "*Some Text*"
+            );
+
+            yield return TestCase(
+                "T14",
+                new IdiomaticElement("Some Text"),
                 "*Some Text*"
             );
 

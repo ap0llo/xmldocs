@@ -4,7 +4,7 @@
 /// Represents a emphasis (<c><![CDATA[<em />]]></c>) text element in XML documentation comments.
 /// </summary>
 /// <remarks>
-/// The <c><![CDATA[<em />]]></c> element emphasizes text. It is typicall rendered as italic text.
+/// The <c><![CDATA[<em />]]></c> element emphasizes text. It is typically rendered as italic text.
 /// <para>
 /// The implementation assumes that the content of the <c><![CDATA[<em />]]></c> tag is plain text only and does not support nested elements.
 /// </para>
@@ -16,6 +16,7 @@
 /// </code>
 /// </example>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags">Recommended XML tags for C# documentation comments (Microsoft Learn)</seealso>
+/// <seealso cref="IdiomaticElement"/>
 public class EmphasisElement : InlineElement, IEquatable<EmphasisElement>
 {
     public string Content { get; }
