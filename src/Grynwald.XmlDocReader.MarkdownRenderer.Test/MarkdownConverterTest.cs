@@ -785,6 +785,31 @@ public class MarkdownConverterTest
                 Summary for this method with unknown element \<element \/\>.
                 """
             );
+
+            yield return TestCase(
+                "T43",
+                new EmphasisElement("Some Text"),
+                "*Some Text*"
+            );
+
+            yield return TestCase(
+                "T44",
+                MemberElement.FromXml("""
+                <member name="P:MyClass.MyProperty">
+                    <summary>
+                        Summary with <em>emphasized</em> text.
+                    </summary>                    
+                </member>
+                """),
+                """
+                ## MyClass.MyProperty Property
+
+                ### Summary
+
+                Summary with *emphasized* text.
+                """
+            );
+
         }
 
         [Theory]
@@ -935,6 +960,13 @@ public class MarkdownConverterTest
                 ),
                 "Plain text \\<element \\/\\>"
             );
+
+            yield return TestCase(
+                "T13",
+                new EmphasisElement("Some Text"),
+                "*Some Text*"
+            );
+
         }
 
         [Theory]

@@ -144,6 +144,11 @@ public class ConvertToSpanVisitor : DocumentationVisitor
         CurrentSpan.Add(new MdLinkSpan(linkText, see.Link));
     }
 
+    /// <inheritdoc />
+    public override void Visit(EmphasisElement emphasis)
+    {
+        CurrentSpan.Add(new MdEmphasisSpan(emphasis.Content));
+    }
 
     /// <inheritdoc />
     public override void Visit(UnrecognizedTextElement unrecognizedElement)

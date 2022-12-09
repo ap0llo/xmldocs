@@ -173,8 +173,7 @@ public class DocumentationVisitor : IDocumentationVisitor
 
     /// <inheritdoc />
     public virtual void Visit(CElement c)
-    {
-    }
+    { }
 
     /// <inheritdoc />
     public virtual void Visit(CodeElement code)
@@ -220,6 +219,10 @@ public class DocumentationVisitor : IDocumentationVisitor
     {
         returns.Text?.Accept(this);
     }
+
+    /// <inheritdoc />
+    public virtual void Visit(EmphasisElement emphasisElement)
+    { }
 
     /// <inheritdoc />
     public virtual void Visit(UnrecognizedTextElement unrecognizedElement)

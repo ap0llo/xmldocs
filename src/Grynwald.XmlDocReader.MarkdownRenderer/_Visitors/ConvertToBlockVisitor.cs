@@ -334,6 +334,14 @@ public class ConvertToBlockVisitor : DocumentationVisitor
         }
     }
 
+    public override void Visit(EmphasisElement emphasisElement)
+    {
+        if (!String.IsNullOrEmpty(emphasisElement.Content))
+        {
+            AddToCurrentParagraph(new MdEmphasisSpan(emphasisElement.Content));
+        }
+    }
+
     /// <inheritdoc />
     public override void Visit(UnrecognizedTextElement unrecognizedElement)
     {

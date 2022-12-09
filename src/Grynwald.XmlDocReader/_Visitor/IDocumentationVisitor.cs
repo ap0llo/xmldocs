@@ -65,4 +65,6 @@ public interface IDocumentationVisitor
     void Visit(SeeUrlReferenceElement see);
 
     void Visit(UnrecognizedTextElement unrecognizedElement);
+
+    void Visit(EmphasisElement emphasisElement);
 }

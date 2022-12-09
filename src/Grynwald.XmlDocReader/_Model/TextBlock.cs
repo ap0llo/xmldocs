@@ -86,7 +86,7 @@ public class TextBlock : TextElement, IEquatable<TextBlock>
             }
             else if (node is XElement element)
             {
-                //TODO: <em> <i> <b> <br/>
+                //TODO: <i> <b> <br/> <a>
                 yield return element.Name.LocalName switch
                 {
                     "para" => ParagraphElement.FromXml(element),
@@ -96,6 +96,7 @@ public class TextBlock : TextElement, IEquatable<TextBlock>
                     "c" => CElement.FromXml(element),
                     "see" => SeeElement.FromXml(element),
                     "list" => ListElement.FromXml(element),
+                    "em" => EmphasisElement.FromXml(element),
                     _ => new UnrecognizedTextElement(element)
                 };
             }
