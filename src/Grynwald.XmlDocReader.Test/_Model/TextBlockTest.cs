@@ -246,9 +246,23 @@ public class TextBlockTest
             )
         );
 
-        // Unknown elements are saved
         yield return TestCase(
             "T18",
+            """
+                <summary>
+                    Some <b>bold</b> text.
+                </summary>
+            """,
+            new TextBlock(
+                new PlainTextElement("Some "),
+                new BoldElement("bold"),
+                new PlainTextElement(" text.")
+            )
+        );
+
+        // Unknown elements are saved
+        yield return TestCase(
+            "T19",
             """
                 <summary>
                     Some text <unknown-element></unknown-element> some more text

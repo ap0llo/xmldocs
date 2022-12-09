@@ -353,6 +353,15 @@ public class ConvertToBlockVisitor : DocumentationVisitor
     }
 
     /// <inheritdoc />
+    public override void Visit(BoldElement bold)
+    {
+        if (!String.IsNullOrEmpty(bold.Content))
+        {
+            AddToCurrentParagraph(new MdStrongEmphasisSpan(bold.Content));
+        }
+    }
+
+    /// <inheritdoc />
     public override void Visit(UnrecognizedTextElement unrecognizedElement)
     {
         AddToCurrentParagraph(unrecognizedElement.Xml.ToString());

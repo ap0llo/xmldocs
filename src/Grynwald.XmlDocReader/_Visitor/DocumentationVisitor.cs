@@ -228,6 +228,10 @@ public class DocumentationVisitor : IDocumentationVisitor
     public virtual void Visit(IdiomaticElement idiomatic)
     { }
 
+    /// <inheritdoc />
+    public virtual void Visit(BoldElement bold)
+    { }
+
 
     /// <inheritdoc />
     public virtual void Visit(UnrecognizedTextElement unrecognizedElement)

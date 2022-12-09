@@ -2,9 +2,9 @@
 namespace Grynwald.XmlDocReader.Test;
 
 /// <summary>
-/// Tests for <see cref="IdiomaticElement"/>.
+/// Tests for <see cref="BoldElement"/>.
 /// </summary>
-public class IdiomaticElementTest
+public class BoldElementTest
 {
     [Fact]
     public void Content_must_not_be_null()
@@ -12,7 +12,7 @@ public class IdiomaticElementTest
         // ARRANGE
 
         // ACT 
-        var ex = Record.Exception(() => new IdiomaticElement(content: null!));
+        var ex = Record.Exception(() => new BoldElement(content: null!));
 
         // ASSERT
         var argumentNullException = Assert.IsType<ArgumentNullException>(ex);
@@ -26,7 +26,7 @@ public class IdiomaticElementTest
         var input = "not xml";
 
         // ACT 
-        var ex = Record.Exception(() => IdiomaticElement.FromXml(input));
+        var ex = Record.Exception(() => BoldElement.FromXml(input));
 
         // ASSERT
         Assert.IsType<XmlDocReaderException>(ex);
@@ -38,11 +38,11 @@ public class IdiomaticElementTest
     {
         // ARRANGE
         var xml = """
-                <noti />
+                <not-b />
                 """;
 
         // ACT
-        var ex = Record.Exception(() => IdiomaticElement.FromXml(xml));
+        var ex = Record.Exception(() => BoldElement.FromXml(xml));
 
         // ASSERT
         Assert.IsType<XmlDocReaderException>(ex);
@@ -53,13 +53,13 @@ public class IdiomaticElementTest
     {
         // ARRANGE
         var xml = """
-            <i>Text</i>
+            <b>Text</b>
             """;
 
-        var expected = new IdiomaticElement("Text");
+        var expected = new BoldElement("Text");
 
         // ACT 
-        var actual = IdiomaticElement.FromXml(xml);
+        var actual = BoldElement.FromXml(xml);
 
         // ASSERT
         Assert.Equal(expected, actual);
@@ -69,8 +69,8 @@ public class IdiomaticElementTest
     public void Two_instances_are_equal_if_their_content_is_equal()
     {
         // ARRANGE
-        var instance1 = new IdiomaticElement("Some Text");
-        var instance2 = new IdiomaticElement("Some Text");
+        var instance1 = new BoldElement("Some Text");
+        var instance2 = new BoldElement("Some Text");
 
         // ACT / ASSERT
         Assert.Equal(instance1.GetHashCode(), instance2.GetHashCode());
@@ -86,8 +86,8 @@ public class IdiomaticElementTest
     public void Two_instances_are_not_equal_if_their_content_is_not_equal()
     {
         // ARRANGE
-        var instance1 = new IdiomaticElement("Content 1");
-        var instance2 = new IdiomaticElement("Content 2");
+        var instance1 = new BoldElement("Content 1");
+        var instance2 = new BoldElement("Content 2");
 
         // ACT / ASSERT
         Assert.False(instance1.Equals((object)instance2));
@@ -101,10 +101,11 @@ public class IdiomaticElementTest
     public void Equals_returns_false_when_comparing_to_null()
     {
         // ARRANGE
-        var sut = new IdiomaticElement("Some Text");
+        var sut = new BoldElement("Some Text");
 
         // ACT / ASSERT
         Assert.False(sut.Equals((object?)null));
         Assert.False(sut!.Equals(null));
     }
+
 }

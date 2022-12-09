@@ -817,7 +817,7 @@ public class MarkdownConverterTest
             );
 
             yield return TestCase(
-                "T44",
+                "T46",
                 MemberElement.FromXml("""
                 <member name="P:MyClass.MyProperty">
                     <summary>
@@ -831,6 +831,30 @@ public class MarkdownConverterTest
                 ### Summary
 
                 Summary with *italic* text.
+                """
+            );
+
+            yield return TestCase(
+                "T47",
+                new BoldElement("Some Text"),
+                "**Some Text**"
+            );
+
+            yield return TestCase(
+                "T48",
+                MemberElement.FromXml("""
+                <member name="P:MyClass.MyProperty">
+                    <summary>
+                        Summary with <b>bold</b> text.
+                    </summary>                    
+                </member>
+                """),
+                """
+                ## MyClass.MyProperty Property
+
+                ### Summary
+
+                Summary with **bold** text.
                 """
             );
         }
@@ -996,6 +1020,11 @@ public class MarkdownConverterTest
                 "*Some Text*"
             );
 
+            yield return TestCase(
+                "T15",
+                new BoldElement("Some Text"),
+                "**Some Text**"
+            );
         }
 
         [Theory]
