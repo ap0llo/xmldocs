@@ -25,6 +25,7 @@ public class FieldMemberElement : MemberElement
             Value = TryReadElement(xml, "value", ValueElement.FromXml),
             Example = TryReadElement(xml, "example", ExampleElement.FromXml),
             SeeAlso = xml.Elements("seealso").Select(SeeAlsoElement.FromXml).ToList(),
+            UnrecognizedElements = GetUnrecognizedElements(xml, "summary", "remarks", "value", "example", "seealso")
         };
 
         return member;

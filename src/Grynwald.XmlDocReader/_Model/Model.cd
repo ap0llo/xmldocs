@@ -132,7 +132,7 @@
   <Class Name="Grynwald.XmlDocReader.MemberElement" Collapsed="true">
     <Position X="6.75" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACCAAAAAIAAAAQAABKAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <HashCode>AACCgAAAAIAAAAQAABIAAAAAAAAAAAAAACACAAAAAAA=</HashCode>
       <FileName>_Model\_Member\MemberElement.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -214,7 +214,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Grynwald.XmlDocReader.TextElement" Collapsed="true">
-    <Position X="41.75" Y="4" Width="1.5" />
+    <Position X="42.5" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>_Model\TextElement.cs</FileName>
@@ -262,6 +262,21 @@
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
       <FileName>_Model\_Sections\ValueElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grynwald.XmlDocReader.UnrecognizedTextElement" Collapsed="true">
+    <Position X="42.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAACAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>_Model\UnrecognizedTextElement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Grynwald.XmlDocReader.UnrecognizedSectionElement" Collapsed="true">
+    <Position X="34" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>_Model\_Sections\UnrecognizedSectionElement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

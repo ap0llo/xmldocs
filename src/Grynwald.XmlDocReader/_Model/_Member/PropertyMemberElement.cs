@@ -40,6 +40,7 @@ public class PropertyMemberElement : MemberElement
             Parameters = xml.Elements("param").Select(ParameterElement.FromXml).ToList(),
             SeeAlso = xml.Elements("seealso").Select(SeeAlsoElement.FromXml).ToList(),
             Exceptions = xml.Elements("exception").Select(ExceptionElement.FromXml).ToList(),
+            UnrecognizedElements = GetUnrecognizedElements(xml, "summary", "remarks", "value", "example", "param", "seealso", "exception")
         };
 
         return member;

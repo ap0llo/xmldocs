@@ -156,7 +156,6 @@ public class ConvertToBlockVisitor : DocumentationVisitor
     public override void Visit(PlainTextElement plainText)
     {
         AddToCurrentParagraph(plainText.Content);
-
         base.Visit(plainText);
     }
 
@@ -333,6 +332,13 @@ public class ConvertToBlockVisitor : DocumentationVisitor
             AppendBlock(new MdHeading(3, "Example"));
             base.Visit(example);
         }
+    }
+
+    /// <inheritdoc />
+    public override void Visit(UnrecognizedTextElement unrecognizedElement)
+    {
+        AddToCurrentParagraph(unrecognizedElement.Xml.ToString());
+        base.Visit(unrecognizedElement);
     }
 
     /// <inheritdoc />

@@ -32,13 +32,15 @@ public interface IDocumentationVisitor
 
     void Visit(SummaryElement summary);
 
-    void Visit(RemarksElement summary);
+    void Visit(RemarksElement remarks);
 
-    void Visit(ExampleElement summary);
+    void Visit(ExampleElement example);
 
-    void Visit(ValueElement summary);
+    void Visit(ValueElement value);
 
-    void Visit(ReturnsElement summary);
+    void Visit(ReturnsElement returns);
+
+    void Visit(UnrecognizedSectionElement unrecognizedElement);
 
     void Visit(TextBlock textBlock);
 
@@ -61,4 +63,6 @@ public interface IDocumentationVisitor
     void Visit(SeeCodeReferenceElement see);
 
     void Visit(SeeUrlReferenceElement see);
+
+    void Visit(UnrecognizedTextElement unrecognizedElement);
 }

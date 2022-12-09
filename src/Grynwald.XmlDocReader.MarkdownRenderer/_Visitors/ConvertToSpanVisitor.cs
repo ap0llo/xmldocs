@@ -145,6 +145,12 @@ public class ConvertToSpanVisitor : DocumentationVisitor
     }
 
 
+    /// <inheritdoc />
+    public override void Visit(UnrecognizedTextElement unrecognizedElement)
+    {
+        CurrentSpan.Add(unrecognizedElement.Xml.ToString());
+    }
+
     protected virtual void BeginNestedSpan()
     {
         m_Stack.Push(new MdCompositeSpan());

@@ -37,6 +37,11 @@ public abstract class MemberElement : DocumentationElement
     /// </summary>
     public IReadOnlyList<SeeAlsoElement> SeeAlso { get; init; } = Array.Empty<SeeAlsoElement>();
 
+    /// <summary>
+    /// Gets all the sections that were found in the XML but are not recognized as any of the known sections.
+    /// </summary>
+    public IEnumerable<UnrecognizedSectionElement> UnrecognizedElements { get; init; } = Array.Empty<UnrecognizedSectionElement>();
+
 
     /// <summary>
     /// Initializes a new instance of <see cref="MemberElement" />.
@@ -83,6 +88,14 @@ public abstract class MemberElement : DocumentationElement
         return parentElement.Element(elementName) is XElement element
             ? factory(element)
             : default;
+    }
+
+    protected static IReadOnlyList<UnrecognizedSectionElement> GetUnrecognizedElements(XElement parentElement, params XName[] knownElements)
+    {
+        return parentElement.Elements()
+            .Where(x => !knownElements.Contains(x.Name))
+            .Select(x => new UnrecognizedSectionElement(x))
+            .ToList();
     }
 }
 

@@ -95,4 +95,28 @@ public abstract class CommonMemberElementTests
             x => Assert.IsType<SeeAlsoUrlReferenceElement>(x)
         );
     }
+
+    [Fact]
+    public void FromXml_stores_unrecognized_elements_as_unrecognized_elements()
+    {
+        // ARRANGE
+        var input = """
+                <member name="M:Project.Class.Method">
+                    <unknownElement1 />                    
+                    <unknownElement2 />                    
+                </member>
+                """;
+
+        // ACT 
+        var sut = CreateInstanceFromXml(input);
+
+        // ASSERT            
+        Assert.NotNull(sut.UnrecognizedElements);
+        Assert.Collection(
+            sut.UnrecognizedElements,
+            x => Assert.Equal("unknownElement1", x.Xml.Name),
+            x => Assert.Equal("unknownElement2", x.Xml.Name)
+        );
+    }
+
 }

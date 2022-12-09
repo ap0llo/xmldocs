@@ -18,6 +18,7 @@ public class NamespaceMemberElement : MemberElement
             Remarks = TryReadElement(xml, "remarks", RemarksElement.FromXml),
             Example = TryReadElement(xml, "example", ExampleElement.FromXml),
             SeeAlso = xml.Elements("seealso").Select(SeeAlsoElement.FromXml).ToList(),
+            UnrecognizedElements = GetUnrecognizedElements(xml, "summary", "remarks", "example", "seealso")
         };
 
         return member;

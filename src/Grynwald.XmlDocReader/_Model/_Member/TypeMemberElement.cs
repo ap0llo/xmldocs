@@ -25,6 +25,7 @@ public class TypeMemberElement : MemberElement
             Example = TryReadElement(xml, "example", ExampleElement.FromXml),
             TypeParameters = xml.Elements("typeparam").Select(TypeParameterElement.FromXml).ToList(),
             SeeAlso = xml.Elements("seealso").Select(SeeAlsoElement.FromXml).ToList(),
+            UnrecognizedElements = GetUnrecognizedElements(xml, "summary", "remarks", "example", "typeparam", "seealso")
         };
 
         return member;

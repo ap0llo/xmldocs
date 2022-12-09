@@ -43,6 +43,7 @@ public class MethodMemberElement : MemberElement
             TypeParameters = xml.Elements("typeparam").Select(TypeParameterElement.FromXml).ToList(),
             SeeAlso = xml.Elements("seealso").Select(SeeAlsoElement.FromXml).ToList(),
             Exceptions = xml.Elements("exception").Select(ExceptionElement.FromXml).ToList(),
+            UnrecognizedElements = GetUnrecognizedElements(xml, "summary", "remarks", "returns", "example", "param", "typeparam", "seealso", "exception")
         };
 
         return member;

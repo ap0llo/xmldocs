@@ -218,15 +218,19 @@ public class TextBlockTest
             )
         );
 
-        // Unknown elements are ignored
+        // Unknown elements are saved
         yield return TestCase(
             "T16",
             """
                 <summary>
-                    <unknown-element></unknown-element>
+                    Some text <unknown-element></unknown-element> some more text
                 </summary>
             """,
-            new TextBlock()
+            new TextBlock(
+                new PlainTextElement("Some text "),
+                new UnrecognizedTextElement(XElement.Parse("<unknown-element></unknown-element>")),
+                new PlainTextElement(" some more text")
+            )
         );
     }
 

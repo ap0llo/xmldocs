@@ -1,4 +1,6 @@
-﻿namespace Grynwald.XmlDocReader.MarkdownRenderer.Test;
+﻿using System.Xml.Linq;
+
+namespace Grynwald.XmlDocReader.MarkdownRenderer.Test;
 
 /// <summary>
 /// Tests for <see cref="MarkdownConverter"/>
@@ -744,6 +746,45 @@ public class MarkdownConverterTest
                 `MyNamespace.MyClass`
                 """
             );
+
+            // Unknown section elements are ignored
+            yield return TestCase(
+                "T42",
+                MemberElement.FromXml("""
+                <member name="P:MyClass.MyProperty">
+                    <summary>
+                        Summary for this method.
+                    </summary>
+                    <some-unknown-elements />
+                </member>
+                """),
+                """
+                ## MyClass.MyProperty Property
+
+                ### Summary
+
+                Summary for this method.
+                """
+            );
+
+            // Unknown text elements are serialized to string
+            yield return TestCase(
+                "T42",
+                MemberElement.FromXml("""
+                <member name="P:MyClass.MyProperty">
+                    <summary>
+                        Summary for this method with unknown element <element />.
+                    </summary>                    
+                </member>
+                """),
+                """
+                ## MyClass.MyProperty Property
+
+                ### Summary
+
+                Summary for this method with unknown element \<element \/\>.
+                """
+            );
         }
 
         [Theory]
@@ -883,6 +924,16 @@ public class MarkdownConverterTest
                 "T11",
                 new SeeUrlReferenceElement("https://example.com", new TextBlock(new PlainTextElement("Link Text"))),
                 "[Link Text](https://example.com/)"
+            );
+
+            // Unknown text elements are serialized to string
+            yield return TestCase(
+                "T12",
+                new TextBlock(
+                    new PlainTextElement("Plain text "),
+                    new UnrecognizedTextElement(XElement.Parse("<element />"))
+                ),
+                "Plain text \\<element \\/\\>"
             );
         }
 

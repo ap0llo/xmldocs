@@ -25,6 +25,7 @@ public class EventMemberElement : MemberElement
             Example = TryReadElement(xml, "example", ExampleElement.FromXml),
             SeeAlso = xml.Elements("seealso").Select(SeeAlsoElement.FromXml).ToList(),
             Exceptions = xml.Elements("exception").Select(ExceptionElement.FromXml).ToList(),
+            UnrecognizedElements = GetUnrecognizedElements(xml, "summary", "remarks", "example", "seealso", "exception")
         };
 
         return member;

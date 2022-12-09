@@ -25,6 +25,7 @@ public class DocumentationVisitor : IDocumentationVisitor
         @namespace.Remarks?.Accept(this);
         @namespace.Example?.Accept(this);
         VisitSeeAlso(@namespace);
+        VisitUnrecgonizedElements(@namespace);
     }
 
     /// <inheritdoc />
@@ -35,6 +36,7 @@ public class DocumentationVisitor : IDocumentationVisitor
         type.Example?.Accept(this);
         VisitTypeParameters(type, type.TypeParameters);
         VisitSeeAlso(type);
+        VisitUnrecgonizedElements(type);
     }
 
     /// <inheritdoc />
@@ -45,6 +47,7 @@ public class DocumentationVisitor : IDocumentationVisitor
         field.Value?.Accept(this);
         field.Example?.Accept(this);
         VisitSeeAlso(field);
+        VisitUnrecgonizedElements(field);
     }
 
     /// <inheritdoc />
@@ -57,6 +60,7 @@ public class DocumentationVisitor : IDocumentationVisitor
         VisitParameters(property, property.Parameters);
         VisitExceptions(property, property.Exceptions);
         VisitSeeAlso(property);
+        VisitUnrecgonizedElements(property);
     }
 
     /// <inheritdoc />
@@ -70,6 +74,7 @@ public class DocumentationVisitor : IDocumentationVisitor
         VisitTypeParameters(method, method.TypeParameters);
         VisitExceptions(method, method.Exceptions);
         VisitSeeAlso(method);
+        VisitUnrecgonizedElements(method);
     }
 
     /// <inheritdoc />
@@ -80,6 +85,7 @@ public class DocumentationVisitor : IDocumentationVisitor
         @event.Example?.Accept(this);
         VisitExceptions(@event, @event.Exceptions);
         VisitSeeAlso(@event);
+        VisitUnrecgonizedElements(@event);
     }
 
     /// <inheritdoc />
@@ -87,7 +93,6 @@ public class DocumentationVisitor : IDocumentationVisitor
     {
         summary.Text?.Accept(this);
     }
-
 
     /// <inheritdoc />
     public virtual void Visit(RemarksElement remarks)
@@ -130,6 +135,10 @@ public class DocumentationVisitor : IDocumentationVisitor
     {
         seeAlso.Text?.Accept(this);
     }
+
+    /// <inheritdoc />
+    public virtual void Visit(UnrecognizedSectionElement unrecognizedElement)
+    { }
 
     /// <inheritdoc />
     public virtual void Visit(TextBlock textBlock)
@@ -200,7 +209,6 @@ public class DocumentationVisitor : IDocumentationVisitor
         see.Text?.Accept(this);
     }
 
-
     /// <inheritdoc />
     public virtual void Visit(ValueElement value)
     {
@@ -212,6 +220,11 @@ public class DocumentationVisitor : IDocumentationVisitor
     {
         returns.Text?.Accept(this);
     }
+
+    /// <inheritdoc />
+    public virtual void Visit(UnrecognizedTextElement unrecognizedElement)
+    { }
+
 
     /// <summary>
     /// Visits a PropertyDescription's or MethodDescription's parameters.
@@ -288,6 +301,25 @@ public class DocumentationVisitor : IDocumentationVisitor
     public virtual void VisitSeeAlso(MemberElement member)
     {
         foreach (var seeAlso in member.SeeAlso)
+        {
+            seeAlso.Accept(this);
+        }
+    }
+
+    /// <summary>
+    /// Visits a MemberDescription's unrecognized elements
+    /// </summary>
+    /// <remarks>
+    /// This method is called by the <c>Visit()</c> methods for types derived from <see cref="MemberElement" /> instead of visiting the items in <see cref="MemberElement.UnrecognizedElements" /> directly
+    /// to allow derived visitors to perform actions specifically before or after these items are processed without having to re-implement the <c>Visit()</c> method.
+    /// <para>
+    /// Note that this method will also be called if <see cref="MemberElement.UnrecognizedElements"/> is empty.
+    /// </para>
+    /// </remarks>
+    /// <seealso cref="MemberElement.UnrecognizedElements"/>
+    public virtual void VisitUnrecgonizedElements(MemberElement member)
+    {
+        foreach (var seeAlso in member.UnrecognizedElements)
         {
             seeAlso.Accept(this);
         }
