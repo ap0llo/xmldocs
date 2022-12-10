@@ -371,6 +371,12 @@ public class ConvertToBlockVisitor : DocumentationVisitor
     }
 
     /// <inheritdoc />
+    public override void Visit(LineBreakElement lineBreak)
+    {
+        AddToCurrentParagraph(new MdRawMarkdownSpan(Environment.NewLine));
+    }
+
+    /// <inheritdoc />
     public override void Visit(UnrecognizedTextElement unrecognizedElement)
     {
         AddToCurrentParagraph(unrecognizedElement.Xml.ToString());

@@ -73,4 +73,6 @@ public interface IDocumentationVisitor
     void Visit(BoldElement bold);
 
     void Visit(StrongElement strong);
+
+    void Visit(LineBreakElement lineBreakElement);
 }

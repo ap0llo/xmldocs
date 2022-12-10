@@ -236,6 +236,9 @@ public class DocumentationVisitor : IDocumentationVisitor
     public virtual void Visit(StrongElement strong)
     { }
 
+    /// <inheritdoc />
+    public virtual void Visit(LineBreakElement lineBreak)
+    { }
 
     /// <inheritdoc />
     public virtual void Visit(UnrecognizedTextElement unrecognizedElement)

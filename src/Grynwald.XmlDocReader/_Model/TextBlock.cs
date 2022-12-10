@@ -86,7 +86,6 @@ public class TextBlock : TextElement, IEquatable<TextBlock>
             }
             else if (node is XElement element)
             {
-                //TODO: <br/>?
                 //TODO: <a> tag (supported by Visual Studio)
                 yield return element.Name.LocalName switch
                 {
@@ -101,6 +100,7 @@ public class TextBlock : TextElement, IEquatable<TextBlock>
                     "i" => IdiomaticElement.FromXml(element),
                     "b" => BoldElement.FromXml(element),
                     "strong" => StrongElement.FromXml(element),
+                    "br" => LineBreakElement.FromXml(element),
                     _ => new UnrecognizedTextElement(element)
                 };
             }

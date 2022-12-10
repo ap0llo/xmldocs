@@ -881,6 +881,38 @@ public class MarkdownConverterTest
                 Summary with **strongly\-emphasized** text.
                 """
             );
+
+            yield return TestCase(
+                "T51",
+                new TextBlock(
+                    new PlainTextElement("Some"),
+                    new LineBreakElement(),
+                    new PlainTextElement("Text")
+                ),
+                """
+                Some  
+                Text
+                """
+            );
+
+            yield return TestCase(
+                "T52",
+                MemberElement.FromXml("""
+                <member name="P:MyClass.MyProperty">
+                    <summary>
+                        Summary with a line<br/>break.
+                    </summary>                    
+                </member>
+                """),
+                """
+                ## MyClass.MyProperty Property
+
+                ### Summary
+
+                Summary with a line  
+                break.
+                """
+            );
         }
 
         [Theory]
@@ -1054,6 +1086,19 @@ public class MarkdownConverterTest
                 "T16",
                 new StrongElement("Some Text"),
                 "**Some Text**"
+            );
+
+            // line breaks are ignored when converting to stap
+            yield return TestCase(
+                "T17",
+                new TextBlock(
+                    new PlainTextElement("Some "),
+                    new LineBreakElement(),
+                    new PlainTextElement("Text")
+                ),
+                """
+                Some Text
+                """
             );
         }
 
