@@ -1,5 +1,4 @@
-﻿using Xunit;
-namespace Grynwald.XmlDocReader.Test;
+﻿namespace Grynwald.XmlDocReader.Test;
 
 /// <summary>
 /// Tests for <see cref="BoldElement"/>.

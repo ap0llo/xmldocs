@@ -150,14 +150,22 @@ public class ConvertToSpanVisitor : DocumentationVisitor
         CurrentSpan.Add(new MdEmphasisSpan(emphasis.Content));
     }
 
+    /// <inheritdoc />
     public override void Visit(IdiomaticElement idiomatic)
     {
         CurrentSpan.Add(new MdEmphasisSpan(idiomatic.Content));
     }
 
+    /// <inheritdoc />
     public override void Visit(BoldElement bold)
     {
         CurrentSpan.Add(new MdStrongEmphasisSpan(bold.Content));
+    }
+
+    /// <inheritdoc />
+    public override void Visit(StrongElement strong)
+    {
+        CurrentSpan.Add(new MdStrongEmphasisSpan(strong.Content));
     }
 
     /// <inheritdoc />

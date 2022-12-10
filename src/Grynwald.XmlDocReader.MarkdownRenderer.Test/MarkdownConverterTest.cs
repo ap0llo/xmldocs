@@ -857,6 +857,30 @@ public class MarkdownConverterTest
                 Summary with **bold** text.
                 """
             );
+
+            yield return TestCase(
+                "T49",
+                new StrongElement("Some Text"),
+                "**Some Text**"
+            );
+
+            yield return TestCase(
+                "T50",
+                MemberElement.FromXml("""
+                <member name="P:MyClass.MyProperty">
+                    <summary>
+                        Summary with <strong>strongly-emphasized</strong> text.
+                    </summary>                    
+                </member>
+                """),
+                """
+                ## MyClass.MyProperty Property
+
+                ### Summary
+
+                Summary with **strongly\-emphasized** text.
+                """
+            );
         }
 
         [Theory]
@@ -1023,6 +1047,12 @@ public class MarkdownConverterTest
             yield return TestCase(
                 "T15",
                 new BoldElement("Some Text"),
+                "**Some Text**"
+            );
+
+            yield return TestCase(
+                "T16",
+                new StrongElement("Some Text"),
                 "**Some Text**"
             );
         }

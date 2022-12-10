@@ -260,9 +260,23 @@ public class TextBlockTest
             )
         );
 
+        yield return TestCase(
+            "T18",
+            """
+                <summary>
+                    Some <strong>strongly-emphasized</strong> text.
+                </summary>
+            """,
+            new TextBlock(
+                new PlainTextElement("Some "),
+                new StrongElement("strongly-emphasized"),
+                new PlainTextElement(" text.")
+            )
+        );
+
         // Unknown elements are saved
         yield return TestCase(
-            "T19",
+            "T20",
             """
                 <summary>
                     Some text <unknown-element></unknown-element> some more text

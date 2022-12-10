@@ -71,4 +71,6 @@ public interface IDocumentationVisitor
     void Visit(IdiomaticElement idiomatic);
 
     void Visit(BoldElement bold);
+
+    void Visit(StrongElement strong);
 }

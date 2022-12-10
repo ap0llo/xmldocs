@@ -1,23 +1,17 @@
 ﻿namespace Grynwald.XmlDocReader;
 
 /// <summary>
-/// Represents a bold (<c><![CDATA[<b />]]></c>) text element in XML documentation comments.
+/// Represents a bold (<c><![CDATA[<strong />]]></c>) text element in XML documentation comments.
 /// </summary>
 /// <remarks>
-/// The <c><![CDATA[<c />]]></c> indicates the text should be rendered as bold text.
+/// The <c><![CDATA[<strong />]]></c> element indicates text that is strongly emphasized. It is typically rendered as bold type.
 /// <para>
-/// The implementation assumes that the content of the <c><![CDATA[<b />]]></c> tag is plain text only and does not support nested elements.
+/// The implementation assumes that the content of the <c><![CDATA[<strong />]]></c> tag is plain text only and does not support nested elements.
 /// </para>
 /// </remarks>
-/// <example>
-/// <code language="xml"><![CDATA[
-/// The last word is <b>bold</b>.
-/// ]]>
-/// </code>
-/// </example>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags">Recommended XML tags for C# documentation comments (Microsoft Learn)</seealso>
-/// <seealso cref="StrongElement"/>
-public class BoldElement : InlineElement, IEquatable<BoldElement>
+/// <seealso cref="BoldElement"/>
+public class StrongElement : InlineElement, IEquatable<StrongElement>
 {
     public string Content { get; }
 
@@ -26,7 +20,7 @@ public class BoldElement : InlineElement, IEquatable<BoldElement>
     /// Initializes a new instance of <see cref="BoldElement"/>.
     /// </summary>
     /// <param name="content">The emphasized text</param>
-    public BoldElement(string content)
+    public StrongElement(string content)
     {
         Content = content ?? throw new ArgumentNullException(nameof(content));
     }
@@ -36,10 +30,10 @@ public class BoldElement : InlineElement, IEquatable<BoldElement>
     public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
 
     /// <inheritdoc />
-    public override bool Equals(object? obj) => Equals(obj as BoldElement);
+    public override bool Equals(object? obj) => Equals(obj as StrongElement);
 
     /// <inheritdoc />
-    public bool Equals(BoldElement? other) =>
+    public bool Equals(StrongElement? other) =>
         other is not null &&
         StringComparer.Ordinal.Equals(Content, other.Content);
 
@@ -48,15 +42,15 @@ public class BoldElement : InlineElement, IEquatable<BoldElement>
 
 
     /// <inheritdoc cref="FromXml(XElement)" />
-    public static BoldElement FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
+    public static StrongElement FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
 
     /// <summary>
     /// Initializes a new <see cref="BoldElement" /> from it's XML equivalent.
     /// </summary>
-    public static BoldElement FromXml(XElement xml)
+    public static StrongElement FromXml(XElement xml)
     {
-        xml.EnsureNameIs("b");
+        xml.EnsureNameIs("strong");
 
-        return new BoldElement(xml.Value);
+        return new StrongElement(xml.Value);
     }
 }
