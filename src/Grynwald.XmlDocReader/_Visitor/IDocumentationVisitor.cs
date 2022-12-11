@@ -46,9 +46,17 @@ public interface IDocumentationVisitor
 
     void Visit(PlainTextElement plainText);
 
-    void Visit(ListElement list);
+    void Visit(BulletedListElement bulletedList);
 
-    void Visit(ListItemElement item);
+    void Visit(NumberedListElement numberedList);
+
+    void Visit(TableElement table);
+
+    void Visit(DefinitionListItem item);
+
+    void Visit(SimpleListItem simpleListItem);
+
+    void Visit(TableRow tableRow);
 
     void Visit(CElement c);
 

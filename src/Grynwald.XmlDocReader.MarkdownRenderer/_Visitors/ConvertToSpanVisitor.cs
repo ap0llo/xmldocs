@@ -75,10 +75,22 @@ public class ConvertToSpanVisitor : DocumentationVisitor
     }
 
     /// <inheritdoc />
-    public override void Visit(ListElement list) => ThrowUnsupportedNode(list);
+    public override void Visit(BulletedListElement list) => ThrowUnsupportedNode(list);
 
     /// <inheritdoc />
-    public override void Visit(ListItemElement item) => ThrowUnsupportedNode(item);
+    public override void Visit(NumberedListElement list) => ThrowUnsupportedNode(list);
+
+    /// <inheritdoc />
+    public override void Visit(TableElement table) => ThrowUnsupportedNode(table);
+
+    /// <inheritdoc />
+    public override void Visit(SimpleListItem listItem) => ThrowUnsupportedNode(listItem);
+
+    /// <inheritdoc />
+    public override void Visit(DefinitionListItem listItem) => ThrowUnsupportedNode(listItem);
+
+    /// <inheritdoc />
+    public override void Visit(TableRow row) => ThrowUnsupportedNode(row);
 
     /// <inheritdoc />
     public override void Visit(CElement c)

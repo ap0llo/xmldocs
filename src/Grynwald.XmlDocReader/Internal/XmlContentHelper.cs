@@ -22,8 +22,6 @@
 */
 #endregion
 
-//TODO: Also link to MdDocs
-
 namespace Grynwald.XmlDocReader.Internal;
 
 internal class XmlContentHelper

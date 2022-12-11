@@ -160,74 +160,85 @@ public class ConvertToBlockVisitor : DocumentationVisitor
     }
 
     /// <inheritdoc />
-    public override void Visit(ListElement listElement)
+    public override void Visit(BulletedListElement bulletedList)
     {
-        //TODO: Implement full list support, use Sandcastle list example as guideline: http://ewsoftware.github.io/XMLCommentsGuide/html/4fe0d5e6-7a33-a185-f424-7ea249f15596.htm
-        if (listElement.Type == ListType.Bullet || listElement.Type == ListType.Number)
+        var outputList = new MdBulletList();
+        AppendBlock(outputList);
+        AppendListItems(outputList, bulletedList.Items);
+    }
+
+    /// <inheritdoc />
+    public override void Visit(NumberedListElement numberedList)
+    {
+        var outputList = new MdOrderedList();
+        AppendBlock(outputList);
+        AppendListItems(outputList, numberedList.Items);
+    }
+
+    private void AppendListItems(MdList outputList, IEnumerable<ListItem> items)
+    {
+        foreach (var inputItem in items)
         {
+            // create a new list item and add it to the list
+            var outputItem = new MdListItem();
+            outputList.Add(outputItem);
 
-            var outputList = listElement.Type == ListType.Number ? new MdOrderedList() : (MdList)new MdBulletList();
+            // make the list item the new current block
+            m_Stack.Push(outputItem);
 
-            AppendBlock(outputList);
+            // visit list item
+            inputItem.Accept(this);
 
-            foreach (var inputItem in listElement.Items)
-            {
-                // create a new list item and add it to the list
-                var outputItem = new MdListItem();
-                outputList.Add(outputItem);
-
-                // make the list item the new current block
-                m_Stack.Push(outputItem);
-
-                // visit list item
-                inputItem.Accept(this);
-
-                // end the current paragraph and restore previous current block
-                EndCurrentParagraph();
-                m_Stack.Pop();
-            }
-        }
-        else if (listElement.Type == ListType.Table)
-        {
-
-            MdTableRow CreateRow(ListItemElement? itemElement)
-            {
-                if (itemElement == null)
-                {
-                    return new MdTableRow("", "");
-                }
-
-                var term = itemElement.Term is null || itemElement.Term.Elements.Count == 0
-                    ? MdEmptySpan.Instance
-                    : m_MarkdownConverter.ConvertToSpan(itemElement.Term);
-
-                var description = itemElement.Description is null || itemElement.Description.Elements.Count == 0
-                    ? MdEmptySpan.Instance
-                    : m_MarkdownConverter.ConvertToSpan(itemElement.Description);
-
-                return new MdTableRow(term, description);
-            }
-
-            var table = new MdTable(
-                CreateRow(listElement.ListHeader),
-                listElement.Items.Select(CreateRow)
-            );
-
-            AppendBlock(table);
+            // end the current paragraph and restore previous current block
+            EndCurrentParagraph();
+            m_Stack.Pop();
         }
     }
 
     /// <inheritdoc />
-    public override void Visit(ListItemElement item)
+    public override void Visit(TableElement table)
     {
-        if (item.Term is not null && item.Term.Elements.Count > 0)
+        MdTableRow CreateRow(TableRow? row, int columnCount)
         {
-            var term = m_MarkdownConverter.ConvertToSpan(item.Term);
+            if (row == null)
+            {
+                return new MdTableRow(
+                    Enumerable.Range(0, columnCount).Select(_ => "")
+                );
+            }
 
-            AddToCurrentParagraph(new MdStrongEmphasisSpan(term, ":"));
+            var markdownColumns = row.Columns.Select(x => m_MarkdownConverter.ConvertToSpan(x));
+            return new MdTableRow(markdownColumns);
         }
 
-        item.Description.Accept(this);
+        var maxColumns = Math.Max(
+            table.Header?.Columns?.Count ?? 0,
+            table.Rows.Max(row => row.Columns.Count)
+        );
+
+        var markdownTable = new MdTable(
+            CreateRow(table.Header, maxColumns),
+            table.Rows.Select(x => CreateRow(x, maxColumns))
+        );
+
+        AppendBlock(markdownTable);
+    }
+
+    /// <inheritdoc />
+    public override void Visit(DefinitionListItem listItem)
+    {
+        if (listItem.Term is not null && listItem.Term.Elements.Count > 0)
+        {
+            var term = m_MarkdownConverter.ConvertToSpan(listItem.Term);
+
+            AddToCurrentParagraph(new MdStrongEmphasisSpan(term));
+            AddToCurrentParagraph(" – ");
+        }
+
+        foreach (var element in listItem.Description?.Elements ?? Array.Empty<TextElement>())
+        {
+            element.Accept(this);
+        }
     }
 
     /// <inheritdoc />

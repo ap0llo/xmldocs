@@ -1,12 +1,24 @@
 ﻿namespace Grynwald.XmlDocReader;
 
 /// <summary>
-/// Represents a <c><![CDATA[<item>]]></c> or <c><![CDATA[<listheader>]]></c> element inside a <![CDATA[<list />]]> element in XML documentation comments.
+/// Represents a <c><![CDATA[<item>]]></c> in a definition list in XML documentation comments.
 /// </summary>
-/// <seealso cref="ListElement"/>
+/// <remarks>
+/// A <see cref="DefinitionListItem"/> is used to represent list items which have a <c>term</c> and/or <c>description</c> node.
+/// </remarks>
+/// <example>
+/// <code language="xml"><![CDATA[
+///     <item>
+///         <term>Term 1</term>
+///         <description>Description Content</description>
+///     </item>
+/// ]]>
+/// </code>
+/// </example>
 /// <seealso href="https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags">Recommended XML tags for C# documentation comments (Microsoft Learn)</seealso>
-//TODO: Allow list items without term/descriptions, like <item>Item 1</item>
-public sealed class ListItemElement : BlockElement, IEquatable<ListItemElement>
+/// <seealso cref="ListElement"/>
+/// <seealso cref="ListItem"/>
+public class DefinitionListItem : ListItem, IEquatable<DefinitionListItem>
 {
     /// <summary>
     /// The term described by the list item.
@@ -19,19 +31,18 @@ public sealed class ListItemElement : BlockElement, IEquatable<ListItemElement>
     /// <summary>
     /// Gets the list item's content.
     /// </summary>
-    public TextBlock Description { get; }
+    public TextBlock? Description { get; }
 
 
     /// <summary>
-    /// Initializes a new instance of <see cref="ListItemElement"/>
+    /// Initializes a new instance of <see cref="DefinitionListItem"/>
     /// </summary>
     /// <param name="term">The content of the list items <c>term</c> element. Can be <c>null</c></param>
     /// <param name="description">The content of the list items <c>description</c> element.</param>
-    /// <exception cref="ArgumentNullException">Thrown when <paramref name="description"/> is <c>null</c>.</exception>
-    public ListItemElement(TextBlock? term, TextBlock description)
+    public DefinitionListItem(TextBlock? term, TextBlock? description)
     {
         Term = term;
-        Description = description ?? throw new ArgumentNullException(nameof(description));
+        Description = description;
     }
 
 
@@ -42,54 +53,49 @@ public sealed class ListItemElement : BlockElement, IEquatable<ListItemElement>
     public override int GetHashCode() => HashCode.Combine(Description, Term);
 
     /// <inheritdoc />                                                                  
-    public override bool Equals(object? obj) => Equals(obj as ListItemElement);
+    public override bool Equals(object? obj) => Equals(obj as DefinitionListItem);
 
     /// <inheritdoc />
-    public bool Equals(ListItemElement? other)
+    public bool Equals(DefinitionListItem? other)
     {
         if (other is null)
             return false;
 
-
-        if (Term is not null)
-        {
-            if (!Term.Equals(other.Term))
-                return false;
-        }
-        else
+        if (Term is null)
         {
             if (other.Term is not null)
                 return false;
         }
+        else
+        {
+            if (!Term.Equals(other.Term))
+                return false;
+        }
 
-        return Description.Equals(other.Description);
+        if (Description is null)
+        {
+            return other.Description is null;
+        }
+        else
+        {
+            return Description.Equals(other.Description);
+        }
     }
 
 
-    /// <inheritdoc cref="FromXml(XElement)"/>
-    public static ListItemElement FromXml(string xml) => FromXml(XmlContentHelper.ParseXmlElement(xml));
-
-    /// <summary>
-    /// Initializes a new <see cref="ListItemElement" /> from it's XML equivalent.
-    /// </summary>
-    public static ListItemElement FromXml(XElement xml)
+    internal static new DefinitionListItem FromXml(XElement xml)
     {
-        xml.EnsureNameIs("listheader", "item"); //TODO: Consider using separate types for items/header
-
-        //TextBlock? description = null;
-
         var term = xml.Element("term") is XElement termElement
             ? TextBlock.FromXml(termElement)
             : null;
 
         var description = xml.Element("description") is XElement descriptionElement
             ? TextBlock.FromXml(descriptionElement)
-            : new TextBlock();  //TODO: Remove empty and use null instead
+            : null;
 
         //TODO: Warn on unrecognized elements
         //TODO: Warn if there are multiple term/description elements
-        //TODO: Should description really be optional???
 
-        return new ListItemElement(term, description);
+        return new DefinitionListItem(term, description);
     }
 }

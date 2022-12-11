@@ -490,121 +490,6 @@ public class MarkdownConverterTest
 
 
             yield return TestCase(
-                "T36",
-                new ListElement(
-                    ListType.Bullet,
-                    null,
-                    new[]
-                    {
-                        new ListItemElement(null, new TextBlock(new PlainTextElement("Item 1"))),
-                        new ListItemElement(null, new TextBlock(new PlainTextElement("Item 2"))),
-                    }),
-                """
-                - Item 1
-                - Item 2
-                """
-            );
-
-            yield return TestCase(
-                "T37",
-                new ListElement(
-                    ListType.Number,
-                    null,
-                    new[]
-                    {
-                        new ListItemElement(null, new TextBlock(new PlainTextElement("Item 1"))),
-                        new ListItemElement(null, new TextBlock(new PlainTextElement("Item 2"))),
-                    }),
-                """
-                1. Item 1
-                2. Item 2
-                """
-            );
-
-            yield return TestCase(
-                "T38",
-                new ListElement(
-                    ListType.Number,
-                    null,
-                    new[]
-                    {
-                        new ListItemElement(null, new TextBlock(new PlainTextElement("Item 1"))),
-                        new ListItemElement(
-                            null,
-                            new TextBlock(
-                                new PlainTextElement("Item 2"),
-                                new ListElement(
-                                    ListType.Bullet,
-                                    null,
-                                    new []
-                                    {
-                                        new ListItemElement(null, new TextBlock(new PlainTextElement("Item 2.1"))),
-                                        new ListItemElement(null, new TextBlock(new PlainTextElement("Item 2.2"))),
-                                    })
-                        )),
-                    }),
-                """
-                1. Item 1
-                2. Item 2
-                   - Item 2.1
-                   - Item 2.2
-                """
-            );
-
-            yield return TestCase(
-                "T39",
-                new ListElement(
-                    ListType.Bullet,
-                    null,
-                    new[]
-                    {
-                        new ListItemElement(
-                            new TextBlock(new PlainTextElement("Term 1")),
-                            new TextBlock(new PlainTextElement("Description 1"))
-                        ),
-                        new ListItemElement(
-                            new TextBlock(new PlainTextElement("Term 2")),
-                            new TextBlock(new PlainTextElement("Description 2"))
-                        ),
-                    }),
-                """
-                - **Term 1:**
-
-                  Description 1
-                - **Term 2:**
-
-                  Description 2
-                """
-            );
-
-            yield return TestCase(
-                "T40",
-                new ListElement(
-                    ListType.Table,
-                    new ListItemElement(
-                        new TextBlock(new PlainTextElement("Column 1")),
-                        new TextBlock(new PlainTextElement("Column 2"))
-                    ),
-                    new[]
-                    {
-                        new ListItemElement(
-                            new TextBlock(new PlainTextElement("Row 1, Column 1")),
-                            new TextBlock(new PlainTextElement("Row 1, Column 2"))
-                        ),
-                        new ListItemElement(
-                            new TextBlock(new PlainTextElement("Row 2, Column 1")),
-                            new TextBlock(new PlainTextElement("Row 2, Column 2"))
-                        ),
-                    }),
-                """
-                | Column 1        | Column 2        |
-                | --------------- | --------------- |
-                | Row 1, Column 1 | Row 1, Column 2 |
-                | Row 2, Column 1 | Row 2, Column 2 |
-                """
-            );
-
-            yield return TestCase(
                 "T41",
                 MemberElement.FromXml("""
                 <member name="M:MyClass.MyMethod">
@@ -915,8 +800,296 @@ public class MarkdownConverterTest
             );
         }
 
+        public static IEnumerable<object[]> ListTestCases()
+        {
+            object[] TestCase(string id, DocumentationElement input, string expectedMarkdown) =>
+                new object[] { id, input, expectedMarkdown };
+
+
+            yield return TestCase(
+                "LIST-01",
+                ListElement.FromXml("""
+                    <list type="bullet">
+                        <item>First item</item>
+                        <item>Second item</item>
+                        <item>Third item</item>
+                    </list>
+                    """),
+                """
+                - First item
+                - Second item
+                - Third item
+                """
+            );
+
+            yield return TestCase(
+                "LIST-02",
+                ListElement.FromXml("""
+                    <list type="bullet">
+                        <item>
+                            <term>Term 1</term>
+                            <description>Description 1</description>
+                        </item>
+                        <item>
+                            <term>Term 2</term>
+                            <description>Description 2</description>
+                        </item>  
+                    </list>
+                    """),
+                """
+                - **Term 1** – Description 1
+                - **Term 2** – Description 2
+                """);
+
+            yield return TestCase(
+                "LIST-03",
+                ListElement.FromXml("""
+                    <list type="number">
+                        <item>First item</item>
+                        <item>Second item</item>
+                        <item>Third item</item>
+                    </list>
+                    """),
+                """
+                1. First item
+                2. Second item
+                3. Third item
+                """
+            );
+
+            yield return TestCase(
+                "LIST-04",
+                ListElement.FromXml("""
+                    <list type="number">
+                        <item>
+                            <term>Term 1</term>
+                            <description>Description 1</description>
+                        </item>
+                        <item>
+                            <term>Term 2</term>
+                            <description>Description 2</description>
+                        </item>  
+                    </list>
+                    """),
+                """
+                1. **Term 1** – Description 1
+                2. **Term 2** – Description 2
+                """);
+
+
+            yield return TestCase(
+                "LIST-05",
+                ListElement.FromXml("""
+                    <list type="number">
+                        <item>
+                            <term>Term 1</term>
+                            <description>Description 1</description>
+                        </item>
+                        <item>Item 2</item>  
+                    </list>
+                    """),
+                """
+                1. **Term 1** – Description 1
+                2. Item 2
+                """);
+
+            yield return TestCase(
+                "LIST-06",
+                ListElement.FromXml("""
+                    <list type="table">
+                        <listheader>
+                            <term>Term</term>
+                            <description>Description</description>
+                        </listheader>
+                        <item>
+                            <term>Term 1</term>
+                            <description>Description 1</description>
+                        </item>
+                        <item>
+                            <term>Term 2</term>
+                            <description>Description 2</description>
+                          </item>
+                    </list>            
+                    """),
+                """
+                | Term   | Description   |
+                | ------ | ------------- |
+                | Term 1 | Description 1 |
+                | Term 2 | Description 2 |
+                """
+            );
+
+            yield return TestCase(
+                "LIST-07",
+                ListElement.FromXml("""
+                    <list type="table">
+                        <listheader>
+                            <term>Column 1</term>
+                            <term>Column 2</term>
+                            <term>Column 3</term>
+                            <term>Column 4</term>
+                        </listheader>
+                        <item>
+                            <term>R1, C1</term>
+                            <term>R1, C2</term>
+                            <term>R1, C3</term>
+                            <term>R1, C4</term>
+                        </item>
+                        <item>
+                            <description>R2, C1</description>
+                            <description>R2, C2</description>
+                            <description>R2, C3</description>
+                            <description>R2, C4</description>
+                        </item>
+                    </list>            
+                    """),
+                """
+                | Column 1 | Column 2 | Column 3 | Column 4 |
+                | -------- | -------- | -------- | -------- |
+                | R1, C1   | R1, C2   | R1, C3   | R1, C4   |
+                | R2, C1   | R2, C2   | R2, C3   | R2, C4   |
+                """
+            );
+
+
+            yield return TestCase(
+                "LIST-08",
+                ListElement.FromXml("""
+                    <list type="table">
+                        <listheader>
+                            <term>Column 1</term>
+                            <term>Column 2</term>
+                        </listheader>
+                        <item>
+                            <term>R1, C1</term>
+                            <term>R1, C2</term>
+                            <term>R1, C3</term>
+                        </item>
+                        <item>
+                            <description>R2, C1</description>
+                            <description>R2, C2</description>
+                            <description>R2, C3</description>
+                            <description>R2, C4</description>
+                        </item>
+                    </list>            
+                    """),
+                """
+                | Column 1 | Column 2 |        |        |
+                | -------- | -------- | ------ | ------ |
+                | R1, C1   | R1, C2   | R1, C3 |        |
+                | R2, C1   | R2, C2   | R2, C3 | R2, C4 |
+                """
+            );
+
+
+
+            yield return TestCase(
+              "LIST-100",
+              new BulletedListElement(
+                  new[]
+                  {
+                        new SimpleListItem(new TextBlock(new PlainTextElement("Item 1"))),
+                        new SimpleListItem(new TextBlock(new PlainTextElement("Item 2"))),
+                  }),
+              """
+                - Item 1
+                - Item 2
+                """
+          );
+
+            yield return TestCase(
+                "LIST-102",
+                new NumberedListElement(
+                    new[]
+                    {
+                        new SimpleListItem(new TextBlock(new PlainTextElement("Item 1"))),
+                        new SimpleListItem(new TextBlock(new PlainTextElement("Item 2"))),
+                    }),
+                """
+                1. Item 1
+                2. Item 2
+                """
+            );
+
+            yield return TestCase(
+                "LIST-103",
+                new NumberedListElement(
+                    new[]
+                    {
+                        new SimpleListItem(new TextBlock(new PlainTextElement("Item 1"))),
+                        new SimpleListItem(
+                            new TextBlock(
+                                new PlainTextElement("Item 2"),
+                                new BulletedListElement(
+                                    new []
+                                    {
+                                        new SimpleListItem(new TextBlock(new PlainTextElement("Item 2.1"))),
+                                        new SimpleListItem(new TextBlock(new PlainTextElement("Item 2.2"))),
+                                    })
+                        )),
+                    }),
+                """
+                1. Item 1
+                2. Item 2
+                   - Item 2.1
+                   - Item 2.2
+                """
+            );
+
+            yield return TestCase(
+                "LIST-104",
+                new BulletedListElement(
+                    new[]
+                    {
+                        new DefinitionListItem(
+                            new TextBlock(new PlainTextElement("Term 1")),
+                            new TextBlock(new PlainTextElement("Description 1"))
+                        ),
+                        new DefinitionListItem(
+                            new TextBlock(new PlainTextElement("Term 2")),
+                            new TextBlock(new PlainTextElement("Description 2"))
+                        ),
+                    }),
+                """
+                - **Term 1** – Description 1
+                - **Term 2** – Description 2
+                """
+            );
+
+            yield return TestCase(
+                "LIST-105",
+                new TableElement(
+                    new TableRow(new[]
+                    {
+                        new TextBlock(new PlainTextElement("Column 1")),
+                        new TextBlock(new PlainTextElement("Column 2"))
+                    }),
+                    new[]
+                    {
+                        new TableRow(new[]
+                        {
+                            new TextBlock(new PlainTextElement("Row 1, Column 1")),
+                            new TextBlock(new PlainTextElement("Row 1, Column 2"))
+                        }),
+                        new TableRow(new[]
+                        {
+                            new TextBlock(new PlainTextElement("Row 2, Column 1")),
+                            new TextBlock(new PlainTextElement("Row 2, Column 2"))
+                        }),
+                    }),
+                """
+                | Column 1        | Column 2        |
+                | --------------- | --------------- |
+                | Row 1, Column 1 | Row 1, Column 2 |
+                | Row 2, Column 1 | Row 2, Column 2 |
+                """
+            );
+        }
+
+
         [Theory]
         [MemberData(nameof(TestCases))]
+        [MemberData(nameof(ListTestCases))]
         public void Documentation_is_converted_to_expected_Markdown_content(string id, DocumentationElement input, string expectedMarkdown)
         {
             m_TestOutputHelper.WriteLine($"Test Id: {id}");
@@ -949,8 +1122,9 @@ public class MarkdownConverterTest
                 new object[] { id, input };
 
             yield return TestCase("T01", new CodeElement("Some code", null));
-            yield return TestCase("T02", new ListElement(ListType.Bullet, null, Array.Empty<ListItemElement>()));
-            yield return TestCase("T03", new ListItemElement(null, new TextBlock()));
+            yield return TestCase("T02", new BulletedListElement(Array.Empty<ListItem>()));
+            yield return TestCase("T03", new NumberedListElement(Array.Empty<ListItem>()));
+            yield return TestCase("T04", new TableElement(null, Array.Empty<TableRow>()));
 
         }
 

@@ -211,10 +211,10 @@ public class TextBlockTest
                 </summary>
             """,
             new TextBlock(
-              new ListElement(ListType.Bullet, null, new[]
-              {
-                  new ListItemElement(null, new TextBlock(new PlainTextElement("Item 1")))
-              })
+                new BulletedListElement(new[]
+                {
+                    new DefinitionListItem(null, new TextBlock(new PlainTextElement("Item 1")))
+                })
             )
         );
 

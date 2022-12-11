@@ -155,20 +155,53 @@ public class DocumentationVisitor : IDocumentationVisitor
     }
 
     /// <inheritdoc />
-    public virtual void Visit(ListElement list)
+    public virtual void Visit(BulletedListElement bulletedList)
     {
-        list.ListHeader?.Accept(this);
-        foreach (var item in list.Items)
+        foreach (var item in bulletedList.Items)
         {
             item.Accept(this);
         }
     }
 
     /// <inheritdoc />
-    public virtual void Visit(ListItemElement item)
+    public virtual void Visit(NumberedListElement numberedList)
     {
-        item.Term?.Accept(this);
-        item.Description.Accept(this);
+        foreach (var item in numberedList.Items)
+        {
+            item.Accept(this);
+        }
+    }
+
+    /// <inheritdoc />
+    public virtual void Visit(TableElement table)
+    {
+        table.Header?.Accept(this);
+        foreach (var row in table.Rows)
+        {
+            row.Accept(this);
+        }
+    }
+
+    /// <inheritdoc />
+    public virtual void Visit(SimpleListItem listItem)
+    {
+        listItem.Text.Accept(this);
+    }
+
+    /// <inheritdoc />
+    public virtual void Visit(DefinitionListItem listItem)
+    {
+        listItem.Term?.Accept(this);
+        listItem.Description?.Accept(this);
+    }
+
+    /// <inheritdoc />
+    public virtual void Visit(TableRow tableRow)
+    {
+        foreach (var column in tableRow.Columns)
+        {
+            column.Accept(this);
+        }
     }
 
     /// <inheritdoc />
