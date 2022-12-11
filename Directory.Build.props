@@ -44,7 +44,7 @@
   <!--NuGet package properties -->
   <PropertyGroup>
     <Authors>Andreas Gruenwald</Authors>
-    <PackageProjectUrl>https://github.com/ap0llo/xmldocreader</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/ap0llo/xmldocs</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright (c) 2022, Andreas Gruenwald</Copyright>
   </PropertyGroup>
