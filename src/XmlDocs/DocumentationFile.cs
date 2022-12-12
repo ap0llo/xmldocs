@@ -37,6 +37,18 @@ public class DocumentationFile : DocumentationElement
     public override void Accept(IDocumentationVisitor vistor) => vistor.Visit(this);
 
     /// <summary>
+    /// Loads a XML documentation file from the specified path.
+    /// </summary>
+    public static DocumentationFile FromFile(string filePath)
+    {
+        if (String.IsNullOrWhiteSpace(filePath))
+            throw new ArgumentException("Value must not be null or whitespace", nameof(filePath));
+
+        var xml = File.ReadAllText(filePath);
+        return FromXml(xml); ;
+    }
+
+    /// <summary>
     /// Creates a <see cref="DocumentationFile" /> by parsing a XML string.
     /// </summary>
     /// <returns>
