@@ -17,9 +17,16 @@
     <Using Include="Grynwald.MarkdownGenerator" />
   </ItemGroup>
 
-  <!--NuGet package properties -->
+  <!--NuGet package settins -->
+  
   <PropertyGroup>
     <Description>A library for converting .NET XML documentation files to Markdown.</Description>
-  </PropertyGroup>
-  
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>  
+
+  <ItemGroup>
+    <None Remove="package/*" />
+    <None Include="package/*" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
 </Project>

@@ -11,9 +11,16 @@
     <Using Include="Grynwald.XmlDocs.Internal" />
   </ItemGroup>
 
-  <!--NuGet package properties -->
+  <!--NuGet package settings -->
+  
   <PropertyGroup>
     <Description>A library for reading .NET XML documentation files.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="package/*" />
+    <None Include="package/*" Pack="true" PackagePath="/" />
+  </ItemGroup>
 
 </Project>
