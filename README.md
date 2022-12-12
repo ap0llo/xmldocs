@@ -1,6 +1,6 @@
 # XmlDocs
 
-[![Build Status](https://dev.azure.com/ap0llo/OSS/_apis/build/status/xmldocs?branchName=master)](https://dev.azure.com/ap0llo/OSS/_build/latest?definitionId=25&branchName=master)
+[![Build Status](https://dev.azure.com/ap0llo/OSS/_apis/build/status/xmldocs?branchName=master)](https://dev.azure.com/ap0llo/OSS/_build/latest?definitionId=26&branchName=master)
 [![Renovate](https://img.shields.io/badge/Renovate-enabled-brightgreen)](https://renovatebot.com/)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-green.svg)](https://conventionalcommits.org)
 
