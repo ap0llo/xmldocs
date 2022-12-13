@@ -275,7 +275,7 @@ public class TextBlockTest
         );
 
         yield return TestCase(
-            "T19",
+            "T20",
             """
                 <summary>
                     Some <br /> text.
@@ -288,9 +288,22 @@ public class TextBlockTest
             )
         );
 
-        // Unknown elements are saved
+
         yield return TestCase(
             "T21",
+            """
+                <summary>
+                Some text.
+                </summary>
+            """,
+            new TextBlock(
+                new PlainTextElement("Some text.")
+            )
+        );
+
+        // Unknown elements are saved
+        yield return TestCase(
+            "T22",
             """
                 <summary>
                     Some text <unknown-element></unknown-element> some more text
