@@ -111,12 +111,6 @@ internal class XmlContentHelper
         if (lines.Count == 0)
             return String.Empty;
 
-        // Indent in generated XML doc files is greater than 4 always. 
-        // This allows us to optimize the case where the author actually placed 
-        // whitespace inline in between tags.
-        if (indent <= 4 && !String.IsNullOrEmpty(lines[0]) && lines[0][0] != '\t')
-            indent = 0;
-
         return String.Join(joinWith, lines
             .Select(line =>
             {
