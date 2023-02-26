@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Grynwald.MarkdownGenerator" Version="2.5.34" />
+    <PackageReference Include="Grynwald.MarkdownGenerator" Version="3.0.106" />
   </ItemGroup>
   
   <ItemGroup>
