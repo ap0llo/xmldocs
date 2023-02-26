@@ -53,8 +53,8 @@
       },
       "Grynwald.MarkdownGenerator": {
         "type": "Transitive",
-        "resolved": "2.5.34",
-        "contentHash": "2esww+F8jCv2bfFkQJ7lAUfk7adbjI70i4cXdsd6TQIKIUIVgLNbLw0sZuvjbXpRfjrKu3nOTYiehS5Ua1l0Mw=="
+        "resolved": "3.0.106",
+        "contentHash": "rwpMqWHIrgnFdwpSE9HtDvBUjxqX+nNC0qsWtrQvJm6F8Jv/j6Id5eCuLVLWcGozPD6zkrIO94EMlc4zeCinLA=="
       },
       "Microsoft.Build.Tasks.Git": {
         "type": "Transitive",
@@ -1053,7 +1053,7 @@
       "grynwald.xmldocs.markdownrenderer": {
         "type": "Project",
         "dependencies": {
-          "Grynwald.MarkdownGenerator": "[2.5.34, )",
+          "Grynwald.MarkdownGenerator": "[3.0.106, )",
           "Grynwald.XmlDocs": "[1.0.0, )"
         }
       }
@@ -1110,8 +1110,8 @@
       },
       "Grynwald.MarkdownGenerator": {
         "type": "Transitive",
-        "resolved": "2.5.34",
-        "contentHash": "2esww+F8jCv2bfFkQJ7lAUfk7adbjI70i4cXdsd6TQIKIUIVgLNbLw0sZuvjbXpRfjrKu3nOTYiehS5Ua1l0Mw=="
+        "resolved": "3.0.106",
+        "contentHash": "rwpMqWHIrgnFdwpSE9HtDvBUjxqX+nNC0qsWtrQvJm6F8Jv/j6Id5eCuLVLWcGozPD6zkrIO94EMlc4zeCinLA=="
       },
       "Microsoft.Build.Tasks.Git": {
         "type": "Transitive",
@@ -2110,7 +2110,7 @@
       "grynwald.xmldocs.markdownrenderer": {
         "type": "Project",
         "dependencies": {
-          "Grynwald.MarkdownGenerator": "[2.5.34, )",
+          "Grynwald.MarkdownGenerator": "[3.0.106, )",
           "Grynwald.XmlDocs": "[1.0.0, )"
         }
       }
