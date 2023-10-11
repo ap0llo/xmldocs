@@ -8,7 +8,7 @@ public class TextBlock : TextElement, IEquatable<TextBlock>
     /// <summary>
     /// Gets the text block's text elements.
     /// </summary>
-    public IReadOnlyList<TextElement> Elements { get; init; } = Array.Empty<TextElement>();
+    public IReadOnlyList<TextElement> Elements { get; set; } = Array.Empty<TextElement>();
 
 
     /// <summary>

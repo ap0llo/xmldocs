@@ -5,7 +5,7 @@ public class EventMemberElement : MemberElement
     /// <summary>
     /// Gets all the member's <![CDATA[<exception />]]> descriptions.
     /// </summary>
-    public IReadOnlyList<ExceptionElement> Exceptions { get; init; } = Array.Empty<ExceptionElement>();
+    public IReadOnlyList<ExceptionElement> Exceptions { get; set; } = Array.Empty<ExceptionElement>();
 
 
     public EventMemberElement(MemberId id) : base(id)

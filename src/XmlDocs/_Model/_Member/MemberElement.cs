@@ -20,27 +20,27 @@ public abstract class MemberElement : DocumentationElement
     /// <summary>
     /// Gets the content of the member's <![CDATA[<summary />]]> text or <c>null</c> is no summary was found.
     /// </summary>
-    public SummaryElement? Summary { get; init; }
+    public SummaryElement? Summary { get; set; }
 
     /// <summary>
     /// Gets the content of the member's <![CDATA[<remarks />]]> text or <c>null</c> is no remarks were found.
     /// </summary>
-    public RemarksElement? Remarks { get; init; }
+    public RemarksElement? Remarks { get; set; }
 
     /// <summary>
     /// Gets the content of the member's <![CDATA[<example />]]> text or <c>null</c> is no example text was found.
     /// </summary>
-    public ExampleElement? Example { get; init; }
+    public ExampleElement? Example { get; set; }
 
     /// <summary>
     /// Gets all the member's <![CDATA[<seealso />]]> descriptions.
     /// </summary>
-    public IReadOnlyList<SeeAlsoElement> SeeAlso { get; init; } = Array.Empty<SeeAlsoElement>();
+    public IReadOnlyList<SeeAlsoElement> SeeAlso { get; set; } = Array.Empty<SeeAlsoElement>();
 
     /// <summary>
     /// Gets all the sections that were found in the XML but are not recognized as any of the known sections.
     /// </summary>
-    public IEnumerable<UnrecognizedSectionElement> UnrecognizedElements { get; init; } = Array.Empty<UnrecognizedSectionElement>();
+    public IEnumerable<UnrecognizedSectionElement> UnrecognizedElements { get; set; } = Array.Empty<UnrecognizedSectionElement>();
 
 
     /// <summary>
@@ -65,7 +65,7 @@ public abstract class MemberElement : DocumentationElement
         xml.EnsureNameIs("member");
 
         var name = xml.RequireAttribute("name").RequireValue();
-        if (!MemberId.TryParse(name, out var id))
+        if (!MemberId.TryParse(name, out var id) || id == null)
         {
             throw new XmlDocsException($"Failed to parse member. Invalid member name '{name}'{xml.GetPositionString()}");
         }

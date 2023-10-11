@@ -32,7 +32,7 @@ public sealed class MemberId : IEquatable<MemberId>
     public override string ToString() => Id;
 
 
-    public static bool TryParse(string id, [NotNullWhen(true)] out MemberId? parsed)
+    public static bool TryParse(string id, out MemberId? parsed)
     {
         if (String.IsNullOrWhiteSpace(id))
         {
@@ -40,30 +40,54 @@ public sealed class MemberId : IEquatable<MemberId>
             return false;
         }
 
-        MemberType? type = id switch
-        {
-            ['N', ':', .. { Length: > 0 }] => MemberType.Namespace,
-            ['T', ':', .. { Length: > 0 }] => MemberType.Type,
-            ['F', ':', .. { Length: > 0 }] => MemberType.Field,
-            ['P', ':', .. { Length: > 0 }] => MemberType.Property,
-            ['M', ':', .. { Length: > 0 }] => MemberType.Method,
-            ['E', ':', .. { Length: > 0 }] => MemberType.Event,
-            _ => null
-        };
+        MemberType? type = null;
 
-        if (type is null)
+        if (id.Length > 2)
+        {
+            char firstChar = id[0];
+            char secondChar = id[1];
+            if (secondChar == ':')
+            {
+                switch (firstChar)
+                {
+                    case 'N':
+                        type = MemberType.Namespace;
+                        break;
+                    case 'T':
+                        type = MemberType.Type;
+                        break;
+                    case 'F':
+                        type = MemberType.Field;
+                        break;
+                    case 'P':
+                        type = MemberType.Property;
+                        break;
+                    case 'M':
+                        type = MemberType.Method;
+                        break;
+                    case 'E':
+                        type = MemberType.Event;
+                        break;
+                    default:
+                        type = null;
+                        break;
+                }
+            }
+        }
+
+        if (type == null)
         {
             parsed = null;
             return false;
         }
 
-        parsed = new MemberId(id, type.Value, id[2..]);
+        parsed = new MemberId(id, type.Value, id.Substring(2));
         return true;
     }
 
     public static MemberId Parse(string id)
     {
-        return TryParse(id, out var parsed)
+        return (TryParse(id, out var parsed) && parsed != null)
             ? parsed
             : throw new FormatException($"'{id}' is not a valid member id");
     }

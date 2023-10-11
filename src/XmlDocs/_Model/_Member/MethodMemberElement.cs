@@ -5,22 +5,22 @@ public class MethodMemberElement : MemberElement
     /// <summary>
     /// Gets the content of the method's <![CDATA[<returns />]]> text or <c>null</c> is no returns text was found.
     /// </summary>
-    public ReturnsElement? Returns { get; init; }
+    public ReturnsElement? Returns { get; set; }
 
     /// <summary>
     /// Gets all the methods's <![CDATA[<param />]]> descriptions.
     /// </summary>
-    public IReadOnlyList<ParameterElement> Parameters { get; init; } = Array.Empty<ParameterElement>();
+    public IReadOnlyList<ParameterElement> Parameters { get; set; } = Array.Empty<ParameterElement>();
 
     /// <summary>
     /// Gets all the method's <![CDATA[<typeparam />]]> descriptions.
     /// </summary>
-    public IReadOnlyList<TypeParameterElement> TypeParameters { get; init; } = Array.Empty<TypeParameterElement>();
+    public IReadOnlyList<TypeParameterElement> TypeParameters { get; set; } = Array.Empty<TypeParameterElement>();
 
     /// <summary>
     /// Gets all the member's <![CDATA[<exception />]]> descriptions.
     /// </summary>
-    public IReadOnlyList<ExceptionElement> Exceptions { get; init; } = Array.Empty<ExceptionElement>();
+    public IReadOnlyList<ExceptionElement> Exceptions { get; set; } = Array.Empty<ExceptionElement>();
 
 
     public MethodMemberElement(MemberId id) : base(id)

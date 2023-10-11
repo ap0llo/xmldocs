@@ -105,7 +105,7 @@ internal class XmlContentHelper
         if (lines.Count == 0)
             return String.Empty;
 
-        if (lines[^1].Trim().Length == 0)
+        if (lines[lines.Count - 1].Trim().Length == 0)
             lines.RemoveAt(lines.Count - 1);
 
         if (lines.Count == 0)

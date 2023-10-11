@@ -50,7 +50,17 @@ public class DefinitionListItem : ListItem, IEquatable<DefinitionListItem>
     public override void Accept(IDocumentationVisitor visitor) => visitor.Visit(this);
 
     /// <inheritdoc />
-    public override int GetHashCode() => HashCode.Combine(Description, Term);
+    public override int GetHashCode()
+    {
+        unchecked // Overflow is fine, just wrap
+        {
+            int hash = 17;
+            // Suitable nullity checks, for example:
+            hash = hash * 23 + (Description == null ? 0 : Description.GetHashCode());
+            hash = hash * 23 + (Term == null ? 0 : Term.GetHashCode());
+            return hash;
+        }
+    }
 
     /// <inheritdoc />                                                                  
     public override bool Equals(object? obj) => Equals(obj as DefinitionListItem);

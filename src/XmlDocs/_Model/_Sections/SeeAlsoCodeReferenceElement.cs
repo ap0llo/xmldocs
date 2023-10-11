@@ -35,7 +35,7 @@ public class SeeAlsoCodeReferenceElement : SeeAlsoElement
             .RequireAttribute("cref")
             .RequireValue();
 
-        if (!MemberId.TryParse(cref, out var reference))
+        if (!MemberId.TryParse(cref, out var reference) || reference == null)
         {
             throw new XmlDocsException($"Failed to parse code reference in <seealso /> element. Invalid reference '{cref}'{xml.GetPositionString()}");
         }

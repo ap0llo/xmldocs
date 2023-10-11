@@ -55,7 +55,7 @@ public class SeeCodeReferenceElement : SeeElement, IEquatable<SeeCodeReferenceEl
             .RequireAttribute("cref")
             .RequireValue();
 
-        if (!MemberId.TryParse(cref, out var reference))
+        if (!MemberId.TryParse(cref, out var reference) || reference == null)
         {
             throw new XmlDocsException($"Failed to parse code reference in <see /> element. Invalid reference '{cref}'{xml.GetPositionString()}");
         }

@@ -5,7 +5,7 @@ public class FieldMemberElement : MemberElement
     /// <summary>
     /// Gets the content of the field's <![CDATA[<value />]]> text or <c>null</c> is no value text was found.
     /// </summary>
-    public ValueElement? Value { get; init; }
+    public ValueElement? Value { get; set; }
 
 
     public FieldMemberElement(MemberId id) : base(id)

@@ -5,7 +5,7 @@ public class PropertyMemberElement : MemberElement
     /// <summary>
     /// Gets the content of the member's <![CDATA[<value />]]> text or <c>null</c> is no value text was found.
     /// </summary>
-    public ValueElement? Value { get; init; }
+    public ValueElement? Value { get; set; }
 
     /// <summary>
     /// Gets all the property's <![CDATA[<param />]]> descriptions.
@@ -13,12 +13,12 @@ public class PropertyMemberElement : MemberElement
     /// <remarks>
     /// For regular properties, this will be empty, but there might be documentation of parameters for an indexer, which as modelled as properties with parameters.
     /// </remarks>
-    public IReadOnlyList<ParameterElement> Parameters { get; init; } = Array.Empty<ParameterElement>();
+    public IReadOnlyList<ParameterElement> Parameters { get; set; } = Array.Empty<ParameterElement>();
 
     /// <summary>
     /// Gets all the member's <![CDATA[<exception />]]> descriptions.
     /// </summary>
-    public IReadOnlyList<ExceptionElement> Exceptions { get; init; } = Array.Empty<ExceptionElement>();
+    public IReadOnlyList<ExceptionElement> Exceptions { get; set; } = Array.Empty<ExceptionElement>();
 
 
     public PropertyMemberElement(MemberId id) : base(id)
