@@ -78,31 +78,45 @@ public class TextBlock : TextElement, IEquatable<TextBlock>
 
         foreach (var node in xml.Nodes())
         {
-            if (node is XText textNode)
+            TextElement? returnElement = null;
+
+            try
             {
-                var text = XmlContentHelper.TrimText(textNode.Value, indent);
-                if (!String.IsNullOrEmpty(text))
-                    yield return new PlainTextElement(text);
-            }
-            else if (node is XElement element)
-            {
-                //TODO: <a> tag (supported by Visual Studio)
-                yield return element.Name.LocalName switch
+                if (node is XText textNode)
                 {
-                    "para" => ParagraphElement.FromXml(element),
-                    "paramref" => ParameterReferenceElement.FromXml(element),
-                    "typeparamref" => TypeParameterReferenceElement.FromXml(element),
-                    "code" => CodeElement.FromXml(element),
-                    "c" => CElement.FromXml(element),
-                    "see" => SeeElement.FromXml(element),
-                    "list" => ListElement.FromXml(element),
-                    "em" => EmphasisElement.FromXml(element),
-                    "i" => IdiomaticElement.FromXml(element),
-                    "b" => BoldElement.FromXml(element),
-                    "strong" => StrongElement.FromXml(element),
-                    "br" => LineBreakElement.FromXml(element),
-                    _ => new UnrecognizedTextElement(element)
-                };
+                    var text = XmlContentHelper.TrimText(textNode.Value, indent);
+                    if (!String.IsNullOrEmpty(text))
+                        returnElement = new PlainTextElement(text);
+                }
+                else if (node is XElement element)
+                {
+                    //TODO: <a> tag (supported by Visual Studio)
+                    returnElement = element.Name.LocalName switch
+                    {
+                        "para" => ParagraphElement.FromXml(element),
+                        "paramref" => ParameterReferenceElement.FromXml(element),
+                        "typeparamref" => TypeParameterReferenceElement.FromXml(element),
+                        "code" => CodeElement.FromXml(element),
+                        "c" => CElement.FromXml(element),
+                        "see" => SeeElement.FromXml(element),
+                        "list" => ListElement.FromXml(element),
+                        "em" => EmphasisElement.FromXml(element),
+                        "i" => IdiomaticElement.FromXml(element),
+                        "b" => BoldElement.FromXml(element),
+                        "strong" => StrongElement.FromXml(element),
+                        "br" => LineBreakElement.FromXml(element),
+                        _ => new UnrecognizedTextElement(element)
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            
+            if (returnElement != null)
+            {
+                yield return returnElement;
             }
         }
     }
