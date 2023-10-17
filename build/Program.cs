@@ -21,7 +21,7 @@ public class BuildContext : DefaultBuildContext
         new PushTarget(
             type: PushTargetType.AzureArtifacts,
             feedUrl: "https://pkgs.dev.azure.com/ap0llo/OSS/_packaging/PublicCI/nuget/v3/index.json",
-            isActive: context => context.Git.IsMasterBranch || context.Git.IsReleaseBranch
+            isActive: context => context.Git.IsMainBranch || context.Git.IsReleaseBranch
         ),
         new PushTarget(
             PushTargetType.NuGetOrg,
