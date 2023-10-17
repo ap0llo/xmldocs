@@ -45,7 +45,7 @@ public class DocumentationFile : DocumentationElement
             throw new ArgumentException("Value must not be null or whitespace", nameof(filePath));
 
         var xml = File.ReadAllText(filePath);
-        return FromXml(xml); ;
+        return FromXml(xml);
     }
 
     /// <summary>
