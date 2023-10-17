@@ -32,7 +32,7 @@ public sealed class MemberId : IEquatable<MemberId>
     public override string ToString() => Id;
 
 
-    public static bool TryParse(string id, out MemberId? parsed)
+    public static bool TryParse(string id, [NotNullWhen(true)] out MemberId? parsed)
     {
         if (String.IsNullOrWhiteSpace(id))
         {
@@ -87,7 +87,7 @@ public sealed class MemberId : IEquatable<MemberId>
 
     public static MemberId Parse(string id)
     {
-        return (TryParse(id, out var parsed) && parsed != null)
+        return (TryParse(id, out var parsed))
             ? parsed
             : throw new FormatException($"'{id}' is not a valid member id");
     }

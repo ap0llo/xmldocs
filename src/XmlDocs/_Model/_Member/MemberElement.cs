@@ -65,7 +65,7 @@ public abstract class MemberElement : DocumentationElement
         xml.EnsureNameIs("member");
 
         var name = xml.RequireAttribute("name").RequireValue();
-        if (!MemberId.TryParse(name, out var id) || id == null)
+        if (!MemberId.TryParse(name, out var id))
         {
             throw new XmlDocsException($"Failed to parse member. Invalid member name '{name}'{xml.GetPositionString()}");
         }

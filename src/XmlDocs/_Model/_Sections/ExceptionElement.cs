@@ -44,7 +44,7 @@ public class ExceptionElement : SectionElement
             .RequireAttribute("cref")
             .RequireValue();
 
-        if (!MemberId.TryParse(cref, out var reference) || reference == null)
+        if (!MemberId.TryParse(cref, out var reference))
         {
             throw new XmlDocsException($"Failed to parse code reference in <exception /> element. Invalid reference '{cref}'{xml.GetPositionString()}");
         }
