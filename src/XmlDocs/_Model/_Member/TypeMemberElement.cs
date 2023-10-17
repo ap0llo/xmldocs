@@ -5,7 +5,7 @@ public class TypeMemberElement : MemberElement
     /// <summary>
     /// Gets all the type's <![CDATA[<typeparam />]]> descriptions.
     /// </summary>
-    public IReadOnlyList<TypeParameterElement> TypeParameters { get; init; } = Array.Empty<TypeParameterElement>();
+    public IReadOnlyList<TypeParameterElement> TypeParameters { get; set; } = Array.Empty<TypeParameterElement>();
 
 
     public TypeMemberElement(MemberId id) : base(id)
