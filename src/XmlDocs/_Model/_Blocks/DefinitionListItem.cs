@@ -56,8 +56,8 @@ public class DefinitionListItem : ListItem, IEquatable<DefinitionListItem>
         {
             int hash = 17;
             // Suitable nullity checks, for example:
-            hash = hash * 23 + (Description == null ? 0 : Description.GetHashCode());
-            hash = hash * 23 + (Term == null ? 0 : Term.GetHashCode());
+            hash = hash * 23 + (Description is null ? 0 : Description.GetHashCode());
+            hash = hash * 23 + (Term is null ? 0 : Term.GetHashCode());
             return hash;
         }
     }

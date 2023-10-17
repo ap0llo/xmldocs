@@ -44,8 +44,8 @@ public sealed class MemberId : IEquatable<MemberId>
 
         if (id.Length > 2)
         {
-            char firstChar = id[0];
-            char secondChar = id[1];
+            var firstChar = id[0];
+            var secondChar = id[1];
             if (secondChar == ':')
             {
                 switch (firstChar)
@@ -75,7 +75,7 @@ public sealed class MemberId : IEquatable<MemberId>
             }
         }
 
-        if (type == null)
+        if (type is null)
         {
             parsed = null;
             return false;
