@@ -46,7 +46,7 @@
     <Authors>Andreas Gruenwald</Authors>
     <PackageProjectUrl>https://github.com/ap0llo/xmldocs</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Copyright>Copyright (c) 2022, Andreas Gruenwald</Copyright>
+    <Copyright>Copyright (c) 2022-2024, Andreas Gruenwald</Copyright>
   </PropertyGroup>
 
   <!-- Use NuGet lock file -->
