@@ -11,12 +11,12 @@ public class MemberIdTest
     [InlineData(" ")]
     [InlineData("M:")]
     [InlineData("I:MyClass.MyMember")]
-    public void TryParse_returns_false_if_id_cannot_be_parsed(string id)
+    public void TryParse_returns_false_if_id_cannot_be_parsed(string? id)
     {
         // ARRANGE
 
         // ACT
-        var success = MemberId.TryParse(id, out var parsed);
+        var success = MemberId.TryParse(id!, out var parsed);
 
         // ASSERT
         Assert.False(success);
@@ -29,12 +29,12 @@ public class MemberIdTest
     [InlineData(" ")]
     [InlineData("M:")]
     [InlineData("I:MyClass.MyMember")]
-    public void TryParse_failes_if_id_cannot_be_parsed(string id)
+    public void TryParse_failes_if_id_cannot_be_parsed(string? id)
     {
         // ARRANGE
 
         // ACT
-        var ex = Record.Exception(() => MemberId.Parse(id));
+        var ex = Record.Exception(() => MemberId.Parse(id!));
 
         // ASSERT
         Assert.IsType<FormatException>(ex);

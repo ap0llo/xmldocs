@@ -9,12 +9,12 @@ public class SeeUrlReferenceElementTest
     [InlineData(null)]
     [InlineData("")]
     [InlineData("   ")]
-    public void Reference_must_not_be_null_or_whitespace(string link)
+    public void Reference_must_not_be_null_or_whitespace(string? link)
     {
         // ARRANGE
 
         // ACT
-        var ex = Record.Exception(() => new SeeUrlReferenceElement(link: link, null));
+        var ex = Record.Exception(() => new SeeUrlReferenceElement(link: link!, null));
 
         // ASSERT
         var argumentException = Assert.IsType<ArgumentException>(ex);

@@ -9,12 +9,12 @@ public class TypeParameterElementTest
     [InlineData(null)]
     [InlineData("")]
     [InlineData("  ")]
-    public void Name_must_not_be_null_or_whitespace(string name)
+    public void Name_must_not_be_null_or_whitespace(string? name)
     {
         // ARRANGE
 
         // ACT 
-        var ex = Record.Exception(() => new TypeParameterElement(name, null));
+        var ex = Record.Exception(() => new TypeParameterElement(name!, null));
 
         // ASSERT
         var argumentException = Assert.IsType<ArgumentException>(ex);
