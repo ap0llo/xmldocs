@@ -39,7 +39,7 @@ public class ListElementTest
     [Theory]
     [InlineData(null, "Required attribute 'type' on element 'list' (at 1:2) does not exist")]
     [InlineData("not a list type", "Failed to parse <list /> element. Attribute 'type' has unsupoorted value (at 1:2)")]
-    public void FromXml_fails_if_list_type_is_invalid(string listType, string expectedErrorMessage)
+    public void FromXml_fails_if_list_type_is_invalid(string? listType, string expectedErrorMessage)
     {
         // ARRANGE
         var xml = XElement.Parse("""

@@ -10,12 +10,12 @@ public class DocumentationFileTest
     [InlineData(null)]
     [InlineData("")]
     [InlineData(" ")]
-    public void AssemblyName_must_not_be_null_or_whitespace(string assemblyName)
+    public void AssemblyName_must_not_be_null_or_whitespace(string? assemblyName)
     {
         // ARRANGE
 
         // ACT 
-        var ex = Record.Exception(() => new DocumentationFile(assemblyName: assemblyName, Array.Empty<MemberElement>()));
+        var ex = Record.Exception(() => new DocumentationFile(assemblyName: assemblyName!, Array.Empty<MemberElement>()));
 
         // ASSERT
         var argumentException = Assert.IsType<ArgumentException>(ex);

@@ -73,7 +73,7 @@ public class MemberElementTest
     [InlineData("")]
     [InlineData(null)]
     [InlineData(" ")]
-    public void FromXml_fails_on_missing_or_empty_name_attribute(string name)
+    public void FromXml_fails_on_missing_or_empty_name_attribute(string? name)
     {
         // ARRANGE
         var xml = XElement.Parse("""
