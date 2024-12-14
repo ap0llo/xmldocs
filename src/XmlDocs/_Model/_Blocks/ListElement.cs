@@ -20,7 +20,7 @@ public abstract class ListElement : BlockElement
     {
         xml.EnsureNameIs("list");
 
-        var listType = xml.RequireAttribute("type").RequireValue();
+        var listType = xml.Attribute("type")?.Value ?? "bullet";
 
         if (StringComparer.OrdinalIgnoreCase.Equals("bullet", listType))
         {
